@@ -392,7 +392,7 @@ async function callClaudeDirect(apiKey, prompt, model, maxTok=8000, onStatus) {
   const data = await resp.json();
   if(!resp.ok) throw new Error(data.error?.message||`Claude HTTP ${resp.status}`);
   const getText = c => (Array.isArray(c)?c:[c]).filter(x=>x&&x.type==='text').map(x=>x.text).join('');
-  return getText(data.content);
+  return { text: getText(data.content), truncated: data.stop_reason === 'max_tokens' };
 }
 
 async function callGemini(k, prompt, model){
@@ -548,16 +548,18 @@ ${parts}
 【出力形式】<!DOCTYPE html>から</html>まで、完全なHTMLドキュメントのみを出力。説明文・コードブロック記号は不要。
 
 【デザイン要件】
+- <head>内に必ず: <meta name="viewport" content="width=device-width, initial-scale=1.0">
 - CSS変数: :root{${cssVars}}
 - ヘッダー: background:linear-gradient(110deg,#1F2430,#15318F,#16B8B2);color:#fff
 - メトリクスカード4枚（最重要KPI。border-top:6pxで色分け）
-- データテーブル（thead濃紺背景、tbody交互色）
+- データテーブル（thead濃紺背景、tbody交互色。モバイルではスクロール可能にoverflow-x:auto）
 - CSSバーチャート（実際の数値比率でwidth%を設定）
 - 信頼度バッジ: 高=緑丸、中=黄丸、低=赤丸
 - 2カラムレイアウト（リスク/機会など）
 - 試算バンド3枚（楽観/標準/保守）
 - 出典リスト（番号付き）
 - フッターに免責事項
+- モバイル対応（必須）: @media(max-width:640px){body{font-size:13px} .wrap{padding:0 14px} h1{font-size:17px} h2{font-size:15px} .grid,.cards{grid-template-columns:1fr} table{font-size:11px}}
 
 【品質要件】
 - 各AIの重要情報を全て盛り込む（矛盾は論理的に整理）
@@ -572,7 +574,7 @@ ${parts}
 
   try{
     $('synthStatus').textContent='HTMLレポートを生成中...';
-    const htmlOutput = await callClaudeDirect(ck,synthPrompt,m.c,32000,t=>{ $('synthStatus').textContent='生成中: '+t; });
+    const { text: htmlOutput, truncated } = await callClaudeDirect(ck,synthPrompt,m.c,32000,t=>{ $('synthStatus').textContent='生成中: '+t; });
 
     // 前文除去：<!DOCTYPE html>以降を抽出（</html>がなくても可）
     const htmlStart = htmlOutput.search(/<!DOCTYPE html>/i);
@@ -590,7 +592,12 @@ ${parts}
     const frame = $('reportFrame');
     frame.src = blobUrl;
     frame.style.display = 'block';
-    $('synthStatus').textContent = '✓ レポート生成完了';
+    if(truncated){
+      $('synthStatus').textContent = '⚠ レポートが最大長に達しました。内容が途中で切れている可能性があります';
+      $('synthStatus').style.color='var(--yellow)';
+    } else {
+      $('synthStatus').textContent = '✓ レポート生成完了';
+    }
     $('reportBtns').style.display = 'flex';
   }catch(e){
     $('synthStatus').textContent='エラー: '+e.message;
