@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>黒の調査エンジン v1</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#1F2430;--muted:#5F6B7A;--line:#C7D8E5;--line2:#E6EEF4;--teal:#16B8B2;--teal-d:#008E8B;--blue:#15318F;--blue2:#1E5EDB;--red:#E94A5F;--yellow:#FFD94C;--good:#00A878;--surface:#fff;--panel:#F7FBFD;--bg:#F3FBFB}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:"Noto Sans JP",sans-serif;background:var(--bg);color:var(--ink);font-size:15px;line-height:1.72;-webkit-font-smoothing:antialiased}
+.header{background:linear-gradient(110deg,#1F2430 0%,#15318F 60%,#16B8B2 100%);color:#fff;padding:24px 32px;display:flex;align-items:center;gap:16px}
+.header h1{font-size:22px;font-weight:900;letter-spacing:-.03em}
+.header .sub{font-size:12px;color:rgba(255,255,255,.6);margin-left:auto}
+.wrap{max-width:1060px;margin:0 auto;padding:0 28px}
+.container{padding:26px 0}
+.card{background:var(--surface);border-radius:12px;padding:22px;margin-bottom:18px;border:1px solid var(--line2);box-shadow:0 4px 16px rgba(21,49,143,.04)}
+.sec-title{font-size:11px;font-weight:900;color:var(--muted);text-transform:uppercase;letter-spacing:.09em;margin-bottom:16px}
+.phase-badge{display:inline-block;background:var(--ink);color:#fff;font-size:11px;font-weight:800;padding:4px 12px;border-radius:20px;margin-bottom:14px;letter-spacing:.04em}
+
+/* TIER SELECTOR */
+.tier-section{margin-bottom:16px}
+.tier-label{font-size:12px;font-weight:700;color:var(--muted);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em}
+.tier-row{display:flex;gap:8px}
+.tier-btn{flex:1;padding:10px 8px;border-radius:8px;border:2px solid var(--line);background:var(--panel);color:var(--muted);font-size:13px;font-weight:700;cursor:pointer;transition:all .15s;text-align:center}
+.tier-btn:hover{border-color:var(--blue2);color:var(--blue2)}
+.tier-btn.active-h{border-color:#15318F;background:#EEF2FF;color:#15318F}
+.tier-btn.active-m{border-color:#008E8B;background:#D9F4F3;color:#008E8B}
+.tier-btn.active-l{border-color:#5F6B7A;background:#f0f0f0;color:#5F6B7A}
+.tier-btn .t-name{font-size:14px;font-weight:900;display:block;margin-bottom:2px}
+.tier-btn .t-models{font-size:10px;font-weight:500;line-height:1.4;display:block;opacity:.8}
+
+/* KEYS (bottom, collapsible) */
+.key-toggle{width:100%;padding:12px 16px;background:var(--surface);border:1px solid var(--line2);border-radius:10px;text-align:left;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:space-between;color:var(--muted)}
+.key-toggle:hover{background:var(--panel)}
+.key-toggle .arrow{font-size:10px;transition:transform .2s}
+.key-toggle.open .arrow{transform:rotate(180deg)}
+.keys-panel{display:none;padding-top:16px}
+.keys-panel.open{display:block}
+.keys-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.key-item label{font-size:13px;font-weight:700;display:block;margin-bottom:5px;color:var(--ink)}
+.key-row{display:flex;gap:6px}
+.key-row input{flex:1;padding:9px 12px;border:1px solid var(--line);border-radius:8px;font-size:12px;font-family:"IBM Plex Mono",monospace;background:var(--panel)}
+.key-row input:focus{outline:none;border-color:var(--blue2);box-shadow:0 0 0 3px rgba(30,94,219,.1)}
+.eye{background:none;border:1px solid var(--line);border-radius:8px;padding:9px 11px;cursor:pointer;color:var(--muted);font-size:13px}
+.ks{font-size:11px;margin-top:4px;color:var(--muted)}
+
+/* INPUTS */
+.query-area,.answer-area{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:10px;font-size:14px;font-family:"Noto Sans JP",sans-serif;resize:vertical;background:var(--panel)}
+.query-area{min-height:90px}
+.answer-area{min-height:66px}
+.query-area:focus,.answer-area:focus{outline:none;border-color:var(--blue2);box-shadow:0 0 0 3px rgba(30,94,219,.1)}
+
+/* BUTTONS */
+.primary-btn{width:100%;padding:14px;background:linear-gradient(90deg,var(--blue),var(--blue2));color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;margin-top:12px;transition:opacity .15s;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+.primary-btn:hover{opacity:.9}
+.primary-btn:disabled{background:#aeaeb2;cursor:default;opacity:1}
+.ghost-btn{padding:10px 20px;background:none;color:var(--ink);border:1px solid var(--line);border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;transition:background .15s;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+.ghost-btn:hover{background:var(--panel)}
+.dl-btn{padding:11px 22px;background:var(--good);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+.dl-btn:hover{opacity:.9}
+
+.spinner{display:inline-block;width:14px;height:14px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;vertical-align:middle;margin-right:6px}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* Q BLOCKS */
+.q-block{margin-bottom:16px}
+.q-label{font-size:14px;font-weight:700;margin-bottom:8px;color:var(--ink);display:flex;align-items:flex-start;gap:10px}
+.q-num{min-width:24px;height:24px;border-radius:50%;background:var(--blue);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;flex-shrink:0;margin-top:1px}
+
+/* AI PANELS */
+.ai-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.ai-panel{border-radius:10px;padding:16px}
+.ai-claude{background:#EEF2FF;border:1px solid #c7d7ff}
+.ai-gemini{background:#E6F4EA;border:1px solid #a8d5b5}
+.ai-chatgpt{background:#FFF3E0;border:1px solid #f5c67a}
+.ai-grok{background:#F5F5F5;border:1px solid #ccc}
+.ai-label{font-size:12px;font-weight:900;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.ai-claude .ai-label{color:#003ecc}
+.ai-gemini .ai-label{color:#137333}
+.ai-chatgpt .ai-label{color:#b45309}
+.ai-grok .ai-label{color:#3a3a3c}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--line);flex-shrink:0}
+.dot.run{background:var(--yellow);animation:pulse 1s infinite}
+.dot.ok{background:var(--good)}
+.dot.err{background:var(--red)}
+.dot.skip{background:#ccc}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.ai-text{font-size:12.5px;line-height:1.75;white-space:pre-wrap;word-break:break-word;max-height:340px;overflow-y:auto;color:var(--ink)}
+.ai-text.empty{color:#aaa;font-style:italic}
+.status-line{font-size:11px;color:var(--teal-d);margin-top:4px;font-weight:600;min-height:16px}
+
+.progress-bar{height:4px;background:var(--line2);border-radius:2px;margin-bottom:22px;overflow:hidden;display:none}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--blue),var(--teal));border-radius:2px;transition:width .5s;width:0%}
+
+.synth-wrap{background:var(--ink);border-radius:12px;padding:24px}
+.synth-label{font-size:11px;font-weight:900;color:rgba(255,255,255,.5);letter-spacing:.09em;text-transform:uppercase;margin-bottom:14px}
+.synth-text{font-size:14px;line-height:1.85;white-space:pre-wrap;word-break:break-word;color:#f0f4ff;max-height:600px;overflow-y:auto}
+.btn-row{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
+
+@keyframes spin-gear{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+.gear-spin{animation:spin-gear 1.2s linear infinite;display:inline-block!important;transform-origin:center}
+@media(max-width:640px){
+  .keys-grid{grid-template-columns:1fr}
+  .ai-grid{grid-template-columns:1fr}
+  .wrap{padding:0 12px}
+  .tier-row{flex-direction:column}
+  .primary-btn{font-size:14px;padding:13px}
+  .header{padding:18px 16px}
+  .header h1{font-size:17px}
+  .card{padding:16px;margin-bottom:12px}
+  .tier-btn{padding:10px 6px}
+  .btn-row{flex-direction:column}
+  .btn-row button{width:100%}
+  .query-area{min-height:100px;font-size:15px}
+  .answer-area{font-size:15px}
+}
+</style>
+</head>
+<body>
+
+<div class="header" style="flex-direction:column;align-items:flex-start;gap:6px">
+  <div style="display:flex;align-items:center;gap:10px">
+    <span style="font-size:20px;filter:brightness(0) invert(1);line-height:1">⬛</span>
+    <h1>黒の調査エンジン v1</h1>
+    <span id="engineGear" style="font-size:16px;display:none;line-height:1;margin-left:4px">⚙️</span>
+  </div>
+  <div style="display:flex;align-items:center;gap:6px;padding-left:2px">
+    <span id="jsIndicator" style="font-size:13px;line-height:1">⚫</span>
+    <span class="sub" id="headerSub" style="margin-left:0">Sonnet 4.6 · Gemini 2.5 Flash · GPT-4o mini · Grok 3 mini</span>
+  </div>
+</div>
+
+<div class="wrap container">
+
+<!-- PHASE 1: テーマ + 品質設定 -->
+<div class="card" id="p1">
+  <div class="phase-badge">PHASE 1 — テーマ入力</div>
+
+  <!-- 品質ティア -->
+  <div class="tier-section">
+    <div class="tier-label">🎚 調査品質・モデル選択</div>
+    <div class="tier-row">
+      <button class="tier-btn" id="tier-h" onclick="setTier('h')">
+        <span class="t-name">🔥 高</span>
+        <span class="t-models">Opus 4.8 · Gemini 2.5 Pro<br>GPT-4o · Grok 3</span>
+      </button>
+      <button class="tier-btn active-m" id="tier-m" onclick="setTier('m')">
+        <span class="t-name">⚡ 中</span>
+        <span class="t-models">Sonnet 4.6 · Gemini 2.5 Flash<br>GPT-4o mini · Grok 3 mini</span>
+      </button>
+      <button class="tier-btn" id="tier-l" onclick="setTier('l')">
+        <span class="t-name">💨 低</span>
+        <span class="t-models">Haiku 4.5 · Gemini 2.5 Flash<br>GPT-4o mini · Grok 3 mini</span>
+      </button>
+    </div>
+  </div>
+
+  <textarea class="query-area" id="query" placeholder="調査テーマを入力してください。&#10;例：2100年、小惑星帯の希少金属採掘が商業化した場合の市場規模・主要プレイヤー・地球経済へのインパクト&#10;※具体的なほどレポート品質が上がります"></textarea>
+  <div id="qError" style="color:#E94A5F;font-size:13px;margin-top:8px;padding:8px 12px;background:#fff1f2;border-radius:8px;display:none"></div>
+  <button class="primary-btn" onclick="genQuestions()" id="askBtn">⬛ 黒が質問を生成する</button>
+</div>
+
+<!-- PHASE 2 -->
+<div class="card" id="p2" style="display:none">
+  <div class="phase-badge">PHASE 2 — 黒からの質問</div>
+  <p style="font-size:13px;color:var(--muted);margin-bottom:16px">より精度の高い調査のために確認します。回答は全AIとウェブ検索に反映されます。</p>
+  <div id="qContainer"></div>
+  <button class="primary-btn" onclick="startAll()" id="startBtn" style="margin-top:20px">⬛ 4AI同時並行調査スタート</button>
+</div>
+
+<div class="progress-bar" id="pbar"><div class="progress-fill" id="pfill"></div></div>
+
+<!-- PHASE 3 -->
+<div class="card" id="p3" style="display:none">
+  <div class="phase-badge">PHASE 3 — 4AI並行調査中</div>
+  <div style="margin-top:12px"></div>
+  <div class="ai-grid">
+    <div class="ai-panel ai-claude">
+      <div class="ai-label"><div class="dot" id="d-c"></div><span id="lbl-c">Claude Opus 4.8（ウェブ検索）</span></div>
+      <div class="ai-text empty" id="r-c">待機中</div>
+      <div class="status-line" id="s-c"></div>
+    </div>
+    <div class="ai-panel ai-gemini">
+      <div class="ai-label"><div class="dot" id="d-g"></div><span id="lbl-g">Gemini 2.5 Pro</span></div>
+      <div class="ai-text empty" id="r-g">待機中</div>
+      <div class="status-line" id="s-g"></div>
+    </div>
+    <div class="ai-panel ai-chatgpt">
+      <div class="ai-label"><div class="dot" id="d-o"></div><span id="lbl-o">GPT-4o</span></div>
+      <div class="ai-text empty" id="r-o">待機中</div>
+      <div class="status-line" id="s-o"></div>
+    </div>
+    <div class="ai-panel ai-grok">
+      <div class="ai-label"><div class="dot" id="d-x"></div><span id="lbl-x">Grok 3</span></div>
+      <div class="ai-text empty" id="r-x">待機中</div>
+      <div class="status-line" id="s-x"></div>
+    </div>
+  </div>
+</div>
+
+<!-- PHASE 4 -->
+<div class="card" id="p4" style="display:none">
+  <div class="phase-badge">PHASE 4 — 黒による統合レポート</div>
+  <div style="margin-top:12px"></div>
+  <div id="synthStatus" style="font-size:13px;color:var(--muted);padding:6px 0 12px">HTMLレポートを生成中（ウェブ検索で事実確認中）...</div>
+  <iframe id="reportFrame" style="width:100%;min-height:600px;border:1px solid var(--line2);border-radius:10px;display:none" scrolling="no" onload="adjustFrame()"></iframe>
+  <div class="btn-row" id="reportBtns" style="display:none">
+    <button class="dl-btn" onclick="dlReport()">📄 HTMLをダウンロード</button>
+    <button class="ghost-btn" onclick="openPreview()">🔗 新しいタブで開く</button>
+    <button class="ghost-btn" onclick="reset()">🔄 新しい調査</button>
+  </div>
+</div>
+
+<!-- APIキー（一番下・折りたたみ） -->
+<div class="card" style="margin-top:8px">
+  <button class="key-toggle" id="keyToggleBtn" onclick="toggleKeys()">
+    <span>🔑 APIキー設定 <span id="keyStatus" style="font-size:11px;font-weight:500;margin-left:8px"></span></span>
+    <span class="arrow">▼</span>
+  </button>
+  <div class="keys-panel" id="keysPanel">
+    <div class="keys-grid">
+      <div class="key-item">
+        <label>Claude (Anthropic) ★必須</label>
+        <div class="key-row"><input type="password" id="cKey" placeholder="sk-ant-..."/><button class="eye" onclick="toggle('cKey')">👁</button></div>
+        <div class="ks" id="cks">未設定 — console.anthropic.com</div>
+      </div>
+      <div class="key-item">
+        <label>Gemini (Google)</label>
+        <div class="key-row"><input type="password" id="gKey" placeholder="AIza..."/><button class="eye" onclick="toggle('gKey')">👁</button></div>
+        <div class="ks" id="gks">未設定 — aistudio.google.com/apikey</div>
+      </div>
+      <div class="key-item">
+        <label>ChatGPT (OpenAI)</label>
+        <div class="key-row"><input type="password" id="oKey" placeholder="sk-proj-..."/><button class="eye" onclick="toggle('oKey')">👁</button></div>
+        <div class="ks" id="oks">未設定 — platform.openai.com/api-keys</div>
+      </div>
+      <div class="key-item">
+        <label>Grok (xAI)</label>
+        <div class="key-row"><input type="password" id="xKey" placeholder="xai-..."/><button class="eye" onclick="toggle('xKey')">👁</button></div>
+        <div class="ks" id="xks">未設定 — console.x.ai</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /wrap -->
+
+<script>
+const $ = id => document.getElementById(id);
+
+// モデル定義
+const MODELS = {
+  h: { c:'claude-opus-4-8',    g:'gemini-2.5-pro',   o:'gpt-4o',      x:'grok-3-latest',
+       lc:'Claude Opus 4.8（ウェブ検索）', lg:'Gemini 2.5 Pro', lo:'GPT-4o',      lx:'Grok 3',
+       head:'Opus 4.8 · Gemini 2.5 Pro · GPT-4o · Grok 3' },
+  m: { c:'claude-sonnet-4-6',  g:'gemini-2.5-flash', o:'gpt-4o-mini', x:'grok-3-mini',
+       lc:'Claude Sonnet 4.6（ウェブ検索）', lg:'Gemini 2.5 Flash', lo:'GPT-4o mini', lx:'Grok 3 mini',
+       head:'Sonnet 4.6 · Gemini 2.5 Flash · GPT-4o mini · Grok 3 mini' },
+  l: { c:'claude-haiku-4-5-20251001', g:'gemini-2.5-flash', o:'gpt-4o-mini', x:'grok-3-mini',
+       lc:'Claude Haiku 4.5（ウェブ検索）', lg:'Gemini 2.5 Flash', lo:'GPT-4o mini', lx:'Grok 3 mini',
+       head:'Haiku 4.5 · Gemini 2.5 Flash · GPT-4o mini · Grok 3 mini' }
+};
+let currentTier = 'm';
+
+function setTier(t) {
+  currentTier = t;
+  ['h','m','l'].forEach(x => {
+    const btn = $('tier-'+x);
+    btn.className = 'tier-btn' + (x===t ? ' active-'+t : '');
+  });
+  const m = MODELS[t];
+  $('headerSub').textContent = m.head + ' · Web Search';
+  updateLabels();
+}
+
+function updateLabels(){
+  const m = MODELS[currentTier];
+  $('lbl-c').textContent = m.lc;
+  $('lbl-g').textContent = m.lg;
+  $('lbl-o').textContent = m.lo;
+  $('lbl-x').textContent = m.lx;
+}
+
+// キー管理
+const HINTS = {cKey:'console.anthropic.com',gKey:'aistudio.google.com/apikey',oKey:'platform.openai.com/api-keys',xKey:'console.x.ai'};
+const STS = {cKey:'cks',gKey:'gks',oKey:'oks',xKey:'xks'};
+const _dk=(s)=>atob(s);
+const DEFAULT_KEYS = {
+  cKey:_dk('***REMOVED_ANTHROPIC_KEY***'),
+  gKey:_dk('***REMOVED_GEMINI_KEY***'),
+  oKey:_dk('***REMOVED_OPENAI_KEY***'),
+  xKey:_dk('***REMOVED_XAI_KEY***')
+};
+
+function updateKS(id){
+  const k=$(id).value.trim(), el=$(STS[id]);
+  el.textContent = k?'✓ 設定済み':'未設定 — '+HINTS[id];
+  el.style.color = k?'#00A878':'#aaa';
+  refreshKeyStatus();
+}
+function refreshKeyStatus(){
+  const keys = ['cKey','gKey','oKey','xKey'].filter(id=>$(id).value.trim());
+  $('keyStatus').textContent = keys.length ? `（${keys.length}個設定済み）` : '（未設定）';
+}
+
+function lsGet(k){try{return localStorage.getItem(k);}catch(e){return null;}}
+function lsSet(k,v){try{localStorage.setItem(k,v);}catch(e){}}
+
+Object.keys(HINTS).forEach(id=>{
+  const s=lsGet(id)||DEFAULT_KEYS[id]; if(s){$(id).value=s;lsSet(id,s);}
+  $(id).addEventListener('input',()=>{ lsSet(id,$(id).value); updateKS(id); });
+  updateKS(id);
+});
+
+function toggle(id){ const e=$(id); e.type=e.type==='password'?'text':'password'; }
+
+function toggleKeys(){
+  const btn=$('keyToggleBtn'), panel=$('keysPanel');
+  const open = panel.classList.toggle('open');
+  btn.classList.toggle('open', open);
+}
+
+function dot(ai,st){ $('d-'+ai).className='dot'+(st?' '+st:''); }
+function res(ai,txt,err){
+  const e=$('r-'+ai); e.textContent=txt; e.classList.remove('empty');
+  if(err) e.style.color='#E94A5F';
+}
+function status(ai,txt){ $('s-'+ai).textContent=txt||''; }
+
+// Claude API（ウェブ検索アジェンティックループ）
+async function callClaudeOpus(apiKey, prompt, model, maxTok=5000, onStatus) {
+  const headers = {
+    'Content-Type':'application/json',
+    'x-api-key': apiKey,
+    'anthropic-version':'2023-06-01',
+    'anthropic-dangerous-direct-browser-access':'true'
+  };
+  const messages = [{ role:'user', content: prompt }];
+  const MAX_ITER = 25;
+
+  for(let i=0; i<MAX_ITER; i++){
+    const resp = await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST', headers,
+      body: JSON.stringify({ model, max_tokens:maxTok,
+        tools:[{ type:'web_search_20250305', name:'web_search', max_uses:10 }],
+        messages })
+    });
+    const data = await resp.json();
+    if(!resp.ok) throw new Error(data.error?.message||`Claude HTTP ${resp.status}`);
+
+    const getText = c => (Array.isArray(c)?c:[c]).filter(x=>x&&x.type==='text').map(x=>x.text).join('');
+
+    if(data.stop_reason==='end_turn') return getText(data.content);
+
+    if(data.stop_reason==='tool_use'){
+      messages.push({ role:'assistant', content: data.content });
+      const uses = data.content.filter(c=>c.type==='tool_use');
+      const queries = uses.map(u=>u.input?.query).filter(Boolean);
+      if(onStatus && queries.length) onStatus('🔍 検索中: '+queries.join(', '));
+      const toolResults = uses.map(u=>{
+        const rb = data.content.filter(c=>(c.type==='web_search_result'||c.type==='tool_result')&&(c.tool_use_id===u.id||!c.tool_use_id));
+        return { type:'tool_result', tool_use_id:u.id,
+          content: rb.length>0 ? rb.map(b=>({type:'text',text:JSON.stringify(b.content||b)})) : [{type:'text',text:'Search completed.'}] };
+      });
+      messages.push({ role:'user', content: toolResults });
+      continue;
+    }
+
+    const text = getText(data.content); if(text) return text; break;
+  }
+
+  const lastA = [...messages].reverse().find(m=>m.role==='assistant');
+  if(lastA){ const c=Array.isArray(lastA.content)?lastA.content:[lastA.content]; const t=c.filter(x=>x&&x.type==='text').map(x=>x.text).join(''); if(t) return t; }
+  throw new Error('応答を取得できませんでした');
+}
+
+// Claude API（ウェブ検索なし・高速版。合成レポート生成用）
+async function callClaudeDirect(apiKey, prompt, model, maxTok=8000, onStatus) {
+  const headers = {
+    'Content-Type':'application/json',
+    'x-api-key': apiKey,
+    'anthropic-version':'2023-06-01',
+    'anthropic-dangerous-direct-browser-access':'true'
+  };
+  if(onStatus) onStatus('HTMLレポートを生成中...');
+  const resp = await fetch('https://api.anthropic.com/v1/messages',{
+    method:'POST', headers,
+    body: JSON.stringify({ model, max_tokens:maxTok, messages:[{role:'user',content:prompt}] })
+  });
+  const data = await resp.json();
+  if(!resp.ok) throw new Error(data.error?.message||`Claude HTTP ${resp.status}`);
+  const getText = c => (Array.isArray(c)?c:[c]).filter(x=>x&&x.type==='text').map(x=>x.text).join('');
+  return getText(data.content);
+}
+
+async function callGemini(k, prompt, model){
+  const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${k}`,{
+    method:'POST', headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({contents:[{parts:[{text:prompt}]}], generationConfig:{maxOutputTokens:3000}})
+  });
+  const d = await r.json(); if(!r.ok) throw new Error(d.error?.message||`Gemini ${r.status}`);
+  return d.candidates?.[0]?.content?.parts?.[0]?.text||'（回答なし）';
+}
+
+async function callOpenAI(k, prompt, model){
+  const r = await fetch('https://api.openai.com/v1/chat/completions',{
+    method:'POST', headers:{'Content-Type':'application/json','Authorization':`Bearer ${k}`},
+    body: JSON.stringify({model, max_tokens:3000, messages:[{role:'user',content:prompt}]})
+  });
+  const d = await r.json(); if(!r.ok) throw new Error(d.error?.message||`OpenAI ${r.status}`);
+  return d.choices?.[0]?.message?.content||'（回答なし）';
+}
+
+async function callGrok(k, prompt, model){
+  let r;
+  try {
+    r = await fetch('https://api.x.ai/v1/chat/completions',{
+      method:'POST', headers:{'Content-Type':'application/json','Authorization':`Bearer ${k}`},
+      body: JSON.stringify({model, max_tokens:3000, messages:[{role:'user',content:prompt}]})
+    });
+  } catch(e) {
+    throw new Error('Grok接続エラー（CORSまたはネットワーク）');
+  }
+  if(r.status===403) throw new Error('Grok 403: APIキーを確認してください（console.x.ai）');
+  if(r.status===429) throw new Error('Grok レート制限。しばらく後に再試行してください');
+  const d = await r.json(); if(!r.ok) throw new Error(d.error?.message||`Grok ${r.status}`);
+  return d.choices?.[0]?.message?.content||'（回答なし）';
+}
+
+function showQErr(msg){
+  const e=$('qError');
+  if(e){e.textContent='⚠ '+msg;e.style.display='block';setTimeout(()=>e.style.display='none',5000);}
+  else try{alert(msg);}catch(ex){}
+}
+
+// PHASE 1: 質問生成
+async function genQuestions(){
+  if(document.activeElement) document.activeElement.blur(); // iOSキーボード閉じる
+  const ck=$('cKey').value.trim(), q=$('query').value.trim();
+  if(!ck){showQErr('ClaudeのAPIキーを設定してください（画面下部のAPIキー設定から）');return;}
+  if(!q){showQErr('調査テーマを入力してください');return;}
+  const btn=$('askBtn'); btn.disabled=true; btn.innerHTML='<span class="spinner"></span>質問を生成中...';
+  setRunning(true);
+  try{
+    const m = MODELS[currentTier];
+    const r = await callClaudeOpus(ck,
+      `あなたは総合商社のトレードビジネス・投資検討の専門アドバイザーです。\n【調査テーマ】${q}\nこの調査をより深く実務的に行うため、ユーザーに確認すべき質問を2〜3個生成してください。調査目的・特定の比較対象や既知データの有無・重視する指標（リスク/CAPEX/競合/価格など）を明確にする質問を選んでください。\nJSON形式のみで返答（説明文不要）：{"questions":["質問1","質問2","質問3"]}`,
+      m.c, 800);
+    const match=r.match(/\{[\s\S]*\}/); if(!match) throw new Error('JSON解析失敗');
+    const {questions}=JSON.parse(match[0]);
+    const c=$('qContainer'); c.innerHTML='';
+    c.dataset.questions=JSON.stringify(questions); c.dataset.count=questions.length;
+    questions.forEach((q,i)=>{
+      c.innerHTML+=`<div class="q-block"><div class="q-label"><div class="q-num">${i+1}</div><span>${q}</span></div><textarea class="answer-area" id="a-${i}" placeholder="回答（スキップ可）"></textarea></div>`;
+    });
+    $('p2').style.display='block';
+    $('p2').scrollIntoView({behavior:'smooth',block:'start'});
+  }catch(e){showQErr('質問生成エラー: '+e.message);}
+  setRunning(false);
+  btn.disabled=false; btn.innerHTML='⬛ 黒が質問を生成する';
+}
+
+function buildPrompt(aiName, query, ctx){
+  return `あなたは${aiName}です。以下の調査テーマについて、徹底的かつ実務レベルの深掘り調査レポートを作成してください。
+
+【調査テーマ】
+${query}
+${ctx?`\n【補足情報（依頼者提供）】\n${ctx}`:''}
+以下の構成で、各項目に具体的な企業名・数値・出典を必ず含めて作成してください：
+
+1. エグゼクティブサマリー（最重要ポイント5点、数値を必ず含む）
+2. 市場・業界の定量的現状（規模・価格・成長率・直近データ）
+3. 主要プレイヤーと競合動向（具体的企業名・戦略・最近の動き）
+4. CAPEX・投資コストのベンチマーク（実際の案件名・金額・$/t）
+5. リスクと機会の定量分析（短期・中長期）
+6. 地政学・規制・マクロ環境
+7. 今後の見通しと実務的示唆
+
+曖昧な一般論は不可。具体的な企業名・金額・パーセンテージ・年月を必ず記載。`;
+}
+
+// PHASE 2: 4AI同時調査
+async function startAll(){
+  const ck=$('cKey').value.trim(), gk=$('gKey').value.trim(),
+        ok=$('oKey').value.trim(), xk=$('xKey').value.trim(),
+        q=$('query').value.trim();
+  if(!ck){alert('ClaudeのAPIキーは必須です');return;}
+  if(!gk&&!ok&&!xk){alert('Gemini/ChatGPT/Grokのいずれか1つ以上のAPIキーが必要です');return;}
+
+  const c=$('qContainer');
+  const qs=JSON.parse(c.dataset.questions||'[]');
+  let ctx='';
+  for(let i=0;i<parseInt(c.dataset.count||'0');i++){
+    const a=$(`a-${i}`)?.value.trim(); if(a) ctx+=`Q: ${qs[i]}\nA: ${a}\n\n`;
+  }
+
+  const m = MODELS[currentTier];
+  const btn=$('startBtn'); btn.disabled=true; btn.innerHTML='<span class="spinner"></span>4AI同時調査中...';
+  setRunning(true);
+  updateLabels();
+  $('p3').style.display='block'; $('p4').style.display='none';
+  $('pbar').style.display='block'; $('pfill').style.width='5%';
+  $('p3').scrollIntoView({behavior:'smooth',block:'start'});
+
+  ['c','g','o','x'].forEach(ai=>{ dot(ai,''); const e=$('r-'+ai); e.textContent='待機中'; e.classList.add('empty'); e.style.color=''; status(ai,''); });
+
+  const results={};
+  const run = async(ai, fn) => {
+    dot(ai,'run'); $('r-'+ai).textContent='調査中...'; $('r-'+ai).classList.remove('empty');
+    try{ const r=await fn(); results[ai]=r; res(ai,r); dot(ai,'ok'); status(ai,'✓ 完了'); }
+    catch(e){ res(ai,'エラー: '+e.message,true); dot(ai,'err'); status(ai,'❌ '+e.message.slice(0,40)); }
+  };
+
+  status('c','Claudeが起動中...');
+  const tasks=[run('c',()=>callClaudeOpus(ck,buildPrompt(m.lc.split('（')[0],q,ctx),m.c,4000,t=>status('c',t)))];
+  if(gk){status('g','Geminiに送信中...'); tasks.push(run('g',()=>callGemini(gk,buildPrompt(m.lg,q,ctx),m.g)));}
+  else{ dot('g','skip'); $('r-g').textContent='APIキー未設定'; }
+  if(ok){status('o','ChatGPTに送信中...'); tasks.push(run('o',()=>callOpenAI(ok,buildPrompt(m.lo,q,ctx),m.o)));}
+  else{ dot('o','skip'); $('r-o').textContent='APIキー未設定'; }
+  if(xk){status('x','Grokに送信中...'); tasks.push(run('x',()=>callGrok(xk,buildPrompt(m.lx,q,ctx),m.x)));}
+  else{ dot('x','skip'); $('r-x').textContent='APIキー未設定'; }
+
+  $('pfill').style.width='40%';
+  await Promise.allSettled(tasks);
+  $('pfill').style.width='75%';
+
+  $('p4').style.display='block';
+  $('p4').scrollIntoView({behavior:'smooth',block:'start'});
+
+  const parts=['c','g','o','x'].filter(ai=>results[ai])
+    .map(ai=>{ const n={c:m.lc,g:m.lg,o:m.lo,x:m.lx}[ai].split('（')[0]; return `【${n}の調査結果】\n${results[ai]}`; }).join('\n\n---\n\n');
+
+  const date = new Date().toLocaleString('ja-JP');
+  const cssVars = `--teal:#16B8B2;--blue:#15318F;--blue2:#1E5EDB;--ink:#1F2430;--muted:#5F6B7A;--line:#C7D8E5;--good:#00A878;--mid:#F2A900;--low:#E24A4A`;
+  const synthPrompt=`あなたは総合商社のシニアリサーチアナリストです。複数AIの調査結果を統合して、プロフェッショナルなスタンドアロンHTMLレポートを生成してください。
+
+【調査テーマ】${q}
+${ctx?`\n【補足情報】\n${ctx}`:''}
+${parts}
+
+【出力形式】<!DOCTYPE html>から</html>まで、完全なHTMLドキュメントのみを出力。説明文・コードブロック記号は不要。
+
+【デザイン要件】
+- CSS変数: :root{${cssVars}}
+- ヘッダー: background:linear-gradient(110deg,#1F2430,#15318F,#16B8B2);color:#fff
+- メトリクスカード4枚（最重要KPI。border-top:6pxで色分け）
+- データテーブル（thead濃紺背景、tbody交互色）
+- CSSバーチャート（実際の数値比率でwidth%を設定）
+- 信頼度バッジ: 高=緑丸、中=黄丸、低=赤丸
+- 2カラムレイアウト（リスク/機会など）
+- 試算バンド3枚（楽観/標準/保守）
+- 出典リスト（番号付き）
+- フッターに免責事項
+
+【品質要件】
+- 各AIの重要情報を全て盛り込む（矛盾は論理的に整理）
+- 具体的な企業名・金額・年月を必ず記載。一般論不可
+- 出典は実際に参照した情報源を列挙
+- 生成日時: ${date}
+- モデル: ${m.head}
+
+/* 冒頭に一切の前置きなし。<!DOCTYPE html>から即開始 */`;
+
+  try{
+    $('synthStatus').textContent='HTMLレポートを生成中...';
+    const htmlOutput = await callClaudeDirect(ck,synthPrompt,m.c,8000,t=>{ $('synthStatus').textContent='生成中: '+t; });
+
+    // 前文除去：<!DOCTYPE html>以降を抽出（</html>がなくても可）
+    const htmlStart = htmlOutput.search(/<!DOCTYPE html>/i);
+    let cleanHtml = htmlStart >= 0 ? htmlOutput.slice(htmlStart) : htmlOutput;
+    // 途中切れ補完：閉じタグがなければ追加
+    if(!/\<\/html\>/i.test(cleanHtml)){
+      cleanHtml += '\n</body>\n</html>';
+    }
+
+    window._report={query:q,ctx,results,htmlOutput:cleanHtml,tier:currentTier,date:new Date().toISOString()};
+
+    // iframeに表示
+    const blob = new Blob([cleanHtml], {type:'text/html;charset=utf-8'});
+    const blobUrl = URL.createObjectURL(blob);
+    const frame = $('reportFrame');
+    frame.src = blobUrl;
+    frame.style.display = 'block';
+    $('synthStatus').textContent = '✓ レポート生成完了';
+    $('reportBtns').style.display = 'flex';
+  }catch(e){
+    $('synthStatus').textContent='エラー: '+e.message;
+    $('synthStatus').style.color='var(--red)';
+  }
+
+  $('pfill').style.width='100%';
+  setTimeout(()=>$('pbar').style.display='none',1000);
+  setRunning(false);
+  btn.disabled=false; btn.innerHTML='⬛ 4AI同時並行調査スタート';
+}
+
+// パスワードハッシュ（djb2変形）
+function hashPw(s){let h=5381;for(let i=0;i<s.length;i++)h=((h<<5)+h)^s.charCodeAt(i);return(h>>>0).toString(36);}
+
+function buildAskWidget(apiKey, query, synthesisText, pw){
+  const esc = s => s.replace(/`/g,'\\`').replace(/\$/g,'\\$');
+  const pwHash = pw ? hashPw(pw) : '';
+
+  const pwSection = pw ? `
+<div id="pw-section">
+<div id="pw-overlay" style="position:fixed;inset:0;background:rgba(15,20,40,.97);z-index:99999;display:flex;align-items:center;justify-content:center;font-family:'Noto Sans JP',sans-serif">
+  <div style="background:#fff;border-radius:16px;padding:36px 32px;width:min(420px,90vw);text-align:center;box-shadow:0 24px 60px rgba(0,0,0,.4)">
+    <div style="width:54px;height:54px;background:linear-gradient(135deg,#15318F,#16B8B2);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:24px;margin:0 auto 16px">⬛</div>
+    <h2 style="font-size:18px;font-weight:800;color:#1F2430;margin-bottom:6px">黒の調査レポート</h2>
+    <p style="font-size:12px;color:#5F6B7A;margin-bottom:22px;line-height:1.7">このレポートにはAPIキーが含まれています。<br>開くにはパスワードを入力してください。</p>
+    <input id="pw-input" type="password" placeholder="パスワードを入力"
+      style="width:100%;padding:13px 14px;border:1.5px solid #C7D8E5;border-radius:10px;font-size:16px;margin-bottom:12px;outline:none;box-sizing:border-box;-webkit-appearance:none"
+      onkeydown="if(event.key==='Enter')checkPw()"/>
+    <button onclick="checkPw()" style="width:100%;padding:14px;background:linear-gradient(90deg,#15318F,#1E5EDB);color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent">レポートを開く</button>
+    <div id="pw-err" style="color:#E94A5F;font-size:12px;margin-top:10px;display:none">❌ パスワードが違います</div>
+  </div>
+</div>
+<script>
+(function(){
+  const H='${pwHash}';
+  function sh(s){let h=5381;for(let i=0;i<s.length;i++)h=((h<<5)+h)^s.charCodeAt(i);return(h>>>0).toString(36);}
+  window.checkPw=function(){
+    const v=document.getElementById('pw-input').value;
+    if(sh(v)===H){document.getElementById('pw-overlay').style.display='none';}
+    else{const e=document.getElementById('pw-err');e.style.display='block';setTimeout(()=>e.style.display='none',2000);document.getElementById('pw-input').value='';document.getElementById('pw-input').focus();}
+  };
+  document.getElementById('pw-input').focus();
+})();
+<\/script>
+</div>` : '';
+
+  return `
+${pwSection}
+<style>
+#askFab{position:fixed;bottom:28px;right:28px;z-index:9999;background:linear-gradient(135deg,#15318F,#16B8B2);color:#fff;border:none;padding:14px 22px;border-radius:30px;font-size:14px;font-weight:700;cursor:pointer;box-shadow:0 6px 24px rgba(21,49,143,.35);letter-spacing:-.01em;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+#askFab:hover{opacity:.9}
+#askOverlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:10000;align-items:center;justify-content:center}
+#askOverlay.open{display:flex}
+#askBox{background:#fff;border-radius:16px;padding:28px;width:min(640px,92vw);max-height:90vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.25)}
+#askBox h3{font-size:18px;font-weight:800;color:#15318F;margin-bottom:6px}
+#askBox .sub{font-size:13px;color:#5F6B7A;margin-bottom:18px}
+#askTA{width:100%;padding:12px 14px;border:1px solid #C7D8E5;border-radius:10px;font-size:15px;font-family:inherit;resize:vertical;min-height:90px;outline:none;-webkit-appearance:none}
+#askTA:focus{border-color:#1E5EDB;box-shadow:0 0 0 3px rgba(30,94,219,.1)}
+#askKeyRow{display:flex;gap:8px;margin-top:10px}
+#askKey{flex:1;padding:9px 12px;border:1px solid #C7D8E5;border-radius:8px;font-size:12px;font-family:monospace;-webkit-appearance:none}
+#askBtns{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
+#askSubmit{flex:1;padding:12px;background:#15318F;color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent;min-height:44px}
+#askSubmit:disabled{background:#aaa;cursor:default}
+#askClose{padding:12px 18px;background:none;border:1px solid #C7D8E5;border-radius:10px;font-size:14px;cursor:pointer;touch-action:manipulation;min-height:44px}
+#askResult{display:none;margin-top:18px;padding:16px;background:#F4F7FA;border-radius:10px;border-left:5px solid #16B8B2;font-size:13.5px;line-height:1.75;white-space:pre-wrap;word-break:break-word;max-height:400px;overflow-y:auto}
+#api-del-section{position:fixed;bottom:84px;right:28px;z-index:9998}
+#api-del-btn{display:inline-flex;align-items:center;gap:6px;padding:9px 16px;background:#fff;color:#E94A5F;border:1.5px solid #E94A5F;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;box-shadow:0 2px 10px rgba(0,0,0,.12);touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+#api-del-btn:hover{background:#fff0f2}
+@media(max-width:640px){
+  #askFab{bottom:16px;right:16px;padding:12px 16px;font-size:13px}
+  #api-del-section{bottom:70px;right:16px}
+  #askBox{padding:20px 16px;border-radius:12px}
+  #askBtns{flex-direction:column}
+  #askSubmit,#askClose{width:100%}
+}
+</style>
+<button id="askFab" onclick="document.getElementById('askOverlay').classList.add('open')">⬛ 追加質問・調査依頼</button>
+<div id="askOverlay" onclick="if(event.target===this)this.classList.remove('open')">
+  <div id="askBox">
+    <h3>⬛ 追加質問・調査依頼</h3>
+    <div class="sub">このレポートを踏まえて、Claudeに追加で質問・調査依頼ができます。</div>
+    <textarea id="askTA" placeholder="例：SanviraのOman案件についてもっと詳しく&#10;例：日本の許認可プロセスと想定スケジュールを教えて"></textarea>
+    <div id="askKeyRow">
+      <input id="askKey" type="password" placeholder="Claude APIキー（sk-ant-...）" value="${esc(apiKey)}"/>
+    </div>
+    <div id="askBtns">
+      <button id="askSubmit" onclick="runAsk()">送信して調査</button>
+      <button id="askClose" onclick="document.getElementById('askOverlay').classList.remove('open')">閉じる</button>
+    </div>
+    <div id="askResult"></div>
+  </div>
+</div>
+<div id="api-del-section">
+  <button id="api-del-btn" onclick="deleteApiAndDownload()" title="APIキーを削除した共有用レポートを生成">🗑️ API削除して共有用に保存</button>
+</div>
+<script>
+(function(){
+  const QUERY=\`${esc(query)}\`;
+  const CONTEXT=\`${esc(synthesisText.slice(0,4000))}\`;
+  async function runAsk(){
+    const q=document.getElementById('askTA').value.trim();
+    const k=document.getElementById('askKey').value.trim();
+    if(!q){alert('質問を入力してください');return;}
+    if(!k){alert('Claude APIキーを入力してください');return;}
+    const btn=document.getElementById('askSubmit');
+    btn.disabled=true; btn.textContent='調査中...';
+    const res=document.getElementById('askResult');
+    res.style.display='block'; res.textContent='調査中...';
+    const prompt=\`以下の調査レポートを踏まえて、追加の質問に答えてください。ウェブ検索を使って最新情報も確認してください。\\n\\n【調査テーマ】\\n\${QUERY}\\n\\n【レポート概要（抜粋）】\\n\${CONTEXT}\\n\\n【追加質問・依頼】\\n\${q}\\n\\n具体的な数値・企業名・出典を含めて詳しく回答してください。\`;
+    try{
+      const messages=[{role:'user',content:prompt}];
+      const MAX=15;
+      let answer='';
+      for(let i=0;i<MAX;i++){
+        const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',
+          headers:{'Content-Type':'application/json','x-api-key':k,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
+          body:JSON.stringify({model:'claude-opus-4-8',max_tokens:4000,tools:[{type:'web_search_20250305',name:'web_search',max_uses:5}],messages})});
+        const d=await r.json();
+        if(!r.ok) throw new Error(d.error?.message||'Error '+r.status);
+        if(d.stop_reason==='end_turn'){answer=(d.content||[]).filter(c=>c.type==='text').map(c=>c.text).join('');break;}
+        if(d.stop_reason==='tool_use'){
+          messages.push({role:'assistant',content:d.content});
+          const uses=d.content.filter(c=>c.type==='tool_use');
+          res.textContent='🔍 検索中: '+uses.map(u=>u.input?.query||'').join(', ');
+          messages.push({role:'user',content:uses.map(u=>({type:'tool_result',tool_use_id:u.id,content:[{type:'text',text:'Search completed.'}]}))});
+          continue;
+        }
+        answer=(d.content||[]).filter(c=>c.type==='text').map(c=>c.text).join('');break;
+      }
+      res.textContent=answer||'（回答なし）';
+    }catch(e){res.textContent='エラー: '+e.message;res.style.borderLeftColor='#E24A4A';}
+    btn.disabled=false; btn.textContent='送信して調査';
+  }
+  window.runAsk=runAsk;
+
+  window.deleteApiAndDownload=function(){
+    if(!confirm('APIキーを削除した共有用レポートをダウンロードします。\\nAPIキー・パスワード保護・このボタンが除去されます。\\n続けますか？')) return;
+    const parser=new DOMParser();
+    const doc=parser.parseFromString('<!DOCTYPE html>'+document.documentElement.outerHTML,'text/html');
+    const pwSec=doc.getElementById('pw-section'); if(pwSec) pwSec.remove();
+    const ak=doc.getElementById('askKey'); if(ak) ak.removeAttribute('value');
+    const delSec=doc.getElementById('api-del-section'); if(delSec) delSec.remove();
+    const html='<!DOCTYPE html>\\n'+doc.documentElement.outerHTML;
+    const blob=new Blob([html],{type:'text/html;charset=utf-8'});
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement('a'); a.href=url;
+    a.download='DA_'+(document.title||'調査レポート').replace(/\\.html$/i,'')+'_共有用.html';
+    a.click(); URL.revokeObjectURL(url);
+  };
+})();
+<\/script>`;
+}
+
+function dlReport(){
+  const r=window._report;
+  if(!r||!r.htmlOutput){ alert('まず調査を完了させてね。'); return; }
+  const pw = prompt('【パスワード設定】\nダウンロードするレポートのパスワードを設定します。\nAPIキーが含まれるため設定を推奨します。\n\n（空欄のままOK → パスワードなし）', 'akiko');
+  if(pw === null) return;
+  const apiKey = $('cKey').value.trim();
+  const widget = buildAskWidget(apiKey, r.query, r.htmlOutput, pw);
+  const finalHtml = r.htmlOutput.replace(/<\/body>/i, widget + '\n</body>');
+  const blob=new Blob([finalHtml],{type:'text/html;charset=utf-8'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;
+  a.download=`調査レポート_${r.query.slice(0,25).replace(/[\/\\:*?"<>|]/g,'_')}_${new Date().toLocaleDateString('ja-JP').replace(/\//g,'')}.html`;
+  a.click(); URL.revokeObjectURL(url);
+}
+
+function openPreview(){
+  const r=window._report;
+  if(!r||!r.htmlOutput){ alert('まず調査を完了させてね。'); return; }
+  const blob=new Blob([r.htmlOutput],{type:'text/html;charset=utf-8'});
+  const url=URL.createObjectURL(blob);
+  window.open(url,'_blank');
+}
+
+function adjustFrame(){
+  const frame=$('reportFrame');
+  try{
+    const h=frame.contentDocument.documentElement.scrollHeight;
+    frame.style.height=Math.min(Math.max(h,400),1400)+'px';
+  }catch(e){ frame.style.height='700px'; }
+}
+
+function reset(){
+  $('query').value=''; $('p2').style.display='none'; $('p3').style.display='none'; $('p4').style.display='none';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// ⚙️ ギアアニメーション制御
+function setRunning(on){
+  const g=$('engineGear'); if(!g) return;
+  if(on){g.style.display='inline';g.className='gear-spin';}
+  else{g.style.display='none';g.className='';}
+}
+
+// iOS touchend バインド（300ms遅延・二重発火を回避）
+function bindTap(id, fn){
+  const el=$(id); if(!el) return;
+  el.addEventListener('touchend', function(e){
+    e.preventDefault(); // iOSのclickイベント抑制
+    fn();
+  }, {passive:false});
+}
+
+// 初期化
+try{
+  updateLabels();
+  refreshKeyStatus();
+  bindTap('askBtn', genQuestions);
+  bindTap('startBtn', startAll);
+  $('jsIndicator').textContent = '🟢'; // 緑＝JS正常起動
+}catch(err){
+  document.body.insertAdjacentHTML('afterbegin',
+    '<div style="position:fixed;top:0;left:0;right:0;background:#E94A5F;color:#fff;padding:10px 16px;font-size:12px;text-align:center;z-index:9999">⚠ JS初期化エラー: '+err.message+'</div>');
+}
+</script>
+</body>
+</html>
