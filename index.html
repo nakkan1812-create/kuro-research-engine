@@ -412,7 +412,7 @@ async function callOpenAI(k, prompt, model){
       body: JSON.stringify({model, max_tokens:3000, messages:[{role:'user',content:prompt}]})
     });
   } catch(e) {
-    throw new Error('OpenAI: ブラウザ直接呼び出し非対応（OpenAIのCORS制限）');
+    throw new Error('OpenAI: 接続エラー（ネットワークまたはAPIキーを確認）');
   }
   const d = await r.json(); if(!r.ok) throw new Error(d.error?.message||`OpenAI ${r.status}`);
   return d.choices?.[0]?.message?.content||'（回答なし）';
