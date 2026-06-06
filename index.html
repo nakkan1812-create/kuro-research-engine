@@ -565,7 +565,7 @@ ${parts}
 
   try{
     $('synthStatus').textContent='HTMLレポートを生成中...';
-    const htmlOutput = await callClaudeDirect(ck,synthPrompt,m.c,8000,t=>{ $('synthStatus').textContent='生成中: '+t; });
+    const htmlOutput = await callClaudeDirect(ck,synthPrompt,m.c,16000,t=>{ $('synthStatus').textContent='生成中: '+t; });
 
     // 前文除去：<!DOCTYPE html>以降を抽出（</html>がなくても可）
     const htmlStart = htmlOutput.search(/<!DOCTYPE html>/i);
