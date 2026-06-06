@@ -565,12 +565,14 @@ ${parts}
 - 出典は実際に参照した情報源を列挙
 - 生成日時: ${date}
 - モデル: ${m.head}
+- セクション見出しは必ず<h2>タグで記述。HTMLコメント（<!-- ... -->）はコード全体を通じて一切使用しないこと（コメントが閉じられないとその後のHTMLが全て消えるため）
+- レポートが途中で切れないよう、最後に必ず</body></html>で終了すること
 
 /* 冒頭に一切の前置きなし。<!DOCTYPE html>から即開始 */`;
 
   try{
     $('synthStatus').textContent='HTMLレポートを生成中...';
-    const htmlOutput = await callClaudeDirect(ck,synthPrompt,m.c,16000,t=>{ $('synthStatus').textContent='生成中: '+t; });
+    const htmlOutput = await callClaudeDirect(ck,synthPrompt,m.c,32000,t=>{ $('synthStatus').textContent='生成中: '+t; });
 
     // 前文除去：<!DOCTYPE html>以降を抽出（</html>がなくても可）
     const htmlStart = htmlOutput.search(/<!DOCTYPE html>/i);
