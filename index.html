@@ -450,7 +450,7 @@ async function genQuestions(){
   try{
     const m = MODELS[currentTier];
     const r = await callClaudeOpus(ck,
-      `あなたは総合商社のトレードビジネス・投資検討の専門アドバイザーです。\n【調査テーマ】${q}\nこの調査をより深く実務的に行うため、ユーザーに確認すべき質問を2〜3個生成してください。調査目的・特定の比較対象や既知データの有無・重視する指標（リスク/CAPEX/競合/価格など）を明確にする質問を選んでください。\nJSON形式のみで返答（説明文不要）：{"questions":["質問1","質問2","質問3"]}`,
+      `あなたは総合商社のトレードビジネス・投資検討の専門アドバイザーです。\n【調査テーマ】${q}\nこの調査をより深く実務的に行うため、まずこのテーマの複雑度を判断し最適な質問数を自律的に決定してください。目安：事実確認=1〜2問、比較分析=3〜5問、M&A・業界構造=6〜10問。調査精度を最大化する質問を生成してください（調査目的・比較対象・既知データ・重視指標等）。\nJSON形式のみで返答（説明文不要）：{"questions":["質問1","質問2"]}`,
       m.c, 800);
     const match=r.match(/\{[\s\S]*\}/); if(!match) throw new Error('JSON解析失敗');
     const {questions}=JSON.parse(match[0]);
@@ -558,6 +558,10 @@ ${parts}
 - 試算バンド3枚（楽観/標準/保守）
 - 出典リスト（番号付き）
 - フッターに免責事項
+- 【AIコンセンサスマップ】セクションを必ず追加（レポート末尾、出典の前）：
+  🟢 全AI一致した点（3〜5項目）
+  🟡 意見が割れた点（各AIの見解を明記、2〜4項目）
+  🔴 1つのAIだけが指摘したユニーク情報（各AI1項目ずつ）
 - モバイル対応（必須）: @media(max-width:640px){body{font-size:13px} .wrap{padding:0 14px} h1{font-size:17px} h2{font-size:15px} .grid,.cards{grid-template-columns:1fr} table{font-size:11px}}
 
 【品質要件】
