@@ -188,8 +188,8 @@ body{font-family:"Noto Sans JP",sans-serif;background:var(--bg);color:var(--ink)
   <div id="ghSaveStatus" style="font-size:12px;color:var(--teal-d);padding:4px 0 8px;display:none"></div>
   <div class="btn-row" id="reportBtns" style="display:none;flex-direction:column;gap:10px">
     <div style="display:flex;gap:8px;align-items:stretch">
-      <button class="primary-btn" id="ghOpenBtn" onclick="openGitHub()" style="background:linear-gradient(90deg,#16B8B2,#008E8B);margin-top:0;opacity:.4;cursor:default;flex:0 0 66%" disabled>🔗 GitHubで開く</button>
-      <button class="ghost-btn" id="ghDelBtn" onclick="deleteFromGitHub()" style="display:none;flex:0 0 calc(30% - 4px);padding:10px 6px;font-size:12px">🗑️ 削除</button>
+      <button id="ghOpenBtn" onclick="openGitHub()" style="background:linear-gradient(90deg,#16B8B2,#008E8B);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:default;flex:0 0 66%;padding:10px 20px;opacity:.4;touch-action:manipulation;-webkit-tap-highlight-color:transparent" disabled>🔗 GitHubで開く</button>
+      <button class="ghost-btn" id="ghDelBtn" onclick="deleteFromGitHub()" style="display:none;flex:0 0 calc(30% - 4px);font-size:12px">🗑️ 削除</button>
     </div>
     <button class="dl-btn" onclick="dlReport()">📄 HTMLをダウンロード</button>
     <button class="ghost-btn" onclick="openPreview()">🔗 新しいタブで開く</button>
@@ -512,6 +512,11 @@ async function startAll(){
         const ghUrl = await saveToGitHub(filename, htmlWithWidget);
         window._report.ghUrl = ghUrl;
         window._report.ghFilename = filename;
+        window._kuroGhUrl = ghUrl;
+        window._kuroGhFilename = filename;
+        window._kuroDownload = dlReport;
+        window._kuroPreview = openPreview;
+        window._kuroDelete = deleteFromGitHub;
         ghStatus.textContent='✅ GitHubに保存完了';
         const openBtn = $('ghOpenBtn');
         openBtn.disabled=false; openBtn.style.opacity='1'; openBtn.style.cursor='pointer';
@@ -596,6 +601,21 @@ function buildAskWidget(query,synthesisText){
         res.textContent=getText(d.content)||'（回答なし）';break;
       }
     }catch(e){res.textContent='エラー: '+e.message;}
+    // 回答後にボタン行を表示
+    try{
+      const eb=document.getElementById('askInlinebtns');if(eb)eb.remove();
+      const ghUrl=window._kuroGhUrl||'';
+      const ghFn=window._kuroGhFilename||'';
+      let bh='<div id="askInlinebtns" style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px">';
+      if(ghUrl)bh+=`<button onclick="window.open('${ghUrl}','_blank')" style="background:linear-gradient(90deg,#16B8B2,#008E8B);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:700;padding:9px 14px;cursor:pointer">🔗 GitHubで開く</button>`;
+      if(ghFn)bh+='<button id="askDelBtn" style="background:none;border:1px solid #C7D8E5;border-radius:8px;font-size:12px;padding:9px 14px;cursor:pointer">🗑️ 削除</button>';
+      bh+='<button onclick="window._kuroDownload&&window._kuroDownload()" style="background:#00A878;color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:700;padding:9px 14px;cursor:pointer">📄 ダウンロード</button>';
+      bh+='<button onclick="window._kuroPreview&&window._kuroPreview()" style="background:none;border:1px solid #C7D8E5;border-radius:8px;font-size:12px;padding:9px 14px;cursor:pointer">🔗 新しいタブで開く</button>';
+      bh+='</div>';
+      res.insertAdjacentHTML('beforebegin',bh);
+      const db=document.getElementById('askDelBtn');
+      if(db)db.addEventListener('click',function(){window._kuroDelete&&window._kuroDelete();});
+    }catch(ex){}
     btn.disabled=false;btn.textContent='送信して調査';
   }
   document.getElementById('askSubmit').addEventListener('click',runAsk);
