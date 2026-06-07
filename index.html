@@ -186,10 +186,13 @@ body{font-family:"Noto Sans JP",sans-serif;background:var(--bg);color:var(--ink)
   <div id="synthStatus" style="font-size:13px;color:var(--muted);padding:6px 0 12px">HTMLレポートを生成中...</div>
   <iframe id="reportFrame" style="width:100%;min-height:600px;border:1px solid var(--line2);border-radius:10px;display:none" scrolling="no" onload="adjustFrame()"></iframe>
   <div id="ghSaveStatus" style="font-size:12px;color:var(--teal-d);padding:4px 0 8px;display:none"></div>
-  <div class="btn-row" id="reportBtns" style="display:none">
-    <button class="primary-btn" id="ghOpenBtn" onclick="openGitHub()" style="background:linear-gradient(90deg,#16B8B2,#008E8B);margin-top:0;opacity:.4;cursor:default" disabled>🔗 GitHubで開く</button>
+  <div class="btn-row" id="reportBtns" style="display:none;flex-direction:column;gap:10px">
+    <div style="display:flex;gap:8px;align-items:stretch">
+      <button class="primary-btn" id="ghOpenBtn" onclick="openGitHub()" style="background:linear-gradient(90deg,#16B8B2,#008E8B);margin-top:0;opacity:.4;cursor:default;flex:0 0 66%" disabled>🔗 GitHubで開く</button>
+      <button class="ghost-btn" id="ghDelBtn" onclick="deleteFromGitHub()" style="display:none;flex:0 0 calc(30% - 4px);padding:10px 6px;font-size:12px">🗑️ 削除</button>
+    </div>
     <button class="dl-btn" onclick="dlReport()">📄 HTMLをダウンロード</button>
-    <button class="ghost-btn" id="ghDelBtn" onclick="deleteFromGitHub()" style="display:none">🗑️ GitHubから削除</button>
+    <button class="ghost-btn" onclick="openPreview()">🔗 新しいタブで開く</button>
     <button class="ghost-btn" onclick="reset()">🔄 新しい調査</button>
   </div>
 </div>
@@ -502,7 +505,10 @@ async function startAll(){
         const safeName = q.slice(0,30).replace(/[^a-zA-Z0-9ぁ-んァ-ン一-龥]/g,'_');
         const dateStr = new Date().toLocaleDateString('ja-JP').replace(/\//g,'');
         const filename = safeName+'_'+dateStr+'.html';
-        const ghUrl = await saveToGitHub(filename, cleanHtml);
+        // widgetを埋め込んでからGitHubに保存
+        const widgetHtml = buildAskWidget(q, cleanHtml);
+        const htmlWithWidget = cleanHtml.replace(/<\/body>/i, widgetHtml+'\n</body>');
+        const ghUrl = await saveToGitHub(filename, htmlWithWidget);
         window._report.ghUrl = ghUrl;
         window._report.ghFilename = filename;
         ghStatus.textContent='✅ GitHubに保存完了';
