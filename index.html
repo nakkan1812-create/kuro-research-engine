@@ -505,8 +505,8 @@ function buildAskWidget(query,synthesisText){
     <input id="askKey" type="password" placeholder="sk-ant-..."/>
     <p id="askKeySaved" style="font-size:11px;color:#00A878;margin-top:4px;display:none">✓ 保存済み（次回から自動入力）</p>
     <div style="display:flex;gap:10px;margin-top:14px;flex-wrap:wrap">
-      <button id="askSubmit" onclick="runAsk()">送信して調査</button>
-      <button id="askClose" onclick="document.getElementById('askOverlay').classList.remove('open')">閉じる</button>
+      <button id="askSubmit">送信して調査</button>
+      <button id="askClose">閉じる</button>
     </div>
     <div id="askResult"></div>
   </div>
@@ -557,6 +557,11 @@ function buildAskWidget(query,synthesisText){
     }catch(e){res.textContent='エラー: '+e.message;}
     btn.disabled=false;btn.textContent='送信して調査';
   }
+  document.getElementById('askSubmit').addEventListener('click',runAsk);
+  document.getElementById('askSubmit').addEventListener('touchend',function(e){e.preventDefault();runAsk();},{passive:false});
+  document.getElementById('askClose').addEventListener('click',function(){document.getElementById('askOverlay').classList.remove('open');});
+  document.getElementById('askClose').addEventListener('touchend',function(e){e.preventDefault();document.getElementById('askOverlay').classList.remove('open');},{passive:false});
+  document.getElementById('askFab').addEventListener('touchend',function(e){e.preventDefault();document.getElementById('askOverlay').classList.add('open');},{passive:false});
   window.runAsk=runAsk;
 })();<\/script>`;
 }
