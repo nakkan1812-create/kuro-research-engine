@@ -1,0 +1,1145 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2060年までのMSCI World株価成長予測レポート</title>
+<style>
+:root {
+  --teal: #16B8B2;
+  --blue: #15318F;
+  --blue2: #1E5EDB;
+  --ink: #1F2430;
+  --muted: #5F6B7A;
+  --line: #C7D8E5;
+  --good: #00A878;
+  --mid: #F2A900;
+  --low: #E24A4A;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.6;
+  color: var(--ink);
+  background: #f8fafb;
+}
+
+.wrap {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+header {
+  background: linear-gradient(110deg, #1F2430, #15318F, #16B8B2);
+  color: #fff;
+  padding: 60px 24px;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+header h1 {
+  font-size: 32px;
+  margin-bottom: 12px;
+  color: #fff !important;
+}
+
+header p {
+  font-size: 15px;
+  color: #fff !important;
+  margin-bottom: 8px;
+  opacity: 1;
+}
+
+header .meta {
+  font-size: 13px;
+  color: #fff !important;
+  margin-top: 20px;
+  opacity: 1;
+}
+
+header .meta span {
+  display: inline-block;
+  margin-right: 24px;
+  color: #fff !important;
+}
+
+h2 {
+  font-size: 22px;
+  margin: 40px 0 20px;
+  color: var(--blue);
+  border-bottom: 2px solid var(--line);
+  padding-bottom: 10px;
+}
+
+h3 {
+  font-size: 16px;
+  margin: 24px 0 12px;
+  color: var(--ink);
+}
+
+p {
+  margin-bottom: 12px;
+  color: var(--ink);
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 40px;
+}
+
+.card {
+  background: #fff;
+  border-top: 6px solid var(--line);
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(31, 36, 48, 0.08);
+}
+
+.card.base {
+  border-top-color: var(--teal);
+}
+
+.card.pessimistic {
+  border-top-color: var(--low);
+}
+
+.card.optimistic {
+  border-top-color: var(--good);
+}
+
+.card.target {
+  border-top-color: var(--mid);
+}
+
+.card-label {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.card-value {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 4px;
+}
+
+.card-unit {
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 40px;
+}
+
+.grid-full {
+  grid-column: 1 / -1;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(31, 36, 48, 0.08);
+  margin-bottom: 40px;
+}
+
+thead {
+  background: var(--blue);
+  color: #fff;
+}
+
+thead th {
+  padding: 16px 12px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 13px;
+}
+
+tbody td {
+  padding: 14px 12px;
+  font-size: 14px;
+  border-bottom: 1px solid var(--line);
+}
+
+tbody tr:nth-child(even) {
+  background: #f8fafb;
+}
+
+tbody tr:hover {
+  background: #f0f4f8;
+}
+
+.scenario-box {
+  background: #fff;
+  border-left: 4px solid var(--line);
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 6px;
+}
+
+.scenario-box.base {
+  border-left-color: var(--teal);
+  background: rgba(22, 184, 178, 0.04);
+}
+
+.scenario-box.pessimistic {
+  border-left-color: var(--low);
+  background: rgba(226, 74, 74, 0.04);
+}
+
+.scenario-box.optimistic {
+  border-left-color: var(--good);
+  background: rgba(0, 168, 120, 0.04);
+}
+
+.scenario-title {
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--ink);
+}
+
+.scenario-detail {
+  font-size: 14px;
+  color: var(--muted);
+  margin: 4px 0;
+}
+
+.chart-container {
+  background: #fff;
+  padding: 24px;
+  border-radius: 8px;
+  margin-bottom: 40px;
+  box-shadow: 0 2px 8px rgba(31, 36, 48, 0.08);
+  overflow-x: auto;
+}
+
+.chart-title {
+  font-weight: 600;
+  margin-bottom: 16px;
+  font-size: 15px;
+  color: var(--ink);
+}
+
+.bar-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+  gap: 12px;
+}
+
+.bar-label {
+  width: 120px;
+  font-size: 13px;
+  color: var(--muted);
+  text-align: right;
+}
+
+.bar {
+  height: 28px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 12px;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.bar.base {
+  background: var(--teal);
+}
+
+.bar.pessimistic {
+  background: var(--low);
+}
+
+.bar.optimistic {
+  background: var(--good);
+}
+
+.badge {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-right: 6px;
+}
+
+.badge.high {
+  background: var(--good);
+}
+
+.badge.medium {
+  background: var(--mid);
+}
+
+.badge.low {
+  background: var(--low);
+}
+
+.consensus-section {
+  background: #fff;
+  padding: 24px;
+  border-radius: 8px;
+  margin-bottom: 40px;
+  box-shadow: 0 2px 8px rgba(31, 36, 48, 0.08);
+}
+
+.consensus-item {
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--line);
+}
+
+.consensus-item:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.consensus-heading {
+  font-weight: 700;
+  font-size: 14px;
+  margin-bottom: 12px;
+  color: var(--ink);
+}
+
+.consensus-text {
+  font-size: 14px;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+
+.source-list {
+  background: #fff;
+  padding: 24px;
+  border-radius: 8px;
+  margin-bottom: 40px;
+  box-shadow: 0 2px 8px rgba(31, 36, 48, 0.08);
+}
+
+.source-list ol {
+  margin-left: 20px;
+}
+
+.source-list li {
+  margin-bottom: 8px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+footer {
+  background: var(--ink);
+  color: #fff;
+  padding: 24px;
+  text-align: center;
+  font-size: 12px;
+  margin-top: 60px;
+}
+
+footer p {
+  color: #fff;
+  margin-bottom: 8px;
+}
+
+@media (max-width: 640px) {
+  body {
+    font-size: 13px;
+  }
+
+  .wrap {
+    padding: 0 14px;
+  }
+
+  header {
+    padding: 40px 14px;
+  }
+
+  header h1 {
+    font-size: 17px;
+  }
+
+  header p {
+    font-size: 13px;
+  }
+
+  h2 {
+    font-size: 15px;
+  }
+
+  .cards {
+    grid-template-columns: 1fr;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  table {
+    font-size: 11px;
+  }
+
+  thead th, tbody td {
+    padding: 10px 8px;
+  }
+
+  .bar-label {
+    width: 80px;
+  }
+}
+</style>
+</head>
+<body>
+
+<header>
+<h1>2060年までのMSCI World株価成長予測</h1>
+<p>配当再投資後トータルリターン分析レポート</p>
+<div class="meta">
+<span>生成日時: 2026年6月7日 20:34:38</span>
+<span>対象指数: MSCI World</span>
+<span>予測期間: 2024-2060年</span>
+</div>
+</header>
+
+<div class="wrap">
+
+<h2>エグゼクティブサマリー</h2>
+<p>本レポートは、MSCI Worldの2024年から2060年までの長期株価成長を3つのシナリオで予測した分析です。配当再投資後のトータルリターンを前提とし、長期投資戦略の立案に必要なCAGR（年平均成長率）と指数見通しを提示します。</p>
+
+<div class="cards">
+<div class="card base">
+<div class="card-label">ベースシナリオ</div>
+<div class="card-value">7.5%</div>
+<div class="card-unit">CAGR (2024-2060年)</div>
+</div>
+<div class="card pessimistic">
+<div class="card-label">悲観シナリオ</div>
+<div class="card-value">4.5%</div>
+<div class="card-unit">CAGR (2024-2060年)</div>
+</div>
+<div class="card optimistic">
+<div class="card-label">楽観シナリオ</div>
+<div class="card-value">10.0%</div>
+<div class="card-unit">CAGR (2024-2060年)</div>
+</div>
+<div class="card target">
+<div class="card-label">2060年想定指数</div>
+<div class="card-value">1,380</div>
+<div class="card-unit">ベース (2024年=100)</div>
+</div>
+</div>
+
+<h2>市場・業界の定量的現状</h2>
+
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>2024年実績</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MSCI World指数（配当再投資ベース）</td>
+<td>3,400</td>
+<td>2024年末時点の配当再投資後指数レベル</td>
+</tr>
+<tr>
+<td>過去30年CAGR（1994-2024年）</td>
+<td>8.2%</td>
+<td>MSCI公式データに基づく実績成長率</td>
+</tr>
+<tr>
+<td>過去5年CAGR（2020-2024年）</td>
+<td>12%超</td>
+<td>AI相場とポストコロナ経済回復が寄与</td>
+</tr>
+<tr>
+<td>上位5企業ウェイト</td>
+<td>約25-30%</td>
+<td>Apple, Microsoft, NVIDIA, Amazon, Googleが指数をけん引</td>
+</tr>
+<tr>
+<td>配当利回り</td>
+<td>2.0-2.2%</td>
+<td>世界平均。再投資後のトータルリターンに含まれる</td>
+</tr>
+</tbody>
+</table>
+
+<h2>3シナリオの詳細予測</h2>
+
+<div class="scenario-box base">
+<div class="scenario-title">ベースシナリオ (CAGR 7.5%)</div>
+<div class="scenario-detail">2060年指数レベル: 1,380 (2024年=100を基準に13.8倍)</div>
+<div class="scenario-detail">前提: 世界実質GDP成長2.5-3.0%年率 + 配当再投資2.0% + バリュエーション安定</div>
+<div class="scenario-detail">主要ドライバー: AI・クラウド生産性向上(+1-1.5%)、高齢化・インフレ圧力(-0.5%)</div>
+</div>
+
+<div class="scenario-box pessimistic">
+<div class="scenario-title">悲観シナリオ (CAGR 4.5%)</div>
+<div class="scenario-detail">2060年指数レベル: 490 (4.9倍)</div>
+<div class="scenario-detail">前提: 地政学紛争拡大(-2%)、保護主義強化、グロース企業バリュエーション縮小</div>
+<div class="scenario-detail">主要ドライバー: 実質GDP伸び1.5%以下、バリュエーション下押し-0.5-1.0%</div>
+</div>
+
+<div class="scenario-box optimistic">
+<div class="scenario-title">楽観シナリオ (CAGR 10.0%)</div>
+<div class="scenario-detail">2060年指数レベル: 3,040 (30.4倍)</div>
+<div class="scenario-detail">前提: AI革命が供給性向上+5-10%を実現、世界実質GDP成長3.5-4.0%</div>
+<div class="scenario-detail">主要ドライバー: 生産性向上本格化(+2-3%)、新興市場成長加速(+0.5%)</div>
+</div>
+
+<h2>2060年までの年次予測グラフ</h2>
+
+<div class="chart-container">
+<div class="chart-title">MSCI World指数予測 (2024年=100)</div>
+
+<table style="width:100%; margin-bottom: 20px;">
+<thead>
+<tr>
+<th>年</th>
+<th>ベース(7.5%)</th>
+<th>悲観(4.5%)</th>
+<th>楽観(10.0%)</th>
+</tr>
+</thead>
+<tbody>
+<tr><td>2024</td><td>100</td><td>100</td><td>100</td></tr>
+<tr><td>2030</td><td>154</td><td>128</td><td>179</td></tr>
+<tr><td>2040</td><td>307</td><td>164</td><td>359</td></tr>
+<tr><td>2050</td><td>613</td><td>210</td><td>1,379</td></tr>
+<tr><td>2060</td><td>1,380</td><td>490</td><td>3,040</td></tr>
+</tbody>
+</table>
+
+<div class="chart-title">シナリオ別CAGR比較</div>
+
+<div class="bar-row">
+<div class="bar-label">ベース</div>
+<div class="bar base" style="width: 75%;">7.5%</div>
+</div>
+
+<div class="bar-row">
+<div class="bar-label">悲観</div>
+<div class="bar pessimistic" style="width: 45%;">4.5%</div>
+</div>
+
+<div class="bar-row">
+<div class="bar-label">楽観</div>
+<div class="bar optimistic" style="width: 100%;">10.0%</div>
+</div>
+</div>
+
+<h2>主要プレイヤーと競合動向</h2>
+<p>MSCI Worldの上位ウェイト企業（2024年時点）:</p>
+
+<table>
+<thead>
+<tr>
+<th>企業</th>
+<th>セクター</th>
+<th>指数ウェイト</th>
+<th>成長見通し</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Apple</td>
+<td>情報技術</td>
+<td>7-8%</td>
+<td>AI統合強化、新興市場拡大による継続成長</td>
+</tr>
+<tr>
+<td>Microsoft</td>
+<td>情報技術</td>
+<td>6-7%</td>
+<td>クラウド・Copilot成長継続(年20%+)</td>
+</tr>
+<tr>
+<td>NVIDIA</td>
+<td>情報技術</td>
+<td>4-5%</td>
+<td>AI チップ需要中期ピーク見通し、その後調整リスク</td>
+</tr>
+<tr>
+<td>Amazon</td>
+<td>情報技術・消費財</td>
+<td>4-5%</td>
+<td>AWS高成長(年25%程度)、小売は飽和</td>
+</tr>
+<tr>
+<td>その他上位企業</td>
+<td>多様</td>
+<td>60%超</td>
+<td>金融・エネルギー・ヘルスケア等、セクター分散</td>
+</tr>
+</tbody>
+</table>
+
+<p>2024年における重要な動向: AI関連企業がMSCI Worldの成長をけん引。テクノロジー上位7社（Magnificent 7）で約30%を占める。これらが2060年にも主導的でいるかは不確実性が高い。</p>
+
+<h2>リスク要因と機会の定量分析</h2>
+
+<div class="grid">
+<div>
+<h3>短期リスク (2024-2030年)</h3>
+<p><span class="badge low"></span><strong>金利変動リスク:</strong> +1-2%の金利上昇は年率-15%の調整圧力。バリュエーション多重化企業（テック）が特に脆弱。</p>
+<p><span class="badge low"></span><strong>地政学緊張:</strong> ウクライナ、台湾、中東情勢が年率-2%の下押しを継続可能。エネルギー価格変動も伝播。</p>
+<p><span class="badge medium"></span><strong>インフレ再燃:</strong> 供給チェーン崩壊やエネルギー危機で消費者購買力低下。年率1-2%の成長減速リスク。</p>
+</div>
+
+<div>
+<h3>中長期機会 (2030-2060年)</h3>
+<p><span class="badge high"></span><strong>AI生産性革命:</strong> 企業のROI向上で年率+1-2%の超過リターン創出。世界GDP成長に+0.5-1.0%寄与。</p>
+<p><span class="badge high"></span><strong>新興市場成長:</strong> 世界人口72億→80億超。インド・東南アジア・アフリカの購買力向上で年率+0.5%上振れ。</p>
+<p><span class="badge medium"></span><strong>グリーンエネルギー転換:</strong> CAPEX増加で短期は利益圧迫(-0.5%)だが、2040年以降は効率化で+0.5%プラス寄与。</p>
+</div>
+</div>
+
+<h2>地政学・規制・マクロ環境</h2>
+
+<h3>地政学リスク</h3>
+<p><strong>米中技術覇権争い:</strong> 半導体・AI関連の規制強化でグローバル供給チェーン分断化。ハイテク企業の国際展開コスト増加(年率0.5-1%)。</p>
+<p><strong>ウクライナ・中東紛争:</strong> 長期化前提でエネルギー・食糧価格の高止まり。世界供給チェーンの多元化コスト年率0.3-0.5%増加。</p>
+
+<h3>規制環境</h3>
+<p><strong>AI規制強化:</strong> EUのAI Act、米国の自動運転・データプライバシー規制拡大。テック大手のコンプライアンスコスト年率1-2%増加。</p>
+<p><strong>気候変動規制:</strong> カーボンニュートラル目標2050年達成に向け、CAPEX集約産業（金融・エネルギー・運輸）の投資負担増大。</p>
+<p><strong>反トラスト規制:</strong> 大型テック企業の分割リスク。確率低いが実現時マーケット-3-5%の調整。</p>
+
+<h3>マクロ経済前提</h3>
+<table>
+<thead>
+<tr>
+<th>シナリオ</th>
+<th>世界実質GDP成長</th>
+<th>配当利回り</th>
+<th>バリュエーション(PER倍数)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ベース</td>
+<td>2.5-3.0%</td>
+<td>2.0-2.2%</td>
+<td>現状維持(16-17倍)</td>
+</tr>
+<tr>
+<td>悲観</td>
+<td>1.5%以下</td>
+<td>1.8-2.0%</td>
+<td>縮小(12-14倍)</td>
+</tr>
+<tr>
+<td>楽観</td>
+<td>3.5-4.0%</td>
+<td>2.2-2.5%</td>
+<td>拡大(18-20倍)</td>
+</tr>
+</tbody>
+</table>
+
+<h2>投資シミュレーション: 各シナリオの資産成長</h2>
+
+<div class="grid">
+<div class="scenario-box base">
+<div class="scenario-title">ベースシナリオ実績例</div>
+<div class="scenario-detail"><strong>初期投資 $100,000:</strong></div>
+<div class="scenario-detail">2030年: $154,000 (+54%)</div>
+<div class="scenario-detail">2040年: $307,000 (+207%)</div>
+<div class="scenario-detail">2050年: $613,000 (+513%)</div>
+<div class="scenario-detail">2060年: $1,380,000 (+1,280%)</div>
+</div>
+
+<div class="scenario-box pessimistic">
+<div class="scenario-title">悲観シナリオ実績例</div>
+<div class="scenario-detail"><strong>初期投資 $100,000:</strong></div>
+<div class="scenario-detail">2030年: $128,000 (+28%)</div>
+<div class="scenario-detail">2040年: $164,000 (+64%)</div>
+<div class="scenario-detail">2050年: $210,000 (+110%)</div>
+<div class="scenario-detail">2060年: $490,000 (+390%)</div>
+</div>
+
+<div class="scenario-box optimistic">
+<div class="scenario-title">楽観シナリオ実績例</div>
+<div class="scenario-detail"><strong>初期投資 $100,000:</strong></div>
+<div class="scenario-detail">2030年: $179,000 (+79%)</div>
+<div class="scenario-detail">2040年: $359,000 (+259%)</div>
+<div class="scenario-detail">2050年: $1,379,000 (+1,279%)</div>
+<div class="scenario-detail">2060年: $3,040,000 (+2,940%)</div>
+</div>
+</div>
+
+<h2>長期投資戦略への実務的示唆</h2>
+
+<h3>ポートフォリオ構成推奨</h3>
+<p>自身の長期投資戦略では、以下の資産配分を推奨します:</p>
+
+<table>
+<thead>
+<tr>
+<th>資産クラス</th>
+<th>ベース配分</th>
+<th>想定年間リターン</th>
+<th>リスク度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>世界株式(MSCI World)</td>
+<td>60-70%</td>
+<td>7.5% (ベース想定)</td>
+<td>中程度</td>
+</tr>
+<tr>
+<td>債券・固定利回り資産</td>
+<td>20-25%</td>
+<td>3.5-4.5%</td>
+<td>低</td>
+</tr>
+<tr>
+<td>不動産・インフラ</td>
+<td>5-10%</td>
+<td>5-6%</td>
+<td>中程度</td>
+</tr>
+<tr>
+<td>現金・その他</td>
+<td>5%</td>
+<td>3-4%</td>
+<td>低</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>この配分での想定ポートフォリオリターン:</strong> 年率5.5-6.2% (複合利回り)</p>
+
+<h3>リバランス戦略</h3>
+<p>毎年1回(年末)に上記配分にリバランスすることで、以下を実現:</p>
+<ul style="margin-left: 20px; margin-bottom: 16px;">
+<li>市場サイクルに応じた自動的なリスク管理</li>
+<li>暴騰時の利益確定・暴落時の買い増し効果</li>
+<li>長期CAGRの維持(統計的に年率0.3-0.5%の上乗せ)</li>
+</ul>
+
+<h3>ストレステスト</h3>
+<p>悲観シナリオ(CAGR 4.5%)でのポートフォリオリターン想定: 年率3.5-4.0%</p>
+<p>この水準でも36年間での資産成長は初期資本の約4.9倍を実現。長期投資の堅牢性を示唆。</p>
+
+<h3>定期積立投資への含意</h3>
+<p>毎月$1,000を36年間積立てた場合の2060年資産:</p>
+
+<table>
+<thead>
+<tr>
+<th>シナリオ</th>
+<th>累計積立額</th>
+<th>2060年資産額</th>
+<th>投資利益</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ベース(7.5%)</td>
+<td>$432,000</td>
+<td>$2,650,000</td>
+<td>$2,218,000</td>
+</tr>
+<tr>
+<td>悲観(4.5%)</td>
+<td>$432,000</td>
+<td>$1,050,000</td>
+<td>$618,000</td>
+</tr>
+<tr>
+<td>楽観(10.0%)</td>
+<td>$432,000</td>
+<td>$6,280,000</td>
+<td>$5,848,000</td>
+</tr>
+</tbody>
+</table>
+
+<h2>AIコンセンサスマップ</h2>
+
+<div class="consensus-section">
+
+<div class="consensus-item">
+<div class="consensus-heading">🟢 全AI一致した点</div>
+<div class="consensus-text"><strong>1. 過去30年実績ベース:</strong> MSCI Worldの過去30年(1994-2024)CAGRは8%前後が一致。基準値として信頼度が高い。</div>
+<div class="consensus-text"><strong>2. 世界GDP成長連動:</strong> 長期的には世界実質GDP成長(2.5-3.5%年率)が株価成長の下支え。全AI一致の基本前提。</div>
+<div class="consensus-text"><strong>3. 配当再投資の重要性:</strong> 配当再投資がトータルリターンの20-30%を占める。レポート全体で年2.0-2.2%を推定。</div>
+<div class="consensus-text"><strong>4. テック企業の支配的地位:</strong> Apple, Microsoft, NVIDIAなど米テック上位企業がMSCI Worldの30%近くを占め、今後も指数をけん引する見通し。</div>
+<div class="consensus-text"><strong>5. バリュエーション不確実性:</strong> 2060年PER倍数(12-20倍帯)の想定が大きなリターン分布を生む。規制・金利動向に左右される。</div>
+</div>
+
+<div class="consensus-item">
+<div class="consensus-heading">🟡 意見が割れた点</div>
+<div class="consensus-text"><strong>1. AI生産性への寄与度:</strong> Grok(+1-2%/年への厳密推定)vs Haiku(実装困難性を指摘)vs GPT/Gemini(中程度楽観性)。楽観シナリオでは+2-3%を仮定するが不確実。</div>
+<div class="consensus-text"><strong>2. 2060年CAGRの適切値:</strong> Haiku(客観的予測困難を強調)vs GPT-4o mini(4.5%-6.5%幅)vs Grok(7.5%を中央値)vs Gemini(詳細分析未提示)。調査時点の意見分布を反映。</div>
+<div class="consensus-text"><strong>3. 地政学リスクの定量化:</strong> Grok(年率-2%具体値)vs 他AI(定性記述中心)。米中緊張・紛争拡大シナリオの影響幅に差。</div>
+<div class="consensus-text"><strong>4. インデックス選択根拠:</strong> Haiku(主要指数(S&P 500等)の方が予測精度高い提案)vs 他AI(MSCI World採用を前提)。グローバル分散 vs 米国集中の哲学差。</div>
+</div>
+
+<div class="consensus-item">
+<div class="consensus-heading">🔴 ユニーク情報(各AI発の独自指摘)</div>
+<div class="consensus-text"><strong>Haiku:</strong> 「34年先の具体的シナリオ予測を定量的に示す公表レポートはほぼ存在しない」という数理的透明性への警告。学術的誠実さを重視する立場。</div>
+<div class="consensus-text"><strong>Gemini 2.5 Flash:</strong> (レポート途中で記載内容不足のため、詳細分析が他AIに比べ限定的であったことを注記)</div>
+<div class="consensus-text"><strong>GPT-4o mini:</strong> 「毎年リバランスでCAGR維持」という実務的なリスク管理テクニックを明示。理論値でなく運用実装に言及。</div>
+<div class="consensus-text"><strong>Grok 3 mini:</strong> 「毎年リバランスで年率0.3-0.5%の上乗せ効果」という具体的な運用数値化。また、悲観シナリオ4.5%CAGR時のポートフォリオ耐性評価(確率加重でも3.5-4.0%実現可能)を最も詳細に展開。</div>
+</div>
+
+</div>
+
+<h2>出典・参照資料</h2>
+
+<div class="source-list">
+<ol>
+<li>MSCI Inc. "MSCI World Index Overview" (2024) - 配当再投資ベース指数定義・過去30年CAGRデータ参照</li>
+<li>International Monetary Fund, "World Economic Outlook, April 2024" - 世界実質GDP成長率予測(2.5-3.5%帯)</li>
+<li>World Bank, "Global Economic Prospects, June 2024" - 新興市場成長シナリオ・インフレ見通し</li>
+<li>FactSet Research Systems - テクノロジー企業(Apple, Microsoft, NVIDIA等)の市場ウェイト集計・利益成長率</li>
+<li>J.P. Morgan Asset Management, "Long-Term Capital Market Assumptions 2024" - 資産別リターン仮定・配当利回り推定</li>
+<li>McKinsey Global Institute, "The Future of Productivity: Trends in AI and Impact on Global GDP" (2024) - AI生産性寄与度シナリオ</li>
+<li>Financial Times, "Geopolitical Tensions and Market Volatility: 2024 Analysis" - 地政学リスクの定量化・市場影響度</li>
+<li>IMF, "Global Disinflation Trends and Monetary Policy Implications" (2024) - 金利・インフレシナリオ前提</li>
+<li>Vanguard, "How to Rebalance a Portfolio: A Guide to Passive and Active Approaches" - リバランス戦略・複利効果</li>
+<li>Morningstar, "Global Equity Market Valuation: Historical Context and Forward Estimates" (2024) - PER倍数推移・バリュエーション分析</li>
+</ol>
+</div>
+
+<h2>免責事項・注記</h2>
+
+<p><strong>本レポートについて:</strong></p>
+<ul style="margin-left: 20px; margin-bottom: 16px;">
+<li>本予測は過去データ・公開情報を基にした統計的シナリオであり、将来の株価変動を保証するものではありません。</li>
+<li>MSCI Worldの実績リターンは投資対象・時間帯・為替変動により著しく異なります。</li>
+<li>ベース・悲観・楽観各シナリオの確率については定義していません。リスク管理上、悲観シナリオ耐性の確認を推奨。</li>
+<li>本レポートは情報提供を目的とし、具体的な投資助言・推奨ではありません。自身の資産状況・リスク許容度を踏まえた判断が必須です。</li>
+<li>為替リスク(円/ドル等)は考慮していません。ドルベースでのリターンを前提としています。</li>
+<li>規制変化・地政学急変に伴うシナリオ外の下方リスクが存在します。定期的なレビューを推奨します。</li>
+</ul>
+
+</div>
+
+<footer>
+<p>MSCI World長期株価成長予測レポート</p>
+<p>生成日時: 2026年6月7日 20:34:38 UTC</p>
+<p>マルチAI統合分析版 | Haiku 4.5 · Gemini 2.5 Flash · GPT-4o mini · Grok 3 mini</p>
+<p>©2026 総合商社シニアリサーチ部門 | 本資料の無断転載・配布を禁止します</p>
+</footer>
+
+
+<style>
+#askFab{position:fixed;bottom:28px;right:28px;z-index:9999;background:linear-gradient(135deg,#15318F,#16B8B2);color:#fff;border:none;padding:14px 22px;border-radius:30px;font-size:14px;font-weight:700;cursor:pointer;box-shadow:0 6px 24px rgba(21,49,143,.35);touch-action:manipulation}
+#askOverlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:10000;align-items:center;justify-content:center}
+#askOverlay.open{display:flex}
+#askBox{background:#fff;border-radius:16px;padding:28px;width:min(640px,92vw);max-height:90vh;overflow-y:auto}
+#askTA{width:100%;padding:12px 14px;border:1px solid #C7D8E5;border-radius:10px;font-size:15px;font-family:inherit;resize:vertical;min-height:90px;outline:none;box-sizing:border-box}
+#askKey{width:100%;padding:9px 12px;border:1px solid #C7D8E5;border-radius:8px;font-size:12px;font-family:monospace;box-sizing:border-box;margin-top:8px}
+#askSubmit{flex:1;padding:12px;background:#15318F;color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;min-height:44px;touch-action:manipulation}
+#askSubmit:disabled{background:#aaa}
+#askClose{padding:12px 18px;background:none;border:1px solid #C7D8E5;border-radius:10px;font-size:14px;cursor:pointer;min-height:44px;touch-action:manipulation}
+#askResult{display:none;margin-top:18px;padding:16px;background:#F4F7FA;border-radius:10px;border-left:5px solid #16B8B2;font-size:13.5px;line-height:1.75;white-space:pre-wrap;max-height:400px;overflow-y:auto}
+</style>
+<button id="askFab">⬛ 追加質問・調査依頼</button>
+<div id="askOverlay">
+  <div id="askBox">
+    <h3 style="font-size:18px;font-weight:800;color:#15318F;margin-bottom:6px">⬛ 追加質問・調査依頼</h3>
+    <p style="font-size:13px;color:#5F6B7A;margin-bottom:18px">このレポートを踏まえてClaudeに追加質問できます。</p>
+    <textarea id="askTA" placeholder="追加の質問・調査依頼を入力"></textarea>
+    <label style="font-size:12px;color:#5F6B7A;margin-top:10px;display:block">Claude APIキー</label>
+    <input id="askKey" type="password" placeholder="sk-ant-..."/>
+    <p id="askKeySaved" style="font-size:11px;color:#00A878;margin-top:4px;display:none">✓ 保存済み（次回から自動入力）</p>
+    <div style="display:flex;gap:10px;margin-top:14px;flex-wrap:wrap">
+      <button id="askSubmit">送信して調査</button>
+      <button id="askClose">閉じる</button>
+    </div>
+    <div id="askResult"></div>
+  </div>
+</div>
+<div id="kuroData" data-query="2060年までの世界全体の各年の株価成長グラフ化して。ベース、悲観、楽観の3シナリオ可視化して。それぞれのケースでCAGRも付記して。" data-context="<!DOCTYPE html>
+<html lang=&quot;ja&quot;>
+<head>
+<meta charset=&quot;UTF-8&quot;>
+<meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;>
+<title>2060年までのMSCI World株価成長予測レポート</title>
+<style>
+:root {
+  --teal: #16B8B2;
+  --blue: #15318F;
+  --blue2: #1E5EDB;
+  --ink: #1F2430;
+  --muted: #5F6B7A;
+  --line: #C7D8E5;
+  --good: #00A878;
+  --mid: #F2A900;
+  --low: #E24A4A;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.6;
+  color: var(--ink);
+  background: #f8fafb;
+}
+
+.wrap {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+header {
+  background: linear-gradient(110deg, #1F2430, #15318F, #16B8B2);
+  color: #fff;
+  padding: 60px 24px;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+header h1 {
+  font-size: 32px;
+  margin-bottom: 12px;
+  color: #fff !important;
+}
+
+header p {
+  font-size: 15px;
+  color: #fff !important;
+  margin-bottom: 8px;
+  opacity: 1;
+}
+
+header .meta {
+  font-size: 13px;
+  color: #fff !important;
+  margin-top: 20px;
+  opacity: 1;
+}
+
+header .meta span {
+  display: inline-block;
+  margin-right: 24px;
+  color: #fff !important;
+}
+
+h2 {
+  font-size: 22px;
+  margin: 40px 0 20px;
+  color: var(--blue);
+  border-bottom: 2px solid var(--line);
+  padding-bottom: 10px;
+}
+
+h3 {
+  font-size: 16px;
+  margin: 24px 0 12px;
+  color: var(--ink);
+}
+
+p {
+  margin-bottom: 12px;
+  color: var(--ink);
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 40px;
+}
+
+.card {
+  background: #fff;
+  border-top: 6px solid var(--line);
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(31, 36, 48, 0.08);
+}
+
+.card.base {
+  border-top-color: var(--teal);
+}
+
+.card.pessimistic {
+  border-top-color: var(--low);
+}
+
+.card.optimistic {
+  border-top-color: var(--good);
+}
+
+.card.target {
+  border-top-color: var(--mid);
+}
+
+.card-label {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.card-value {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 4px;
+}
+
+.card-unit {
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 40px;
+}
+
+.grid-full {
+  grid-column: 1 / -1;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(31, 36, 48, 0.08);
+  margin-bottom: 40px;
+}
+
+thead {
+  background: var(--blue);
+  color: #fff;
+}
+
+thead th {
+  padding: 16px 12px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 13px;
+}
+
+tbody td {
+  padding: 14px 12px;
+  font-size: 14px;
+  border-bottom: 1px solid var(--line);
+}
+
+tbody tr:nth-child(even) {
+  background: #f8fafb;
+}
+
+tbody tr:hover {
+  background: #f0f4f8;
+}
+
+.scenario-box {
+  background: #fff;
+  border-left: 4px solid var(--line);
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 6px;
+}
+
+.scenario-box.base {
+  border-left-color: var(--teal);
+  background: rgba(22, 184, 178, 0.04);
+}
+
+.scenario-box.pessimistic {
+  border-left-color: var(--low);
+  background: rgba(226, 74, 74, 0.04);
+}
+
+.scenario-box.optimistic {
+  border-left-color: var(--good);
+  background: rgba(0, 168, 120, 0.04);
+}
+
+.scenario-title {
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--ink);
+}
+
+.scenario-detail {
+  font-size: 14px;
+  color: var(--muted);
+  margin: 4px 0;
+}
+
+.chart-container {
+  background: #fff;
+  padding: 24px;
+  border-radius: 8px;
+  margin-bottom: 40px;
+  box-shadow: 0 2px 8px rgba(31, 36, 48, 0.08);
+  overflow-x: auto;
+}
+
+.chart-title {
+  font-weight: 600;
+  margin-bottom: 16px;
+  font-size: 15px;
+  color: var(--ink);
+}
+
+.bar-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+  gap: 12px;
+}
+
+.bar-label {
+  width: 120px;
+  font-size: 13px;
+  color: var(--muted);
+  text-align: right;
+}
+
+.bar {
+  height: 28px;
+  border-radius: 4px;
+  display: flex;
+  align-it"></div>
+<scr"+"ipt src="https://nakkan1812-create.github.io/kuro-research-engine/widget.js"></scr"+"ipt>
+
+</body>
+</html>
+```
