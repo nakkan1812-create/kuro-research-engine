@@ -569,10 +569,7 @@ function buildAskWidget(query, synthesisText){
     <div id="askResult"></div>
   </div>
 </div>
-<script>
-window._kuroQuery = \`${esc(query)}\`;
-window._kuroContext = \`${esc(synthesisText.slice(0,4000))}\`;
-<\/script>
+<div id="kuroData" data-query="${esc(query)}" data-context="${esc(synthesisText.slice(0,4000).replace(/"/g,'&quot;'))}"></div>
 <script src="${WIDGET_URL}"><\/script>
 `;
 }
