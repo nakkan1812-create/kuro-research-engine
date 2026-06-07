@@ -145,7 +145,7 @@ body{font-family:"Noto Sans JP",sans-serif;background:var(--bg);color:var(--ink)
 </div>
 
 <div class="card" id="p2" style="display:none">
-  <div class="phase-badge">PHASE 2 — 黒からの質問</div>
+  <div class="phase-badge">PHASE 2 — 質問</div>
   <p style="font-size:13px;color:var(--muted);margin-bottom:16px">より精度の高い調査のために確認します。回答は全AIとウェブ検索に反映されます。</p>
   <div id="qContainer"></div>
   <button class="primary-btn" onclick="startAll()" id="startBtn" style="margin-top:20px">⬛ 4AI同時並行調査スタート</button>
@@ -181,7 +181,7 @@ body{font-family:"Noto Sans JP",sans-serif;background:var(--bg);color:var(--ink)
 </div>
 
 <div class="card" id="p4" style="display:none">
-  <div class="phase-badge">PHASE 4 — 黒による統合レポート</div>
+  <div class="phase-badge">PHASE 4 — 統合レポート</div>
   <div style="margin-top:12px"></div>
   <div id="synthStatus" style="font-size:13px;color:var(--muted);padding:6px 0 12px">HTMLレポートを生成中...</div>
   <iframe id="reportFrame" style="width:100%;min-height:600px;border:1px solid var(--line2);border-radius:10px;display:none" scrolling="no" onload="adjustFrame()"></iframe>
@@ -540,94 +540,59 @@ async function startAll(){
 }
 
 function buildAskWidget(query, synthesisText){
-  const WIDGET_URL = 'https://nakkan1812-create.github.io/kuro-research-engine/widget.js';
-  const esc = s => s.replace(/\\/g,'\\\\').replace(/`/g,'\\`').replace(/\$/g,'\\$');
-  return `
-<style>
-#askFab{position:fixed;bottom:28px;right:28px;z-index:9999;background:linear-gradient(135deg,#15318F,#16B8B2);color:#fff;border:none;padding:14px 22px;border-radius:30px;font-size:14px;font-weight:700;cursor:pointer;box-shadow:0 6px 24px rgba(21,49,143,.35);touch-action:manipulation}
-#askOverlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:10000;align-items:center;justify-content:center}
-#askOverlay.open{display:flex}
-#askBox{background:#fff;border-radius:16px;padding:28px;width:min(640px,92vw);max-height:90vh;overflow-y:auto}
-#askTA{width:100%;padding:12px 14px;border:1px solid #C7D8E5;border-radius:10px;font-size:15px;font-family:inherit;resize:vertical;min-height:90px;outline:none;box-sizing:border-box}
-#askKey{width:100%;padding:9px 12px;border:1px solid #C7D8E5;border-radius:8px;font-size:12px;font-family:monospace;box-sizing:border-box;margin-top:8px}
-#askSubmit{flex:1;padding:12px;background:#15318F;color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;min-height:44px;touch-action:manipulation}
-#askSubmit:disabled{background:#aaa}
-#askClose{padding:12px 18px;background:none;border:1px solid #C7D8E5;border-radius:10px;font-size:14px;cursor:pointer;min-height:44px;touch-action:manipulation}
-#askResult{display:none;margin-top:18px;padding:16px;background:#F4F7FA;border-radius:10px;border-left:5px solid #16B8B2;font-size:13.5px;line-height:1.75;white-space:pre-wrap;max-height:400px;overflow-y:auto}
-</style>
-<button id="askFab">⬛ 追加質問・調査依頼</button>
-<div id="askOverlay">
-  <div id="askBox">
-    <h3 style="font-size:18px;font-weight:800;color:#15318F;margin-bottom:6px">⬛ 追加質問・調査依頼</h3>
-    <p style="font-size:13px;color:#5F6B7A;margin-bottom:18px">このレポートを踏まえてClaudeに追加質問できます。</p>
-    <textarea id="askTA" placeholder="追加の質問・調査依頼を入力"></textarea>
-    <label style="font-size:12px;color:#5F6B7A;margin-top:10px;display:block">Claude APIキー</label>
-    <input id="askKey" type="password" placeholder="sk-ant-..."/>
-    <p id="askKeySaved" style="font-size:11px;color:#00A878;margin-top:4px;display:none">✓ 保存済み（次回から自動入力）</p>
-    <div style="display:flex;gap:10px;margin-top:14px;flex-wrap:wrap">
-      <button id="askSubmit">送信して調査</button>
-      <button id="askClose">閉じる</button>
-    </div>
-    <div id="askResult"></div>
-  </div>
-</div>
-<div id="kuroData" data-query="${esc(query)}" data-context="${esc(synthesisText.slice(0,4000).replace(/"/g,'&quot;'))}"></div>
-<scr"+"ipt src="${WIDGET_URL}"><\/scr"+"ipt>
-`;
+  const esc = s => s.replace(/\\/g,'\\\\').replace(/`/g,'\\`').replace(/\$/g,'\\$').replace(/'/g,"\\'");
+  const CSS = '<style>#askFab{position:fixed;bottom:28px;right:28px;z-index:9999;background:linear-gradient(135deg,#15318F,#16B8B2);color:#fff;border:none;padding:14px 22px;border-radius:30px;font-size:14px;font-weight:700;cursor:pointer;box-shadow:0 6px 24px rgba(21,49,143,.35);touch-action:manipulation}#askOverlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:10000;align-items:center;justify-content:center}#askOverlay.open{display:flex}#askBox{background:#fff;border-radius:16px;padding:28px;width:min(640px,92vw);max-height:90vh;overflow-y:auto}#askTA{width:100%;padding:12px 14px;border:1px solid #C7D8E5;border-radius:10px;font-size:15px;font-family:inherit;resize:vertical;min-height:90px;outline:none;box-sizing:border-box}#askKey{width:100%;padding:9px 12px;border:1px solid #C7D8E5;border-radius:8px;font-size:12px;font-family:monospace;box-sizing:border-box;margin-top:8px}#askSubmit{flex:1;padding:12px;background:#15318F;color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;min-height:44px;touch-action:manipulation}#askSubmit:disabled{background:#aaa}#askClose{padding:12px 18px;background:none;border:1px solid #C7D8E5;border-radius:10px;font-size:14px;cursor:pointer;min-height:44px;touch-action:manipulation}#askResult{display:none;margin-top:18px;padding:16px;background:#F4F7FA;border-radius:10px;border-left:5px solid #16B8B2;font-size:13.5px;line-height:1.75;white-space:pre-wrap;max-height:400px;overflow-y:auto}</style>';
+  const HTML = '<button id="askFab">&#x2B1B; 追加質問・調査依頼</button><div id="askOverlay"><div id="askBox"><h3 style="font-size:18px;font-weight:800;color:#15318F;margin-bottom:6px">&#x2B1B; 追加質問・調査依頼</h3><p style="font-size:13px;color:#5F6B7A;margin-bottom:18px">このレポートを踏まえてClaudeに追加質問できます。</p><textarea id="askTA" placeholder="追加の質問・調査依頼を入力"></textarea><label style="font-size:12px;color:#5F6B7A;margin-top:10px;display:block">Claude APIキー</label><input id="askKey" type="password" placeholder="sk-ant-..."/><p id="askKeySaved" style="font-size:11px;color:#00A878;margin-top:4px;display:none">&#x2713; 保存済み（次回から自動入力）</p><div style="display:flex;gap:10px;margin-top:14px;flex-wrap:wrap"><button id="askSubmit">送信して調査</button><button id="askClose">閉じる</button></div><div id="askResult"></div></div></div>';
+  const q = esc(query);
+  const ctx = esc(synthesisText.slice(0,4000));
+  const JS = '(function(){'
+    + 'var QUERY="' + q.replace(/"/g,'\\"') + '";'
+    + 'var CONTEXT="' + ctx.replace(/"/g,'\\"') + '";'
+    + 'var LS_KEY="kuro_api_key";'
+    + 'function loadKey(){try{return localStorage.getItem(LS_KEY)||localStorage.getItem("cKey")||"";}catch(e){return ""}}'
+    + 'function saveKey(k){try{localStorage.setItem(LS_KEY,k);localStorage.setItem("cKey",k);}catch(e){}}'
+    + 'var keyEl=document.getElementById("askKey");'
+    + 'var saved=loadKey();if(saved){keyEl.value=saved;document.getElementById("askKeySaved").style.display="block";}'
+    + 'keyEl.addEventListener("input",function(){if(keyEl.value.trim())saveKey(keyEl.value.trim());});'
+    + 'async function runAsk(){'
+    + '  var q2=document.getElementById("askTA").value.trim();'
+    + '  var k=keyEl.value.trim();'
+    + '  if(!q2){alert("質問を入力してください");return;}'
+    + '  if(!k){alert("Claude APIキーを入力してください");return;}'
+    + '  saveKey(k);'
+    + '  var btn=document.getElementById("askSubmit");btn.disabled=true;btn.textContent="調査中...";'
+    + '  var res=document.getElementById("askResult");res.style.display="block";res.textContent="調査中...";'
+    + '  var prompt="以下の調査レポートを踏まえて追加の質問に答えてください。\n\n【調査テーマ】\n"+QUERY+"\n\n【レポート概要】\n"+CONTEXT+"\n\n【追加質問】\n"+q2+"\n\n具体的な数値・企業名・出典を含めて詳しく回答してください。";'
+    + '  try{'
+    + '    var headers={"Content-Type":"application/json","x-api-key":k,"anthropic-version":"2023-06-01","anthropic-dangerous-direct-browser-access":"true"};'
+    + '    var messages=[{role:"user",content:prompt}];'
+    + '    for(var i=0;i<15;i++){'
+    + '      var r=await fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:headers,body:JSON.stringify({model:"claude-sonnet-4-6",max_tokens:3000,tools:[{type:"web_search_20250305",name:"web_search",max_uses:5}],messages:messages})});'
+    + '      var d=await r.json();'
+    + '      if(!r.ok)throw new Error(d.error&&d.error.message?d.error.message:"Error "+r.status);'
+    + '      var getText=function(c){return (Array.isArray(c)?c:[c]).filter(function(x){return x&&x.type==="text";}).map(function(x){return x.text;}).join("");};'
+    + '      if(d.stop_reason==="end_turn"){res.textContent=getText(d.content)||"（回答なし）";break;}'
+    + '      if(d.stop_reason==="tool_use"){'
+    + '        messages.push({role:"assistant",content:d.content});'
+    + '        var uses=d.content.filter(function(c){return c.type==="tool_use";});'
+    + '        res.textContent="検索中: "+uses.map(function(u){return u.input&&u.input.query||"";}).join(", ");'
+    + '        messages.push({role:"user",content:uses.map(function(u){return {type:"tool_result",tool_use_id:u.id,content:[{type:"text",text:"Search completed."}]};})});'
+    + '        continue;'
+    + '      }'
+    + '      res.textContent=getText(d.content)||"（回答なし）";break;'
+    + '    }'
+    + '  }catch(e){res.textContent="エラー: "+e.message;}'
+    + '  btn.disabled=false;btn.textContent="送信して調査";'
+    + '}'
+    + 'function bind(id,fn){var el=document.getElementById(id);if(!el)return;el.addEventListener("click",fn);el.addEventListener("touchend",function(e){e.preventDefault();fn();},{passive:false});}'
+    + 'bind("askSubmit",runAsk);'
+    + 'bind("askClose",function(){document.getElementById("askOverlay").classList.remove("open");});'
+    + 'bind("askFab",function(){document.getElementById("askOverlay").classList.add("open");});'
+    + 'document.getElementById("askOverlay").addEventListener("click",function(e){if(e.target===this)this.classList.remove("open");});'
+    + '})();';
+  return CSS + HTML + '<scr'+'ipt>' + JS + '</'+'script>';
 }
 
-
-
-// ===== GitHub連携 =====
-const GH_OWNER = 'nakkan1812-create';
-const GH_REPO  = 'kuro-research-engine';
-const GH_BRANCH = 'main';
-
-function getGhPat(){ return lsGet('ghPat')||''; }
-
-async function saveToGitHub(filename, htmlContent){
-  const pat = getGhPat();
-  if(!pat) return null;
-  const path = 'reports/'+filename;
-  const url = 'https://api.github.com/repos/'+GH_OWNER+'/'+GH_REPO+'/contents/'+path;
-  let sha = null;
-  try{
-    const check = await fetch(url,{headers:{'Authorization':'token '+pat,'Accept':'application/vnd.github.v3+json'}});
-    if(check.ok){ const d=await check.json(); sha=d.sha; }
-  }catch(e){}
-  const body={message:'Add report: '+filename,content:btoa(unescape(encodeURIComponent(htmlContent))),branch:GH_BRANCH};
-  if(sha) body.sha=sha;
-  const resp = await fetch(url,{method:'PUT',headers:{'Authorization':'token '+pat,'Accept':'application/vnd.github.v3+json','Content-Type':'application/json'},body:JSON.stringify(body)});
-  if(!resp.ok){const e=await resp.json();throw new Error(e.message||'GitHub API error');}
-  return 'https://'+GH_OWNER+'.github.io/'+GH_REPO+'/reports/'+filename;
-}
-
-async function deleteFromGitHub(){
-  const r=window._report;
-  if(!r||!r.ghFilename) return;
-  const pat=getGhPat();
-  if(!pat){alert('GitHub PATが設定されていません');return;}
-  if(!confirm('GitHubからこのレポートを削除しますか？')) return;
-  const path='reports/'+r.ghFilename;
-  const url='https://api.github.com/repos/'+GH_OWNER+'/'+GH_REPO+'/contents/'+path;
-  try{
-    const check=await fetch(url,{headers:{'Authorization':'token '+pat,'Accept':'application/vnd.github.v3+json'}});
-    if(!check.ok){alert('ファイルが見つかりません');return;}
-    const d=await check.json();
-    const resp=await fetch(url,{method:'DELETE',headers:{'Authorization':'token '+pat,'Accept':'application/vnd.github.v3+json','Content-Type':'application/json'},body:JSON.stringify({message:'Delete report: '+r.ghFilename,sha:d.sha,branch:GH_BRANCH})});
-    if(resp.ok){
-      $('ghDelBtn').style.display='none';
-      $('ghOpenBtn').disabled=true;$('ghOpenBtn').style.opacity='.4';$('ghOpenBtn').style.cursor='default';
-      $('ghSaveStatus').textContent='🗑️ GitHubから削除しました';
-      r.ghUrl=null;r.ghFilename=null;
-    }else{alert('削除に失敗しました');}
-  }catch(e){alert('削除エラー: '+e.message);}
-}
-
-function openGitHub(){
-  const r=window._report;
-  if(r&&r.ghUrl) window.open(r.ghUrl,'_blank');
-}
 
 function dlReport(){
   const r=window._report;
