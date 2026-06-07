@@ -511,13 +511,6 @@ async function startAll(){
         const ghUrl = await saveToGitHub(filename, htmlWithWidget);
         window._report.ghUrl = ghUrl;
         window._report.ghFilename = filename;
-        window._kuroGhUrl = ghUrl;
-        window._kuroGhFilename = filename;
-        window._kuroDlFn = dlReport;
-        window._kuroPreviewFn = openPreview;
-        // data属性にghUrlを設定してwidget.jsから参照できるようにする
-        const kd = document.getElementById('kuroData');
-        if(kd) kd.setAttribute('data-ghurl', ghUrl);
         ghStatus.textContent='✅ GitHubに保存完了';
         const openBtn = $('ghOpenBtn');
         openBtn.disabled=false; openBtn.style.opacity='1'; openBtn.style.cursor='pointer';
@@ -538,6 +531,36 @@ async function startAll(){
   setRunning(false);
   btn.disabled=false; btn.innerHTML='⬛ 4AI同時並行調査スタート';
 }
+
+// ===== GitHub連携 =====
+const GH_OWNER='nakkan1812-create',GH_REPO='kuro-research-engine',GH_BRANCH='main';
+function getGhPat(){return lsGet('ghPat')||'';}
+async function saveToGitHub(filename,html){
+  const pat=getGhPat();if(!pat)return null;
+  const url='https://api.github.com/repos/'+GH_OWNER+'/'+GH_REPO+'/contents/reports/'+filename;
+  let sha=null;
+  try{const c=await fetch(url,{headers:{'Authorization':'token '+pat,'Accept':'application/vnd.github.v3+json'}});if(c.ok){const d=await c.json();sha=d.sha;}}catch(e){}
+  const body={message:'Add report: '+filename,content:btoa(unescape(encodeURIComponent(html))),branch:GH_BRANCH};
+  if(sha)body.sha=sha;
+  const resp=await fetch(url,{method:'PUT',headers:{'Authorization':'token '+pat,'Accept':'application/vnd.github.v3+json','Content-Type':'application/json'},body:JSON.stringify(body)});
+  if(!resp.ok){const e=await resp.json();throw new Error(e.message||'GitHub API error');}
+  return 'https://'+GH_OWNER+'.github.io/'+GH_REPO+'/reports/'+filename;
+}
+async function deleteFromGitHub(){
+  const r=window._report;if(!r||!r.ghFilename)return;
+  const pat=getGhPat();if(!pat){alert('GitHub PATが設定されていません');return;}
+  if(!confirm('GitHubからこのレポートを削除しますか？'))return;
+  const url='https://api.github.com/repos/'+GH_OWNER+'/'+GH_REPO+'/contents/reports/'+r.ghFilename;
+  try{
+    const c=await fetch(url,{headers:{'Authorization':'token '+pat,'Accept':'application/vnd.github.v3+json'}});
+    if(!c.ok){alert('ファイルが見つかりません');return;}
+    const d=await c.json();
+    const resp=await fetch(url,{method:'DELETE',headers:{'Authorization':'token '+pat,'Accept':'application/vnd.github.v3+json','Content-Type':'application/json'},body:JSON.stringify({message:'Delete report: '+r.ghFilename,sha:d.sha,branch:GH_BRANCH})});
+    if(resp.ok){$('ghDelBtn').style.display='none';$('ghOpenBtn').disabled=true;$('ghOpenBtn').style.opacity='.4';$('ghSaveStatus').textContent='🗑️ GitHubから削除しました';r.ghUrl=null;r.ghFilename=null;}
+    else alert('削除に失敗しました');
+  }catch(e){alert('削除エラー: '+e.message);}
+}
+function openGitHub(){const r=window._report;if(r&&r.ghUrl)window.open(r.ghUrl,'_blank');}
 
 function buildAskWidget(query, synthesisText){
   const esc = s => s.replace(/\\/g,'\\\\').replace(/`/g,'\\`').replace(/\$/g,'\\$').replace(/'/g,"\\'");
@@ -562,7 +585,7 @@ function buildAskWidget(query, synthesisText){
     + '  saveKey(k);'
     + '  var btn=document.getElementById("askSubmit");btn.disabled=true;btn.textContent="調査中...";'
     + '  var res=document.getElementById("askResult");res.style.display="block";res.textContent="調査中...";'
-    + '  var prompt="以下の調査レポートを踏まえて追加の質問に答えてください。\n\n【調査テーマ】\n"+QUERY+"\n\n【レポート概要】\n"+CONTEXT+"\n\n【追加質問】\n"+q2+"\n\n具体的な数値・企業名・出典を含めて詳しく回答してください。";'
+    + '  var prompt="以下の調査レポートを踏まえて追加の質問に答えてください。 / 【調査テーマ】"+QUERY+" / 【レポート概要】"+CONTEXT+" / 【追加質問】"+q2+" / 具体的な数値・企業名・出典を含めて詳しく回答してください。";'
     + '  try{'
     + '    var headers={"Content-Type":"application/json","x-api-key":k,"anthropic-version":"2023-06-01","anthropic-dangerous-direct-browser-access":"true"};'
     + '    var messages=[{role:"user",content:prompt}];'
@@ -594,36 +617,6 @@ function buildAskWidget(query, synthesisText){
 }
 
 
-
-// ===== GitHub連携 =====
-const GH_OWNER='nakkan1812-create',GH_REPO='kuro-research-engine',GH_BRANCH='main';
-function getGhPat(){return lsGet('ghPat')||'';}
-async function saveToGitHub(filename,html){
-  const pat=getGhPat();if(!pat)return null;
-  const url='https://api.github.com/repos/'+GH_OWNER+'/'+GH_REPO+'/contents/reports/'+filename;
-  let sha=null;
-  try{const c=await fetch(url,{headers:{'Authorization':'token '+pat,'Accept':'application/vnd.github.v3+json'}});if(c.ok){const d=await c.json();sha=d.sha;}}catch(e){}
-  const body={message:'Add report: '+filename,content:btoa(unescape(encodeURIComponent(html))),branch:GH_BRANCH};
-  if(sha)body.sha=sha;
-  const resp=await fetch(url,{method:'PUT',headers:{'Authorization':'token '+pat,'Accept':'application/vnd.github.v3+json','Content-Type':'application/json'},body:JSON.stringify(body)});
-  if(!resp.ok){const e=await resp.json();throw new Error(e.message||'GitHub API error');}
-  return 'https://'+GH_OWNER+'.github.io/'+GH_REPO+'/reports/'+filename;
-}
-async function deleteFromGitHub(){
-  const r=window._report;if(!r||!r.ghFilename)return;
-  const pat=getGhPat();if(!pat){alert('GitHub PATが設定されていません');return;}
-  if(!confirm('GitHubからこのレポートを削除しますか？'))return;
-  const url='https://api.github.com/repos/'+GH_OWNER+'/'+GH_REPO+'/contents/reports/'+r.ghFilename;
-  try{
-    const c=await fetch(url,{headers:{'Authorization':'token '+pat,'Accept':'application/vnd.github.v3+json'}});
-    if(!c.ok){alert('ファイルが見つかりません');return;}
-    const d=await c.json();
-    const resp=await fetch(url,{method:'DELETE',headers:{'Authorization':'token '+pat,'Accept':'application/vnd.github.v3+json','Content-Type':'application/json'},body:JSON.stringify({message:'Delete report: '+r.ghFilename,sha:d.sha,branch:GH_BRANCH})});
-    if(resp.ok){$('ghDelBtn').style.display='none';$('ghOpenBtn').disabled=true;$('ghOpenBtn').style.opacity='.4';$('ghSaveStatus').textContent='🗑️ GitHubから削除しました';r.ghUrl=null;r.ghFilename=null;}
-    else alert('削除に失敗しました');
-  }catch(e){alert('削除エラー: '+e.message);}
-}
-function openGitHub(){const r=window._report;if(r&&r.ghUrl)window.open(r.ghUrl,'_blank');}
 
 function dlReport(){
   const r=window._report;
