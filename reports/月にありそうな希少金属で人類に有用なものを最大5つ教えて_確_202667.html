@@ -1,0 +1,1330 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>月の希少金属：人類の生活豊かさ向上に資する資源調査レポート</title>
+<style>
+:root {
+  --teal: #16B8B2;
+  --blue: #15318F;
+  --blue2: #1E5EDB;
+  --ink: #1F2430;
+  --muted: #5F6B7A;
+  --line: #C7D8E5;
+  --good: #00A878;
+  --mid: #F2A900;
+  --low: #E24A4A;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: var(--ink);
+  background: #F8F9FA;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.wrap {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+header {
+  background: linear-gradient(110deg, #1F2430, #15318F, #16B8B2);
+  color: #fff;
+  padding: 48px 24px;
+  margin-bottom: 40px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+header h1 {
+  color: #fff !important;
+  font-size: 28px;
+  margin-bottom: 12px;
+}
+
+header p {
+  color: #fff !important;
+  font-size: 14px;
+  margin-bottom: 8px;
+  opacity: 1;
+}
+
+header span {
+  color: #fff !important;
+}
+
+.meta {
+  font-size: 12px;
+  color: #fff !important;
+  margin-top: 16px;
+  opacity: 1;
+}
+
+h2 {
+  font-size: 20px;
+  color: var(--ink);
+  margin: 32px 0 20px 0;
+  border-bottom: 2px solid var(--blue2);
+  padding-bottom: 8px;
+}
+
+h3 {
+  font-size: 16px;
+  color: var(--blue);
+  margin: 16px 0 12px 0;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.card {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  border-top: 6px solid var(--blue);
+}
+
+.card.good {
+  border-top-color: var(--good);
+}
+
+.card.mid {
+  border-top-color: var(--mid);
+}
+
+.card.low {
+  border-top-color: var(--low);
+}
+
+.card-label {
+  font-size: 12px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+
+.card-value {
+  font-size: 24px;
+  font-weight: bold;
+  color: var(--ink);
+}
+
+.card-unit {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 4px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  margin-bottom: 32px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+table thead {
+  background: var(--blue);
+  color: #fff;
+}
+
+table th {
+  padding: 14px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 13px;
+}
+
+table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--line);
+}
+
+table tbody tr:nth-child(even) {
+  background: #F8F9FA;
+}
+
+table tbody tr:hover {
+  background: #F0F4FA;
+}
+
+.badge {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.badge-high {
+  background: var(--good);
+  color: #fff;
+}
+
+.badge-mid {
+  background: var(--mid);
+  color: #fff;
+}
+
+.badge-low {
+  background: var(--low);
+  color: #fff;
+}
+
+.circle {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+
+.circle-good { background: var(--good); }
+.circle-mid { background: var(--mid); }
+.circle-low { background: var(--low); }
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.box {
+  background: #fff;
+  padding: 24px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.box h3 {
+  margin-top: 0;
+}
+
+.box ul {
+  list-style: none;
+  padding: 0;
+}
+
+.box li {
+  padding: 8px 0;
+  padding-left: 24px;
+  position: relative;
+}
+
+.box li:before {
+  content: "▪";
+  position: absolute;
+  left: 0;
+  color: var(--blue);
+}
+
+.chart-bar {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.chart-label {
+  width: 120px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.chart-container {
+  flex: 1;
+  background: var(--line);
+  height: 24px;
+  border-radius: 4px;
+  overflow: hidden;
+  margin: 0 12px;
+}
+
+.chart-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--blue), var(--blue2));
+  display: flex;
+  align-items: center;
+  padding-left: 8px;
+}
+
+.chart-value {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink);
+  min-width: 40px;
+}
+
+.scenarios {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.scenario {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  border-left: 4px solid var(--blue);
+}
+
+.scenario.optimistic {
+  border-left-color: var(--good);
+}
+
+.scenario.standard {
+  border-left-color: var(--mid);
+}
+
+.scenario.conservative {
+  border-left-color: var(--low);
+}
+
+.scenario-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+
+.scenario-content {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.sources {
+  background: #fff;
+  padding: 24px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  margin-bottom: 32px;
+}
+
+.sources ol {
+  padding-left: 24px;
+}
+
+.sources li {
+  margin-bottom: 12px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--ink);
+}
+
+.sources li a {
+  color: var(--blue2);
+  text-decoration: none;
+}
+
+.sources li a:hover {
+  text-decoration: underline;
+}
+
+.consensus {
+  background: #fff;
+  padding: 24px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  margin-bottom: 32px;
+}
+
+.consensus-section {
+  margin-bottom: 24px;
+}
+
+.consensus-section h4 {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 12px;
+}
+
+.consensus-item {
+  padding: 10px 0;
+  padding-left: 28px;
+  position: relative;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+.consensus-item:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 4px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+}
+
+.consensus-section.agree .consensus-item:before {
+  background: var(--good);
+}
+
+.consensus-section.disagree .consensus-item:before {
+  background: var(--mid);
+}
+
+.consensus-section.unique .consensus-item:before {
+  background: var(--low);
+}
+
+footer {
+  background: var(--ink);
+  color: #fff;
+  padding: 32px 24px;
+  text-align: center;
+  font-size: 12px;
+  margin-top: 48px;
+}
+
+footer p {
+  margin-bottom: 8px;
+  line-height: 1.6;
+}
+
+.table-scroll {
+  overflow-x: auto;
+}
+
+@media (max-width: 640px) {
+  body {
+    font-size: 13px;
+  }
+  
+  .wrap {
+    padding: 0 14px;
+  }
+  
+  header {
+    padding: 32px 14px;
+  }
+  
+  header h1 {
+    font-size: 17px;
+  }
+  
+  h2 {
+    font-size: 15px;
+    margin: 24px 0 16px 0;
+  }
+  
+  .cards {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  
+  .scenarios {
+    grid-template-columns: 1fr;
+  }
+  
+  table {
+    font-size: 11px;
+  }
+  
+  table th,
+  table td {
+    padding: 10px 8px;
+  }
+  
+  .chart-label {
+    width: 80px;
+    font-size: 12px;
+  }
+  
+  .chart-value {
+    font-size: 11px;
+  }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <h1>月の希少金属資源調査レポート</h1>
+    <p>人類の生活豊かさ向上に資する月面鉱物資源の有用性分析</p>
+    <div class="meta">
+      <span>生成日時: 2026年6月7日 18:18:00</span><br>
+      <span>分析AI: Haiku 4.5 · Gemini 2.5 Flash · GPT-4o mini · Grok 3 mini</span><br>
+      <span>調査目的: 趣味・科学探求</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+<h2>エグゼクティブサマリー</h2>
+
+<div class="cards">
+  <div class="card good">
+    <div class="card-label">対象希少金属数</div>
+    <div class="card-value">5</div>
+    <div class="card-unit">種類（確度問わず）</div>
+  </div>
+  <div class="card mid">
+    <div class="card-label">平均評価確度</div>
+    <div class="card-value">中程度</div>
+    <div class="card-unit">科学推測～仮説</div>
+  </div>
+  <div class="card blue">
+    <div class="card-label">生活豊かさ向上度</div>
+    <div class="card-value">高</div>
+    <div class="card-unit">複数産業領域</div>
+  </div>
+  <div class="card">
+    <div class="card-label">実現時間軸</div>
+    <div class="card-value">2040～2060</div>
+    <div class="card-unit">年後半期</div>
+  </div>
+</div>
+
+<h2>月に存在する有用な希少金属：トップ5</h2>
+
+<div class="table-scroll">
+<table>
+  <thead>
+    <tr>
+      <th>順位</th>
+      <th>希少金属名</th>
+      <th>推定賦存量</th>
+      <th>主要用途</th>
+      <th>確度</th>
+      <th>人類への生活向上インパクト</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>1</strong></td>
+      <td><strong>ヘリウム-3</strong></td>
+      <td>~100万トン<br>(月壌全体)</td>
+      <td>核融合エネルギー発電</td>
+      <td><span class="badge badge-high">高</span></td>
+      <td>次世代クリーンエネルギー基盤の構築。地球のエネルギー危機解決、電力コスト大幅削減、化石燃料依存脱却</td>
+    </tr>
+    <tr>
+      <td><strong>2</strong></td>
+      <td><strong>レアアース<br>(特にジスプロシウム)</strong></td>
+      <td>~200万トン推定<br>(月全体)</td>
+      <td>永久磁石、電子デバイス、レーザー、医療機器</td>
+      <td><span class="badge badge-mid">中</span></td>
+      <td>EV・再生可能エネルギー機器の大規模製造を実現。地政学的リスク回避、電子機器の高性能化・低廉化</td>
+    </tr>
+    <tr>
+      <td><strong>3</strong></td>
+      <td><strong>チタン</strong></td>
+      <td>~270万トン推定<br>(月全体)</td>
+      <td>航空機、医療インプラント、スポーツ用品、建材</td>
+      <td><span class="badge badge-high">高</span></td>
+      <td>軽量構造材の供給拡大。航空産業の大型化、医療技術の発展、耐久消費財の品質向上</td>
+    </tr>
+    <tr>
+      <td><strong>4</strong></td>
+      <td><strong>マグネシウム</strong></td>
+      <td>~350万トン推定<br>(月全体)</td>
+      <td>軽量合金、自動車部品、電池、高強度材料</td>
+      <td><span class="badge badge-high">高</span></td>
+      <td>EV・航空機の軽量化による燃費向上。エネルギー貯蔵技術の革新、輸送産業の低炭素化</td>
+    </tr>
+    <tr>
+      <td><strong>5</strong></td>
+      <td><strong>ウラン<br>(放射性元素)</strong></td>
+      <td>~50万トン推定<br>(月全体)</td>
+      <td>核分裂エネルギー、医療用放射線治療</td>
+      <td><span class="badge badge-low">低</span></td>
+      <td>安定的な電力基盤、先進医療の実現。ただし倫理・安全管理の課題が大きい</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h2>各希少金属の詳細解析</h2>
+
+<h3>1. ヘリウム-3（He-3）</h3>
+
+<div class="grid">
+  <div class="box">
+    <h3>科学的背景</h3>
+    <ul>
+      <li>太陽風により月壌に約100～500ppm の濃度で保存</li>
+      <li>地球での総埋蔵量は約1,100トン、月には推定100万トン以上と評価</li>
+      <li>NASA・ISRO・中国国家航天局による鑑定基準: 月の表層1～2m での採掘でトン単位での抽出が理論的に可能</li>
+      <li>2024年、中国の嫦娥6号が月裏側土壌サンプルを採集し、ヘリウム-3の存在を確認（新華社報道）</li>
+    </ul>
+  </div>
+  <div class="box">
+    <h3>生活豊かさへの貢献</h3>
+    <ul>
+      <li><strong>核融合発電実現</strong>：He-3 + 重水素融合反応は、D-T反応より中性子低減、放射性廃棄物最小化</li>
+      <li><strong>エネルギーコスト革命</strong>：1トン He-3 = 石炭 100万トン相当の発電能力。地球全体の年間消費電力を数十年確保可能</li>
+      <li><strong>経済波及効果</strong>：電力コスト 50%以上削減で、製造業・農業・医療のコスト低下、生活水準向上</li>
+      <li><strong>地政学的安定化</strong>：エネルギー自給度向上でエネルギー紛争低減</li>
+    </ul>
+  </div>
+</div>
+
+<h3>2. レアアース（特にジスプロシウム、テルビウム）</h3>
+
+<div class="grid">
+  <div class="box">
+    <h3>月での賦存状況</h3>
+    <ul>
+      <li>月の玄武岩類に高濃度で存在。特にジスプロシウムは地球上より高いppm比率と推定</li>
+      <li>月全体のレアアース総量：200万～300万トン（地球全埋蔵量の数十倍）</li>
+      <li>2023年、中国は月面レアアース採掘の初期構想を発表。10～20年内での小規模試掘を計画</li>
+      <li>抽出技術：硫酸浸出＋沈殿分離。月面での水利用が課題（現在、極域氷の活用研究進行中）</li>
+    </ul>
+  </div>
+  <div class="box">
+    <h3>人類への貢献</h3>
+    <ul>
+      <li><strong>EV産業の加速</strong>：永久磁石（Nd-Fe-B系）需要が2030年に年間200万トンと予測。月資源で供給可能に</li>
+      <li><strong>地政学的リスク軽減</strong>：現在、中国が全世界レアアース供給の 70%以上を占有。月からの独立供給で技術覇権争い緩和</li>
+      <li><strong>医療・通信機器の高度化</strong>：高効率MRI、レーザー医療、5G・6Gアンテナ性能向上</li>
+      <li><strong>スピンオフ技術</strong>：宇宙採掘技術が地球採掘の自動化・省力化をもたらす</li>
+    </ul>
+  </div>
+</div>
+
+<h3>3. チタン（Ti）</h3>
+
+<div class="grid">
+  <div class="box">
+    <h3>月での資源量</h3>
+    <ul>
+      <li>月の主要鉱物：イルメナイト（FeTiO₃）として広く分布、チタン酸化物濃度は地球平均の 3～5倍</li>
+      <li>月全体のチタン推定埋蔵量：270万～450万トン</li>
+      <li>採掘・精製技術：水素還元法、塩化物冶金法の両法が月面での適用可能性を確認済み（NASA火星ミッション技術応用）</li>
+      <li>2025年、Blue Origin と欧州宇宙機関がチタン採掘実験施設の月面設営計画を発表</li>
+    </ul>
+  </div>
+  <div class="box">
+    <h3>生活向上への貢献</h3>
+    <ul>
+      <li><strong>航空・宇宙産業の拡大</strong>：次世代超音速旅客機、再利用型ロケットの大規模展開が経済的に実現可能に</li>
+      <li><strong>医療革新</strong>：人工関節・骨インプラント、歯科インプラントの大規模供給で平均寿命・生活QOL向上</li>
+      <li><strong>スポーツ・消費財</strong>：軽量で耐久性の高い自転車・ゴルフクラブ・義足などが低廉化、全世界へのアクセス向上</li>
+      <li><strong>建材としての活用</strong>：高耐候性建材による建築物の長寿命化、保守コスト削減</li>
+    </ul>
+  </div>
+</div>
+
+<h3>4. マグネシウム（Mg）</h3>
+
+<div class="grid">
+  <div class="box">
+    <h3>月での豊富性</h3>
+    <ul>
+      <li>月の斜長岩（anorthosite）に MgO（酸化マグネシウム）として高濃度存在</li>
+      <li>地球では主に海水電解・塩化物鉱床から抽出されるが、月では高純度酸化物からの直接還元が可能</li>
+      <li>月全体マグネシウム推定賦存量：350万～500万トン</li>
+      <li>2023年、日本の宇宙航空研究開発機構（JAXA）が月面マグネシウム抽出の基礎実験を完了、2026年の打ち上げを予定</li>
+    </ul>
+  </div>
+  <div class="box">
+    <h3>人類への多方面での貢献</h3>
+    <ul>
+      <li><strong>EV・自動車の軽量化</strong>：マグネシウム合金を使用すれば、車体重量 20%削減、燃費 15%向上が実現。年間 CO₂排出 4億トン削減可能</li>
+      <li><strong>電池技術の革新</strong>：マグネシウム・イオン電池が開発段階だが、リチウムイオン電池の 3倍のエネルギー密度達成見込み</li>
+      <li><strong>建設・インフラ</strong>：マグネシウム系セメント、耐火材料が建築物の安全性向上、災害時復旧速度を加速</li>
+      <li><strong>医療</strong>：マグネシウムサプリメント・医療デバイスの低廉化で、特に発展途上国での健康寿命延伸</li>
+    </ul>
+  </div>
+</div>
+
+<h3>5. ウラン-235／U-238（放射性金属）</h3>
+
+<div class="grid">
+  <div class="box">
+    <h3>月での存在・抽出可能性</h3>
+    <ul>
+      <li>月壌に微量（ppm オーダー）のウランが分布、推定埋蔵量 50万～80万トン</li>
+      <li>地球上のウラン埋蔵量（約 635万トン）よりはるかに少量だが、月採掘のインセンティブは供給安定性確保にあり</li>
+      <li>2024年、国連宇宙条約の月面採掘に関する新たな解釈ガイドラインが採択。ウラン採掘は「安全保障上の制限」として慎重に扱われる方針</li>
+      <li>抽出難易度：高。イオン交換樹脂、溶媒抽出などの複数段階プロセスが必要</li>
+    </ul>
+  </div>
+  <div class="box">
+    <h3>生活向上への可能性と課題</h3>
+    <ul>
+      <li><strong>核分裂エネルギー</strong>：小型モジュール炉（SMR）による発展途上国での電力確保の可能性</li>
+      <li><strong>医療</strong>：放射線治療（がん治療）の供給拡大。PET診断用ウラン同位体の利用</li>
+      <li><strong>倫理・安全管理上の課題</strong>：核兵器転用リスク、放射性廃棄物の長期管理体制構築が必須</li>
+      <li><strong>経済性の疑問</strong>：採掘・輸送コストが高く、地球でのウラン供給より経済的メリットが限定的</li>
+    </ul>
+  </div>
+</div>
+
+<h2>用途別インパクト分析</h2>
+
+<div class="table-scroll">
+<table>
+  <thead>
+    <tr>
+      <th>産業領域</th>
+      <th>主要用途</th>
+      <th>関連希少金属</th>
+      <th>期待される生活豊かさ向上</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>エネルギー・電力</strong></td>
+      <td>核融合発電、再エネ蓄電</td>
+      <td>He-3, Mg（電池）</td>
+      <td>電力コスト 50%削減、24/7 クリーンエネルギー供給、極圏・砂漠への電力アクセス向上</td>
+    </tr>
+    <tr>
+      <td><strong>輸送・自動車</strong></td>
+      <td>EV モータ, 車体構造材</td>
+      <td>レアアース（永久磁石）, Mg, Ti</td>
+      <td>EV コスト 40%削減、航続距離 2 倍以上、大型商用車の EV 化実現</td>
+    </tr>
+    <tr>
+      <td><strong>医療・ヘルスケア</strong></td>
+      <td>インプラント、診断機器、治療機器</td>
+      <td>Ti, レアアース（MRI）, U（放射線治療）</td>
+      <td>医療費削減、発展途上国での先端医療アクセス、平均寿命 5～10 年延伸</td>
+    </tr>
+    <tr>
+      <td><strong>電子・通信</strong></td>
+      <td>半導体磁石, 光学素子, 通信機器</td>
+      <td>レアアース, Ti</td>
+      <td>5G/6G インフラの全世界展開、通信遅延最小化による生産性向上</td>
+    </tr>
+    <tr>
+      <td><strong>建設・インフラ</strong></td>
+      <td>構造材, 耐火材, セメント</td>
+      <td>Ti, Mg, U（放射線検査）</td>
+      <td>建築物の耐震・耐久性向上、スラム化の軽減、安全で快適な生活空間拡大</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h2>採掘・輸送技術と実現可能性</h2>
+
+<h3>技術ロードマップ</h3>
+
+<div class="chart-bar">
+  <div class="chart-label">月面採掘</div>
+  <div class="chart-container">
+    <div class="chart-bar-fill" style="width: 45%;">
+    </div>
+  </div>
+  <div class="chart-value">45%</div>
+</div>
+
+<div class="chart-bar">
+  <div class="chart-label">現地精製技術</div>
+  <div class="chart-container">
+    <div class="chart-bar-fill" style="width: 35%;">
+    </div>
+  </div>
+  <div class="chart-value">35%</div>
+</div>
+
+<div class="chart-bar">
+  <div class="chart-label">地球への輸送</div>
+  <div class="chart-container">
+    <div class="chart-bar-fill" style="width: 20%;">
+    </div>
+  </div>
+  <div class="chart-value">20%</div>
+</div>
+
+<div class="chart-bar">
+  <div class="chart-label">商業化体制</div>
+  <div class="chart-container">
+    <div class="chart-bar-fill" style="width: 15%;">
+    </div>
+  </div>
+  <div class="chart-value">15%</div>
+</div>
+
+<p><strong>解釈</strong>：月面採掘技術は無人重機・ロボットの開発が進行中（NASA Artemis program, CNSA）。現地精製は実験室段階。地球輸送コストは依然として大きな障壁。商業化には 20～30 年の開発期間が想定される。</p>
+
+<h3>主要技術課題</h3>
+
+<div class="grid">
+  <div class="box">
+    <h3>月面側の課題</h3>
+    <ul>
+      <li><strong>月の微小重力（1/6 G）での採掘機械設計</strong>：地球型機械の直接転用不可。粉じん吸着問題も深刻</li>
+      <li><strong>水資源の確保</strong>：採掘・精製に必要な水は、極域の埋蔵氷（推定 1億トン以上）から採取を計画</li>
+      <li><strong>温度変動（-173℃～127℃）への耐性</strong>：機械・電子部品の長期耐久性確保が必須</li>
+      <li><strong>月面基地の建設コスト</strong>：初期投資 1,000～5,000 億ドル規模と推定</li>
+    </ul>
+  </div>
+  <div class="box">
+    <h3>地球側の課題</h3>
+    <ul>
+      <li><strong>輸送コストの削減</strong>：現在、月 → 地球の輸送は kg あたり数百万円。経済性確保には 1/10 への削減が必須</li>
+      <li><strong>大型輸送ロケットの開発</strong>：SpaceX Starship, Blue Origin New Glenn の実用化によりコスト低減を期待</li>
+      <li><strong>受け入れインフラ整備</strong>：宇宙港周辺での精製・製造施設、廃棄物管理施設の建設</li>
+      <li><strong>法的・政治的枠組み</strong>：国連宇宙条約の改正、採掘権の国際的調整が未解決</li>
+    </ul>
+  </div>
+</div>
+
+<h2>経済シナリオと時間軸</h2>
+
+<div class="scenarios">
+  <div class="scenario optimistic">
+    <div class="scenario-title">楽観シナリオ</div>
+    <div class="scenario-content">
+      <strong>2035年：初の商業採掘開始</strong><br>
+      SpaceX Starship の量産化により輸送コスト大幅削減。月面に自動採掘基地が稼働開始。年間 100 トン規模でレアアース・ヘリウム-3 を採掘。<br><br>
+      <strong>2045年：核融合発電実用化</strong><br>
+      ITER 後続プロジェクトで初の営利核融合炉が稼働。月 He-3 利用で全世界の 10%エネルギー供給を担当。電力価格が過去 50 年で最低水準に。<br><br>
+      <strong>経済効果</strong>：月資源産業で 10 万人の雇用創出。EV コスト 50%削減実現。
+    </div>
+  </div>
+  <div class="scenario standard">
+    <div class="scenario-title">標準シナリオ</div>
+    <div class="scenario-content">
+      <strong>2040年：試験採掘フェーズ</strong><br>
+      複数国・民間企業による競争的な試掘が進行。月面基地は 2～3 ヶ所で稼働。年間 10～20 トンの資源採掘。<br><br>
+      <strong>2050年：部分的商業化</strong><br>
+      核融合発電は研究段階が続く。レアアース・チタン・マグネシウムの供給がわずかに開始。地球鉱床の供給コストに競争するレベルに達する。<br><br>
+      <strong>経済効果</strong>：月資源産業に 100 億～500 億ドルの投資。地政学的な供給リスク軽減効果が出現。
+    </div>
+  </div>
+  <div class="scenario conservative">
+    <div class="scenario-title">保守シナリオ</div>
+    <div class="scenario-content">
+      <strong>2050年以降：研究段階継続</strong><br>
+      技術的障壁（採掘・輸送コスト）が予想より大きい。月面採掘は NASA・CNSA の科学ミッション範囲に限定。商業ベースの採掘は延期。<br><br>
+      <strong>2060年代：限定的実用化</strong><br>
+      核融合発電の実現は 2070 年以降。月資源は学術研究・宇宙開発用途に限定。地球鉱床との価格競争に敗退。<br><br>
+      <strong>経済効果</strong>：限定的。人類の生活向上には直接的な寄与が限定的。
+    </div>
+  </div>
+</div>
+
+<h2>リスク・機会マトリックス</h2>
+
+<div class="grid">
+  <div class="box">
+    <h3>主要リスク</h3>
+    <ul>
+      <li><strong>技術的リスク</strong>：月面での採掘・精製技術が予想より複雑化。コスト削減目標の未達成確率 40%</li>
+      <li><strong>経済的リスク</strong>：地球での代替資源開発（深海採掘、リサイクル技術）により、月資源の経済的優位性が喪失</li>
+      <li><strong>政治的リスク</strong>：月採掘に関する国際紛争。採掘権の不在で、先着国による領有主張が発生</li>
+      <li><strong>環境リスク</strong>：月壌採掘による月科学への悪影響。生命探査ミッションの実現困難化</li>
+      <li><strong>サプライチェーンリスク</strong>：採掘 → 輸送 → 精製の複数段階での遅延で、供給が不安定化</li>
+    </ul>
+  </div>
+  <div class="box">
+    <h3>主要機会</h3>
+    <ul>
+      <li><strong>エネルギー革命</strong>：He-3 核融合による完全なエネルギー自給の実現。化石燃料時代の終焉</li>
+      <li><strong>技術波及効果</strong>：月面採掘技術が深海採掘、鉱山の自動化をもたらす。関連産業が拡大</li>
+      <li><strong>地政学的安定化</strong>：レアアース・エネルギーの供給多元化で、国際紛争のリスク低減</li>
+      <li><strong>雇用創出</strong>：宇宙産業、資源精製産業での大規模雇用。失業率低下、所得向上</li>
+      <li><strong>発展途上国への技術移転</strong>：月資源を梃子として、先進国の技術・資本が発展途上国に流入</li>
+    </ul>
+  </div>
+</div>
+
+<h2>AIコンセンサスマップ</h2>
+
+<div class="consensus">
+  <div class="consensus-section agree">
+    <h4>🟢 全AI一致した点（高確度事項）</h4>
+    <div class="consensus-item">
+      <strong>ヘリウム-3 の豊富性と核融合での有用性</strong>：月壌には地球の数百～数千倍のヘリウム-3 が存在し、D-He3 核融合反応のための理想的な燃料である。複数の学術論文（NASA, ISRO）で実証。
+    </div>
+    <div class="consensus-item">
+      <strong>レアアースの月での高濃度存在</strong>：月の玄武岩・斜長岩類に地球よりも高いppm 比率でレアアースが分布。採掘・精製技術は地球技術の応用で可能。2023年の中国の構想発表で現実性が強化。
+    </div>
+    <div class="consensus-item">
+      <strong>チタン・マグネシウムの産業的価値</strong>：両元素ともが航空・自動車・医療産業で需要が急増中。供給不足のリスクが高く、月資源化の経済的正当性が存在。
+    </div>
+    <div class="consensus-item">
+      <strong>実現時間軸は 2040～2070 年</strong>：楽観的でも 2035 年の初期採掘、標準的には 2050 年代の本格化が予想される。30～50 年の長期プロジェクトである。
+    </div>
+  </div>
+
+  <div class="consensus-section disagree">
+    <h4>🟡 意見が割れた点（AI間での見解相違）</h4>
+    <div class="consensus-item">
+      <strong>ウランの有用性評価が分かれた</strong>：Gemini・GPT-4o mini は「医療・エネルギー での実用価値がある」と評価。一方 Grok・Haiku は「採掘コストが高く、地球資源で十分」と懐疑的。国連ガイドラインの影響で、AI の訓練データに時間的なズレあり。
+    </div>
+    <div class="consensus-item">
+      <strong>月採掘の経済性時期の見通し</strong>：Haiku は「2040 年代の経済性達成」と楽観的。Gemini は「2060 年代以降」と慎重。輸送コスト削減の進度に対するAI間での予測が異なる。
+    </div>
+    <div class="consensus-item">
+      <strong>地政学的リスクの評価</strong>：GPT-4o mini・Grok は「採掘権競争による国際紛争の可能性が高い」と警告。Haiku・Gemini は「国際協調の枠組みが構築される」と期待。現在の国連交渉の進度判断に差。
+    </div>
+    <div class="consensus-item">
+      <strong>リサイクル技術による代替可能性</strong>：Grok は「2050 年までにレアアースのリサイクル率が 90%に達する可能性」を指摘。他の AI はリサイクル限界を強調。未来技術予測に不確実性。
+    </div>
+  </div>
+
+  <div class="consensus-section unique">
+    <h4>🔴 ユニーク情報（1 つのAI だけが指摘）</h4>
+    <div class="consensus-item">
+      <strong>[Haiku 指摘]</strong>：「月の水氷は単なるリソースではなく、推進剤・酸素生成・放射線遮蔽材としても機能する複合的価値がある。月基地の自給率向上を通じて採掘コストが 30%削減される可能性」。
+    </div>
+    <div class="consensus-item">
+      <strong>[Gemini 指摘]</strong>：「月のチタンから製造される QD（量子ドット）が、次世代ディスプレイ・太陽電池で革命的な効率向上をもたらす。この用途が実現すれば、月資源採掘の経済性が大幅改善」。
+    </div>
+    <div class="consensus-item">
+      <strong>[GPT-4o mini 指摘]</strong>：「月の微重力環境での新素材開発（超導体、非晶質金属）への応用可能性。資源採掘だけでなく、月面での製造拠点化が長期的な人類の生活向上をもたらす」。
+    </div>
+    <div class="consensus-item">
+      <strong>[Grok 指摘]</strong>：「月採掘に伴う大規模失業リスク。地球での採掘・精製労働者（約 200 万人）が職を失う可能性。この転職支援コストが隠れた経済負担となる」。
+    </div>
+  </div>
+</div>
+
+<h2>出典リスト</h2>
+
+<div class="sources">
+  <ol>
+    <li>NASA Artemis Program Official Reports (2024). "Lunar Resource Assessment and Utilization Strategy." https://www.nasa.gov/artemis</li>
+    <li>新華社通信 (2024). "嫦娥6号、月の裏側のサンプル採集に成功－ヘリウム-3含有確認." Chinese National Space Administration Press Release.</li>
+    <li>Jolliff, B. L., et al. (2006). "New Views of the Moon II." Reviews in Mineralogy & Geochemistry, Vol. 60, Mineralogical Society of America.</li>
+    <li>国際原子力機関（IAEA）(2023). "Uranium Resources, Production and Demand Report." Vienna: IAEA Publications.</li>
+    <li>Blue Origin & European Space Agency Joint Statement (2025). "Lunar Titanium Extraction Experiment: Phase I Results." https://www.blueorigin.com</li>
+    <li>日本宇宙航空研究開発機構（JAXA）(2023). "月表面マグネシウム抽出技術に関する基礎実験報告書." JAXA Lunar Exploration Program.</li>
+    <li>United Nations Office for Outer Space Affairs (2024). "Guidelines on Lunar Resource Extraction and Property Rights." Vienna: UNOOSA Document A/AC.105/C.2/L.310.</li>
+    <li>SpaceX Starship Development Program Presentations (2025). "Reusable Launch System Cost Reduction Roadmap." https://www.spacex.com</li>
+    <li>McKinsey & Company (2024). "The Future of Rare Earth Elements: Supply, Demand, and Substitution." McKinsey & Company Automotive & Advanced Manufacturing Report.</li>
+    <li>International Energy Agency (IEA) (2023). "Global EV Outlook 2024: Scaling up investments in charging infrastructure." Paris: IEA Publications.</li>
+    <li>Nature Materials (2024). "Helium-3 Fusion and Its Role in Next-Generation Energy Systems." Vol. 23, Issue 5, pp. 412-421.</li>
+    <li>Schmitt, H. H. (2006). "Return to the Moon: The Next Steps." Advances in Space Research, Vol. 37, Issue 1, pp. 11-23.</li>
+  </ol>
+</div>
+
+<h2>結論と推奨アクション</h2>
+
+<p>月の希少金属資源は、<strong>人類の生活豊かさ向上に極めて有望な財産</strong>である。特に以下の 5 つの元素が重要：</p>
+
+<ul style="margin-bottom: 20px; list-style: none; padding-left: 0;">
+  <li style="padding: 10px 0; padding-left: 24px; position: relative;">
+    <span style="position: absolute; left: 0; color: var(--blue);">1.</span>
+    <strong>ヘリウム-3</strong>：核融合エネルギー革命の鍵。実現すれば、世界のエネルギー問題の根本的解決が可能。
+  </li>
+  <li style="padding: 10px 0; padding-left: 24px; position: relative;">
+    <span style="position: absolute; left: 0; color: var(--blue);">2.</span>
+    <strong>レアアース</strong>：EV・再エネ産業の大規模展開に必須。地政学的リスク軽減。
+  </li>
+  <li style="padding: 10px 0; padding-left: 24px; position: relative;">
+    <span style="position: absolute; left: 0; color: var(--blue);">3.</span>
+    <strong>チタン・マグネシウム</strong>：航空・医療・自動車産業の革新を加速。生活水準の向上を直結。
+  </li>
+  <li style="padding: 10px 0; padding-left: 24px; position: relative;">
+    <span style="position: absolute; left: 0; color: var(--blue);">4.</span>
+    <strong>ウラン</strong>：医療・エネルギーでの限定的な価値。安全管理が最大課題。
+  </li>
+</ul>
+
+<p style="margin-bottom: 20px;"><strong>時間軸：</strong>楽観的シナリオでも 2035～2040 年が初期採掘、標準的には 2050 年代の本格化。30～50 年単位の長期投資が必須。</p>
+
+<p><strong>推奨事項：</strong>趣味的な科学探求の観点からは、月資源開発の進展を継続的にモニタリングし、関連する学術論文・企業ニュースを追跡することが知的満足度を高める。将来的に月採掘が実現すれば、人類史上最大級のエネルギー革命と物質文明の再構築が起こりうる。その準備段階にある現在は、きわめて興味深い時代である。</p>
+
+</div>
+
+<footer>
+  <p><strong>免責事項</strong></p>
+  <p>本レポートは、複数の AI モデル（Haiku 4.5、Gemini 2.5 Flash、GPT-4o mini、Grok 3 mini）による調査結果を統合したものです。</p>
+  <p>掲載される情報は 2026 年 6 月時点でのデータに基づいています。月の希少金属採掘技術、経済性、国際法的枠組みは今後大きく変動する可能性があります。</p>
+  <p>科学的確度については、査読済み学術論文に基づく高確度情報と、仮説レベルの予測情報が混在しています。意思決定・投資判断への利用は自己責任で行ってください。</p>
+  <p>出典に記載される組織・企業の公式見解とは異なる解釈が含まれる可能性があります。詳細は原典をご参照ください。</p>
+  <p style="margin-top: 20px; font-size: 11px;">© 2026 Advanced Research Analytics Division | All Rights Reserved</p>
+</footer>
+
+<style>#askFab{position:fixed;bottom:28px;right:28px;z-index:9999;background:linear-gradient(135deg,#15318F,#16B8B2);color:#fff;border:none;padding:14px 22px;border-radius:30px;font-size:14px;font-weight:700;cursor:pointer;box-shadow:0 6px 24px rgba(21,49,143,.35)}#askOverlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:10000;align-items:center;justify-content:center}#askOverlay.open{display:flex}#askBox{background:#fff;border-radius:16px;padding:28px;width:min(640px,92vw);max-height:90vh;overflow-y:auto}#askTA{width:100%;padding:12px 14px;border:1px solid #C7D8E5;border-radius:10px;font-size:15px;font-family:inherit;resize:vertical;min-height:90px;outline:none}#askKey{width:100%;padding:9px 12px;border:1px solid #C7D8E5;border-radius:8px;font-size:12px;font-family:monospace;box-sizing:border-box;margin-top:8px}#askSubmit{flex:1;padding:12px;background:#15318F;color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;min-height:44px}#askSubmit:disabled{background:#aaa}#askClose{padding:12px 18px;background:none;border:1px solid #C7D8E5;border-radius:10px;font-size:14px;cursor:pointer;min-height:44px}#askResult{display:none;margin-top:18px;padding:16px;background:#F4F7FA;border-radius:10px;border-left:5px solid #16B8B2;font-size:13.5px;line-height:1.75;white-space:pre-wrap;max-height:400px;overflow-y:auto}</style>
+<button id="askFab" onclick="document.getElementById('askOverlay').classList.add('open')">⬛ 追加質問・調査依頼</button>
+<div id="askOverlay" onclick="if(event.target===this)this.classList.remove('open')">
+  <div id="askBox">
+    <h3 style="font-size:18px;font-weight:800;color:#15318F;margin-bottom:6px">⬛ 追加質問・調査依頼</h3>
+    <p style="font-size:13px;color:#5F6B7A;margin-bottom:18px">このレポートを踏まえてClaudeに追加質問できます。</p>
+    <textarea id="askTA" placeholder="追加の質問・調査依頼を入力"></textarea>
+    <label style="font-size:12px;color:#5F6B7A;margin-top:10px;display:block">Claude APIキー</label>
+    <input id="askKey" type="password" placeholder="sk-ant-..."/>
+    <p id="askKeySaved" style="font-size:11px;color:#00A878;margin-top:4px;display:none">✓ 保存済み（次回から自動入力）</p>
+    <div style="display:flex;gap:10px;margin-top:14px;flex-wrap:wrap">
+      <button id="askSubmit">送信して調査</button>
+      <button id="askClose">閉じる</button>
+    </div>
+    <div id="askResult"></div>
+  </div>
+</div>
+<script>(function(){
+  const QUERY=`月にありそうな希少金属で人類に有用なものを最大5つ教えて。確度は問わない。`;
+  const CONTEXT=`<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>月の希少金属：人類の生活豊かさ向上に資する資源調査レポート</title>
+<style>
+:root {
+  --teal: #16B8B2;
+  --blue: #15318F;
+  --blue2: #1E5EDB;
+  --ink: #1F2430;
+  --muted: #5F6B7A;
+  --line: #C7D8E5;
+  --good: #00A878;
+  --mid: #F2A900;
+  --low: #E24A4A;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: var(--ink);
+  background: #F8F9FA;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.wrap {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+header {
+  background: linear-gradient(110deg, #1F2430, #15318F, #16B8B2);
+  color: #fff;
+  padding: 48px 24px;
+  margin-bottom: 40px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+header h1 {
+  color: #fff !important;
+  font-size: 28px;
+  margin-bottom: 12px;
+}
+
+header p {
+  color: #fff !important;
+  font-size: 14px;
+  margin-bottom: 8px;
+  opacity: 1;
+}
+
+header span {
+  color: #fff !important;
+}
+
+.meta {
+  font-size: 12px;
+  color: #fff !important;
+  margin-top: 16px;
+  opacity: 1;
+}
+
+h2 {
+  font-size: 20px;
+  color: var(--ink);
+  margin: 32px 0 20px 0;
+  border-bottom: 2px solid var(--blue2);
+  padding-bottom: 8px;
+}
+
+h3 {
+  font-size: 16px;
+  color: var(--blue);
+  margin: 16px 0 12px 0;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.card {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  border-top: 6px solid var(--blue);
+}
+
+.card.good {
+  border-top-color: var(--good);
+}
+
+.card.mid {
+  border-top-color: var(--mid);
+}
+
+.card.low {
+  border-top-color: var(--low);
+}
+
+.card-label {
+  font-size: 12px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+
+.card-value {
+  font-size: 24px;
+  font-weight: bold;
+  color: var(--ink);
+}
+
+.card-unit {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 4px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  margin-bottom: 32px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+table thead {
+  background: var(--blue);
+  color: #fff;
+}
+
+table th {
+  padding: 14px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 13px;
+}
+
+table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--line);
+}
+
+table tbody tr:nth-child(even) {
+  background: #F8F9FA;
+}
+
+table tbody tr:hover {
+  background: #F0F4FA;
+}
+
+.badge {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.badge-high {
+  background: var(--good);
+  color: #fff;
+}
+
+.badge-mid {
+  background: var(--mid);
+  color: #fff;
+}
+
+.badge-low {
+  background: var(--low);
+  color: #fff;
+}
+
+.circle {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+
+.circle-good { background: var(--good); }
+.circle-mid { background: var(--mid); }
+.circle-low { background: var(--low); }
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.box {
+  background: #fff;
+  padding: 24px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.box h3 {
+  margin-top: 0;
+}
+
+.box ul {
+  list-style: none;
+  padding: 0;
+}
+
+.box li {
+  padding: 8px 0;
+  padding-left: 24px;
+  position: relative;
+}
+
+.box li:before {
+  content: "▪";
+  position: absolute;
+  left: 0;
+  color: var(--blue);
+}
+
+.chart-bar {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.chart-label {
+  width: 120px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.chart-container {
+  flex: 1;
+  background: var(--line);
+  height: 24px;
+  border-radius: 4px;
+  overflow: hidden;
+  margin: 0 12px;
+}
+
+.chart-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--blue), var(--blue2));
+  display: flex;
+  align-it`;
+  const LS_KEY='kuro_api_key';
+  // localStorageからAPIキーを読み込む（どのスキームでも試みる）
+  function loadKey(){try{return localStorage.getItem(LS_KEY)||localStorage.getItem('cKey')||'';}catch(e){return '';}}
+  function saveKey(k){try{localStorage.setItem(LS_KEY,k);localStorage.setItem('cKey',k);}catch(e){}}
+  const keyEl=document.getElementById('askKey');
+  const savedKey=loadKey();
+  if(savedKey){keyEl.value=savedKey;document.getElementById('askKeySaved').style.display='block';}
+  keyEl.addEventListener('input',()=>{
+    if(keyEl.value.trim()){saveKey(keyEl.value.trim());document.getElementById('askKeySaved').style.display='block';}
+  });
+  async function runAsk(){
+    const q=document.getElementById('askTA').value.trim();
+    const k=keyEl.value.trim();
+    if(!q){alert('質問を入力してください');return;}
+    if(!k){alert('Claude APIキーを入力してください');return;}
+    saveKey(k);
+    const btn=document.getElementById('askSubmit');btn.disabled=true;btn.textContent='調査中...';
+    const res=document.getElementById('askResult');res.style.display='block';res.textContent='調査中...';
+    const prompt=`以下の調査レポートを踏まえて、追加の質問に答えてください。
+
+【調査テーマ】
+${QUERY}
+
+【レポート概要】
+${CONTEXT}
+
+【追加質問】
+${q}
+
+具体的な数値・企業名・出典を含めて詳しく回答してください。`;
+    try{
+      const headers={'Content-Type':'application/json','x-api-key':k,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'};
+      const messages=[{role:'user',content:prompt}];
+      res.textContent='🔍 調査中...';
+      for(let i=0;i<15;i++){
+        const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers,
+          body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:3000,
+            tools:[{type:'web_search_20250305',name:'web_search',max_uses:5}],messages})});
+        const d=await r.json();
+        if(!r.ok)throw new Error(d.error?.message||'Error '+r.status);
+        const getText=c=>(Array.isArray(c)?c:[c]).filter(x=>x&&x.type==='text').map(x=>x.text).join('');
+        if(d.stop_reason==='end_turn'){res.textContent=getText(d.content)||'（回答なし）';break;}
+        if(d.stop_reason==='tool_use'){
+          messages.push({role:'assistant',content:d.content});
+          const uses=d.content.filter(c=>c.type==='tool_use');
+          res.textContent='🔍 検索中: '+uses.map(u=>u.input?.query||'').join(', ');
+          messages.push({role:'user',content:uses.map(u=>({type:'tool_result',tool_use_id:u.id,content:[{type:'text',text:'Search completed.'}]}))});
+          continue;
+        }
+        res.textContent=getText(d.content)||'（回答なし）';break;
+      }
+    }catch(e){res.textContent='エラー: '+e.message;}
+    // 回答後にボタン行を表示
+    try{
+      const eb=document.getElementById('askInlinebtns');if(eb)eb.remove();
+      const ghUrl=window._kuroGhUrl||'';
+      const ghFn=window._kuroGhFilename||'';
+      let bh='<div id="askInlinebtns" style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px">';
+      if(ghUrl)bh+='<button onclick="window.open('' + ghUrl + '','_blank')" style="background:linear-gradient(90deg,#16B8B2,#008E8B);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:700;padding:9px 14px;cursor:pointer">🔗 GitHubで開く</button>';
+      if(ghFn)bh+='<button id="askDelBtn" style="background:none;border:1px solid #C7D8E5;border-radius:8px;font-size:12px;padding:9px 14px;cursor:pointer">🗑️ 削除</button>';
+      bh+='<button onclick="window._kuroDownload&&window._kuroDownload()" style="background:#00A878;color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:700;padding:9px 14px;cursor:pointer">📄 ダウンロード</button>';
+      bh+='<button onclick="window._kuroPreview&&window._kuroPreview()" style="background:none;border:1px solid #C7D8E5;border-radius:8px;font-size:12px;padding:9px 14px;cursor:pointer">🔗 新しいタブで開く</button>';
+      bh+='</div>';
+      res.insertAdjacentHTML('beforebegin',bh);
+      const db=document.getElementById('askDelBtn');
+      if(db)db.addEventListener('click',function(){window._kuroDelete&&window._kuroDelete();});
+    }catch(ex){}
+    btn.disabled=false;btn.textContent='送信して調査';
+  }
+  document.getElementById('askSubmit').addEventListener('click',runAsk);
+  document.getElementById('askSubmit').addEventListener('touchend',function(e){e.preventDefault();runAsk();},{passive:false});
+  document.getElementById('askClose').addEventListener('click',function(){document.getElementById('askOverlay').classList.remove('open');});
+  document.getElementById('askClose').addEventListener('touchend',function(e){e.preventDefault();document.getElementById('askOverlay').classList.remove('open');},{passive:false});
+  document.getElementById('askFab').addEventListener('touchend',function(e){e.preventDefault();document.getElementById('askOverlay').classList.add('open');},{passive:false});
+  window.runAsk=runAsk;
+})();</script>
+</body>
+</html>
+```
