@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>太陽がブラックホールになる確率 — 統合調査レポート</title>
+<style>
+:root{
+  --teal:#16B8B2;
+  --blue:#15318F;
+  --blue2:#1E5EDB;
+  --ink:#1F2430;
+  --muted:#5F6B7A;
+  --line:#C7D8E5;
+  --good:#00A878;
+  --mid:#F2A900;
+  --low:#E24A4A;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Helvetica Neue',Arial,'Hiragino Kaku Gothic ProN',sans-serif;background:#F4F7FA;color:var(--ink);font-size:15px;line-height:1.7;}
+a{color:var(--blue2);text-decoration:none;}
+.wrap{max-width:1100px;margin:0 auto;padding:0 28px;}
+
+header{background:linear-gradient(110deg,#1F2430,#15318F,#16B8B2);padding:48px 0 36px;}
+header h1{color:#fff !important;font-size:26px;font-weight:800;letter-spacing:-.3px;margin-bottom:10px;}
+header p{color:#fff !important;font-size:14px;opacity:1 !important;}
+header .meta{color:#fff !important;font-size:12px;margin-top:14px;display:flex;flex-wrap:wrap;gap:16px;}
+header .meta span{color:#fff !important;background:rgba(255,255,255,0.15);padding:4px 12px;border-radius:20px;font-size:11px;}
+header .badge-row{margin-top:10px;display:flex;flex-wrap:wrap;gap:8px;}
+header .badge-row span{color:#fff !important;font-size:11px;background:rgba(255,255,255,0.18);border:1px solid rgba(255,255,255,0.3);padding:3px 10px;border-radius:4px;}
+
+.section{padding:36px 0;}
+h2{font-size:20px;font-weight:700;color:var(--ink);margin-bottom:18px;padding-left:12px;border-left:5px solid var(--teal);}
+h3{font-size:16px;font-weight:700;color:var(--ink);margin:20px 0 10px;}
+p{margin-bottom:12px;color:var(--ink);}
+ul,ol{padding-left:20px;margin-bottom:12px;}
+li{margin-bottom:6px;}
+
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-bottom:28px;}
+.card{background:#fff;border-radius:10px;padding:22px 18px;box-shadow:0 2px 12px rgba(0,0,0,.07);}
+.card.c1{border-top:6px solid var(--low);}
+.card.c2{border-top:6px solid var(--blue2);}
+.card.c3{border-top:6px solid var(--mid);}
+.card.c4{border-top:6px solid var(--good);}
+.card .kpi{font-size:28px;font-weight:800;margin:10px 0 6px;}
+.card .kpi.red{color:var(--low);}
+.card .kpi.blue{color:var(--blue2);}
+.card .kpi.yellow{color:var(--mid);}
+.card .kpi.green{color:var(--good);}
+.card .label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;}
+.card .desc{font-size:12px;color:var(--muted);margin-top:6px;}
+
+.tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:24px;}
+table{width:100%;border-collapse:collapse;background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.07);}
+thead th{background:var(--blue);color:#fff;padding:12px 14px;font-size:13px;text-align:left;white-space:nowrap;}
+tbody tr:nth-child(odd){background:#fff;}
+tbody tr:nth-child(even){background:#F0F5FA;}
+tbody td{padding:11px 14px;font-size:13px;border-bottom:1px solid var(--line);}
+tbody tr:last-child td{border-bottom:none;}
+
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-bottom:24px;}
+.box{background:#fff;border-radius:10px;padding:22px 20px;box-shadow:0 2px 12px rgba(0,0,0,.07);}
+.box.risk{border-left:5px solid var(--low);}
+.box.opp{border-left:5px solid var(--good);}
+.box h3{margin-top:0;}
+
+.bar-chart{background:#fff;border-radius:10px;padding:24px;box-shadow:0 2px 12px rgba(0,0,0,.07);margin-bottom:24px;}
+.bar-row{margin-bottom:14px;}
+.bar-label{font-size:13px;color:var(--ink);margin-bottom:5px;display:flex;justify-content:space-between;}
+.bar-track{background:#E8EEF5;border-radius:4px;height:22px;overflow:hidden;}
+.bar-fill{height:100%;border-radius:4px;transition:width .4s ease;}
+.bar-fill.red{background:var(--low);}
+.bar-fill.yellow{background:var(--mid);}
+.bar-fill.green{background:var(--good);}
+.bar-fill.blue{background:var(--blue2);}
+
+.bands{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:24px;}
+.band{flex:1;min-width:180px;border-radius:10px;padding:20px 18px;color:#fff;}
+.band.opt{background:var(--good);}
+.band.std{background:var(--blue2);}
+.band.con{background:var(--low);}
+.band .band-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;opacity:.9;}
+.band .band-val{font-size:22px;font-weight:800;margin-bottom:4px;}
+.band .band-note{font-size:12px;opacity:.9;}
+
+.badge{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;}
+.badge.high{background:#E6F7F2;color:var(--good);}
+.badge.mid{background:#FFF8E6;color:#B87A00;}
+.badge.low{background:#FDEAEA;color:var(--low);}
+.badge::before{content:'';width:8px;height:8px;border-radius:50%;display:inline-block;}
+.badge.high::before{background:var(--good);}
+.badge.mid::before{background:var(--mid);}
+.badge.low::before{background:var(--low);}
+
+.consensus{background:#fff;border-radius:10px;padding:28px;box-shadow:0 2px 12px rgba(0,0,0,.07);margin-bottom:24px;}
+.consensus-row{margin-bottom:20px;}
+.consensus-tag{display:inline-block;font-size:12px;font-weight:700;padding:4px 12px;border-radius:20px;margin-bottom:10px;}
+.tag-green{background:#E6F7F2;color:var(--good);}
+.tag-yellow{background:#FFF8E6;color:#B87A00;}
+.tag-red{background:#FDEAEA;color:var(--low);}
+.consensus-list{list-style:none;padding:0;}
+.consensus-list li{padding:8px 12px;margin-bottom:6px;border-radius:6px;font-size:13px;}
+.consensus-list li.green{background:#F0FBF8;border-left:3px solid var(--good);}
+.consensus-list li.yellow{background:#FFFBF0;border-left:3px solid var(--mid);}
+.consensus-list li.pinkred{background:#FDF3F3;border-left:3px solid var(--low);}
+
+.sources{background:#fff;border-radius:10px;padding:24px;box-shadow:0 2px 12px rgba(0,0,0,.07);margin-bottom:24px;}
+.sources ol{padding-left:18px;}
+.sources li{font-size:12px;color:var(--muted);margin-bottom:6px;}
+
+footer{background:var(--ink);color:#8A96A5;padding:28px 0;font-size:11px;line-height:1.6;}
+footer .inner{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;}
+footer a{color:#8A96A5;}
+
+.scenario-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:24px;}
+.scenario-card{background:#fff;border-radius:10px;padding:20px;box-shadow:0 2px 12px rgba(0,0,0,.07);}
+.scenario-card h4{font-size:14px;font-weight:700;margin-bottom:8px;}
+.scenario-card p{font-size:13px;margin-bottom:6px;}
+
+.timeline-box{background:#fff;border-radius:10px;padding:24px;box-shadow:0 2px 12px rgba(0,0,0,.07);margin-bottom:24px;}
+.timeline-item{display:flex;gap:16px;margin-bottom:16px;align-items:flex-start;}
+.tl-dot{width:14px;height:14px;border-radius:50%;background:var(--blue2);flex-shrink:0;margin-top:4px;}
+.tl-dot.tl-final{background:var(--teal);}
+.tl-line{border-left:2px dashed var(--line);margin-left:6px;padding-left:22px;}
+.tl-label{font-size:11px;color:var(--muted);margin-bottom:2px;}
+.tl-text{font-size:13px;color:var(--ink);}
+
+.highlight-box{background:linear-gradient(110deg,#EAF3FF,#E6FAF9);border-radius:10px;padding:20px 24px;margin-bottom:24px;border-left:5px solid var(--blue2);}
+.highlight-box p{font-size:14px;margin-bottom:0;}
+
+@media(max-width:640px){
+  body{font-size:13px;}
+  .wrap{padding:0 14px;}
+  h1{font-size:17px !important;}
+  h2{font-size:15px;}
+  .cards{grid-template-columns:1fr;}
+  .grid{grid-template-columns:1fr;}
+  .scenario-grid{grid-template-columns:1fr;}
+  table{font-size:11px;}
+  .bands{flex-direction:column;}
+  .band{min-width:unset;}
+  header{padding:28px 0 22px;}
+  header .meta{gap:8px;}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <p style="color:#fff !important;font-size:12px;margin-bottom:8px;">総合商社シニアリサーチアナリスト室 ／ 統合科学調査レポート</p>
+    <h1>太陽がブラックホールになる確率</h1>
+    <p style="color:#fff !important;font-size:14px;margin-top:6px;">4モデルAI統合分析 — 恒星進化・重力崩壊・特殊シナリオの網羅的検証</p>
+    <div class="meta">
+      <span style="color:#fff !important;">生成日時：2026/6/7 19:17:20</span>
+      <span style="color:#fff !important;">分類：技術・科学・未来テーマ</span>
+      <span style="color:#fff !important;">機密区分：一般公開</span>
+    </div>
+    <div class="badge-row">
+      <span style="color:#fff !important;">Claude Sonnet 4.6</span>
+      <span style="color:#fff !important;">Gemini 2.5 Flash</span>
+      <span style="color:#fff !important;">GPT-4o mini</span>
+      <span style="color:#fff !important;">Grok 3 mini</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="section">
+    <h2>エグゼクティブサマリー — 最重要KPI</h2>
+    <div class="cards">
+      <div class="card c1">
+        <div class="label">ブラックホール化確率</div>
+        <div class="kpi red">≈ 0%</div>
+        <div class="desc">通常の恒星進化シナリオにおける科学的コンセンサス。4AI全員一致。</div>
+      </div>
+      <div class="card c2">
+        <div class="label">必要最低初期質量</div>
+        <div class="kpi blue">20–25 M☉</div>
+        <div class="desc">太陽は1.0 M☉。質量比で約20〜25倍の乖離があり、条件を大きく下回る。</div>
+      </div>
+      <div class="card c3">
+        <div class="label">太陽の残り寿命（主系列）</div>
+        <div class="kpi yellow">約50億年</div>
+        <div class="desc">その後、赤色巨星 → 惑星状星雲 → 白色矮星へと確定的に移行する。</div>
+      </div>
+      <div class="card c4">
+        <div class="label">PBH捕獲の最大確率</div>
+        <div class="kpi green">1/1,000万</div>
+        <div class="desc">PBHが暗黒物質全量を構成する極端な仮定下でも。Esser &amp; Tinyakov 2023。</div>
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <p><strong>結論：</strong>太陽（質量 1.0 M☉、年齢 約46億年）が通常の恒星進化によってブラックホールになる確率は<strong>科学的に0%</strong>と確定している。ブラックホール形成には初期質量20〜25 M☉以上が必要であり、太陽はその条件を大幅に下回る。理論的な特殊シナリオ（原始ブラックホール捕獲・連星質量移動等）を含めても実現確率は天文学的に無視可能なレベルにとどまる。太陽の最終形態は<strong>白色矮星（約0.5〜0.6 M☉）</strong>と確定している。</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>恒星質量と最終形態 — 分類データテーブル</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>恒星初期質量（M☉）</th>
+            <th>恒星種別</th>
+            <th>超新星爆発</th>
+            <th>最終形態</th>
+            <th>太陽との関係</th>
+            <th>信頼度</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>0.08〜0.5</td>
+            <td>赤色矮星</td>
+            <td>なし</td>
+            <td>白色矮星（予測）</td>
+            <td>太陽より大幅に小さい</td>
+            <td><span class="badge mid">中</span></td>
+          </tr>
+          <tr>
+            <td>0.5〜8（太陽は1.0）</td>
+            <td>中間質量星（G型等）</td>
+            <td>なし</td>
+            <td><strong>白色矮星 ✓（太陽の最終形態）</strong></td>
+            <td>太陽はこのカテゴリ</td>
+            <td><span class="badge high">高</span></td>
+          </tr>
+          <tr>
+            <td>8〜20</td>
+            <td>大質量星</td>
+            <td>タイプII超新星</td>
+            <td>中性子星</td>
+            <td>太陽の8〜20倍</td>
+            <td><span class="badge high">高</span></td>
+          </tr>
+          <tr>
+            <td>20〜25以上</td>
+            <td>超大質量星</td>
+            <td>タイプII超新星または直接崩壊</td>
+            <td><strong>ブラックホール</strong></td>
+            <td>太陽の20倍以上必要</td>
+            <td><span class="badge high">高</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:12px;color:var(--muted);">出典：MESA恒星進化コード（UC Santa Barbara）、PARSEC等時線（Padova大学）、LIGO/Virgo/KAGRA観測データ（2020–2024年）</p>
+  </div>
+
+  <div class="section">
+    <h2>太陽の進化タイムライン</h2>
+    <div class="timeline-box">
+      <div class="timeline-item">
+        <div>
+          <div class="tl-dot"></div>
+        </div>
+        <div>
+          <div class="tl-label">現在</div>
+          <div class="tl-text"><strong>主系列星（G型）</strong> — 中心核で水素→ヘリウム核融合継続中。直径約140万km、質量1.0 M☉。HR図上の安定主系列に位置。</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div>
+          <div class="tl-dot"></div>
+        </div>
+        <div>
+          <div class="tl-label">約10億年後</div>
+          <div class="tl-text"><strong>輝度増大開始</strong> — 太陽光度が現在より約10%増加。地球の海が蒸発し始める可能性。地球の宜居帯（ハビタブルゾーン）から外れ始める。</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div>
+          <div class="tl-dot"></div>
+        </div>
+        <div>
+          <div class="tl-label">約50億年後</div>
+          <div class="tl-text"><strong>赤色巨星化</strong> — 水素燃料枯渇。外層が現在の約250倍に膨張。水星・金星・地球をおそらく飲み込む。ヘリウム殻燃焼が開始。</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div>
+          <div class="tl-dot"></div>
+        </div>
+        <div>
+          <div class="tl-label">約50億数千万年後</div>
+          <div class="tl-text"><strong>ヘリウムフラッシュ</strong> — ヘリウム核融合の爆発的開始。漸近巨星分枝（AGB星）段階へ移行。炭素・酸素コアが形成される。</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div>
+          <div class="tl-dot"></div>
+        </div>
+        <div>
+          <div class="tl-label">約53〜54億年後</div>
+          <div class="tl-text"><strong>惑星状星雲形成</strong> — 外層を宇宙空間へ放出。美しい惑星状星雲が形成される（例：NGC 7293 らせん星雲と同類）。</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div>
+          <div class="tl-dot tl-final"></div>
+        </div>
+        <div>
+          <div class="tl-label">約54億年後以降（最終形態）</div>
+          <div class="tl-text"><strong>白色矮星</strong> — 残存コア（約0.5〜0.6 M☉、地球サイズ）が電子縮退圧で支持される白色矮星へ。その後10兆年以上かけて冷却し「黒色矮星」へ（宇宙の現年齢138億年より長く、現存しない）。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>ブラックホール化確率の定量的比較チャート</h2>
+    <div class="bar-chart">
+      <h3 style="margin-top:0;margin-bottom:18px;">各シナリオ別：実現確率の相対評価</h3>
+      <div class="bar-row">
+        <div class="bar-label"><span>通常の恒星進化によるBH化</span><span style="color:var(--low);font-weight:700;">0%（確定）</span></div>
+        <div class="bar-track"><div class="bar-fill red" style="width:1%;"></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label"><span>原始ブラックホール（PBH）捕獲（Esser &amp; Tinyakov 2023）</span><span style="color:var(--low);font-weight:700;">〜1/1,000万（≈0%）</span></div>
+        <div class="bar-track"><div class="bar-fill red" style="width:2%;"></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label"><span>外部BHとの衝突・吸収</span><span style="color:var(--low);font-weight:700;">事実上ゼロ</span></div>
+        <div class="bar-track"><div class="bar-fill red" style="width:1%;"></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label"><span>連星系質量移動（仮に連星だった場合）</span><span style="color:var(--mid);font-weight:700;">理論上可能（太陽は単独星）</span></div>
+        <div class="bar-track"><div class="bar-fill yellow" style="width:5%;"></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label"><span>暗黒物質との反応による質量増加</span><span style="color:var(--low);font-weight:700;">証拠なし・極低</span></div>
+        <div class="bar-track"><div class="bar-fill red" style="width:1%;"></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label"><span>太陽が白色矮星になる確率</span><span style="color:var(--good);font-weight:700;">≈ 100%（科学的確定）</span></div>
+        <div class="bar-track"><div class="bar-fill green" style="width:100%;"></div></div>
+      </div>
+      <p style="font-size:12px;color:var(--muted);margin-top:12px;margin-bottom:0;">※棒の長さは相対的な視覚表現。ブラックホール化シナリオは全て実質ゼロのため最小表示。</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>特殊シナリオ詳細分析（5ルート）</h2>
+    <div class="scenario-grid">
+      <div class="scenario-card">
+        <h4>① 原始ブラックホール（PBH）捕獲 — 「ホーキング星」仮説</h4>
+        <p><span class="badge low">確率：極低</span></p>
+        <p style="font-size:13px;">スティーブン・ホーキングが提唱した「恒星内部にPBHを内包する天体（ホーキング星）」の理論。Bellinger et al. の数値シミュレーションでは、質量が極めて小さいPBHであれば太陽に観測可能な影響を与えずに存在できることを確認。ただし捕獲確率はEsser &amp; Tinyakov（2023）によれば最大でも<strong>約1/1,000万</strong>。仮に捕獲成功した場合、太陽はまず約1億年かけて半分の光度まで暗くなり、「準準巨星（sub-subgiant）」「赤色はぐれ星（red straggler）」として数十億年輝いた後、太陽質量以下のBHになる可能性がある（通常の超大質量BHとは異なる特殊な経路）。</p>
+      </div>
+      <div class="scenario-card">
+        <h4>② 外部ブラックホールとの接近・衝突</h4>
+        <p><span class="badge low">確率：事実上ゼロ</span></p>
+        <p style="font-size:13px;">最近傍のプロキシマ・ケンタウリでさえ<strong>4.2光年（約40兆km）</strong>。銀河系内の恒星密度・BH密度を考慮すると、太陽寿命内での遭遇確率は天文学的に無視可能。銀河中心の超大質量BH（いて座A*、質量400万M☉、距離2.6万光年）の潮汐力も現時点で太陽に影響なし。</p>
+      </div>
+      <div class="scenario-card">
+        <h4>③ 連星系での質量移動（Ia型超新星経由）</h4>
+        <p><span class="badge mid">確率：条件厳しい</span></p>
+        <p style="font-size:13px;">太陽が白色矮星化後に仮に連星の伴星からガス降着を受けチャンドラセカール限界（約1.38〜1.4 M☉）に近づいた場合、<strong>Ia型超新星として爆発し星全体が吹き飛ぶ</strong>ためBHにはならない。そもそも太陽は現在連星系を形成していない。太陽の誕生時に連星だった可能性は一部で議論されるが、現在の観測では確認されていない。</p>
+      </div>
+      <div class="scenario-card">
+        <h4>④ 暗黒物質（ダークマター）との反応</h4>
+        <p><span class="badge low">確率：理論的可能性のみ</span></p>
+        <p style="font-size:13px;">WIMPs等の暗黒物質が太陽内部に蓄積し、密度が臨界値を超えて重力崩壊を起こすという理論シナリオ。現在の観測では暗黒物質と通常物質の直接相互作用の証拠は得られておらず（XENON1T、PandaX等の地下実験での不検出）、このプロセスの現実性は極めて低い。</p>
+      </div>
+      <div class="scenario-card">
+        <h4>⑤ 量子重力・余剰次元（未知の物理現象）</h4>
+        <p><span class="badge low">確率：SF的領域</span></p>
+        <p style="font-size:13px;">ブレーンワールド理論や余剰次元理論では重力スケールが変化し、通常より低いエネルギーでミニBHが生成される可能性が議論された（LHCでの検討）。しかしLHC実験（2011〜2023年）でミニBHの証拠は一切検出されず、これが太陽に適用されるシナリオは標準物理学の枠外。</p>
+      </div>
+      <div class="scenario-card">
+        <h4>⑥ 思考実験：太陽質量のまま強制圧縮</h4>
+        <p><span class="badge low">確率：物理的不可能</span></p>
+        <p style="font-size:13px;">太陽全質量を<strong>半径わずか3km（シュワルツシルト半径）</strong>以内に圧縮すれば理論上BHとなる。現在の太陽半径は約70万km（比率は23万倍）。これを実現する自然な物理メカニズムは一切存在しない。あくまで一般相対性理論の理解を深める教育的思考実験。</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>「もし太陽がブラックホールになったら」— 影響シナリオ分析</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>影響カテゴリ</th>
+            <th>具体的な内容</th>
+            <th>タイムスケール</th>
+            <th>深刻度</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>軌道・重力環境</td>
+            <td>質量が保存される限り地球軌道は変化しない。地球は従来通り周回継続（一般相対性理論の等価原理より）。事象の地平面は半径3kmのため地球から安全距離にある。</td>
+            <td>即時〜永続</td>
+            <td><span class="badge high">変化なし</span></td>
+          </tr>
+          <tr>
+            <td>太陽光・熱の喪失</td>
+            <td>太陽光が完全に途絶える。地球には8分後に「光の消滅」として到達。エネルギー供給源がゼロになる。</td>
+            <td>8分以内</td>
+            <td><span class="badge low">壊滅的</span></td>
+          </tr>
+          <tr>
+            <td>気温・環境</td>
+            <td>地表温度が数日〜数週間でマイナス200℃以下へ急降下。大気の一部が凍結し始める。</td>
+            <td>数日〜数週間</td>
+            <td><span class="badge low">壊滅的</span></td>
+          </tr>
+          <tr>
+            <td>植物・光合成</td>
+            <td>光合成が即時停止。数週間で地球上の植物が死滅。食料連鎖の基盤が崩壊。</td>
+            <td>数週間</td>
+            <td><span class="badge low">壊滅的</span></td>
+          </tr>
+          <tr>
+            <td>生態系・生命</td>
+            <td>食物連鎖全体が数ヶ月で機能停止。地球上の複雑な生命のほぼ全滅。深海熱水噴出孔周辺の一部生命のみ短期間生存の可能性。</td>
+            <td>数ヶ月</td>
+            <td><span class="badge low">壊滅的</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:12px;color:var(--muted);">注：このシナリオは純粋な思考実験であり、科学的に実現不可能な仮定に基づく。実際の太陽の運命は白色矮星化であり、上記の影響は発生しない。</p>
+  </div>
+
+  <div class="section">
+    <h2>主要研究機関・観測プロジェクト一覧</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>機関・プロジェクト名</th>
+            <th>国・組織</th>
+            <th>主な貢献</th>
+            <th>本テーマへの関連</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>LIGO/Virgo/KAGRA</td>
+            <td>米国・欧州・日本共同</td>
+            <td>重力波観測によるBH質量分布確認（2020–2024年）</td>
+            <td>BH形成質量閾値の観測的検証</td>
+          </tr>
+          <tr>
+            <td>NASA — Parker Solar Probe</td>
+            <td>NASA（米国）</td>
+            <td>太陽コロナ・太陽風の直接観測（2018年打上げ）</td>
+            <td>太陽の現状・進化状態の精密観測</td>
+          </tr>
+          <tr>
+            <td>ESA — SOHO / Gaia Mission</td>
+            <td>ESA（欧州）</td>
+            <td>恒星距離・質量・進化経路の精密測定</td>
+            <td>恒星進化論の観測的裏付け</td>
+          </tr>
+          <tr>
+            <td>MESA恒星進化コード開発チーム</td>
+            <td>UC Santa Barbara（米国）</td>
+            <td>数値シミュレーションによる恒星進化の精密計算</td>
+            <td>太陽の白色矮星化経路の確定的シミュレーション</td>
+          </tr>
+          <tr>
+            <td>PARSEC等時線（Padova大学）</td>
+            <td>イタリア・Padova大学</td>
+            <td>恒星進化モデルの等時線計算</td>
+            <td>質量別最終形態の理論的確定</td>
+          </tr>
+          <tr>
+            <td>Esser &amp; Tinyakov（2023年論文）</td>
+            <td>ブリュッセル自由大学</td>
+            <td>PBH捕獲確率の定量的計算（〜1/1,000万）</td>
+            <td>特殊シナリオ①の確率根拠</td>
+          </tr>
+          <tr>
+            <td>Bellinger et al.（研究チーム）</td>
+            <td>国際共同研究</td>
+            <td>「ホーキング星」の恒星進化シミュレーション</td>
+            <td>PBH内包太陽モデルの数値的検討</td>
+          </tr>
+          <tr>
+            <td>XENON1T / PandaX実験</td>
+            <td>イタリア・中国</td>
+            <td>地下暗黒物質直接検出実験（不検出）</td>
+            <td>シナリオ④（ダークマター反応）の否定的証拠</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>試算バンド — 確率シナリオ推計</h2>
+    <div class="bands">
+      <div class="band opt">
+        <div class="band-title">楽観シナリオ（理論的最大値）</div>
+        <div class="band-val">〜1 / 1,000万</div>
+        <div class="band-note">PBHが暗黒物質全量を構成し、かつ太陽との相対速度条件が整う極端な仮定下での理論上の最大値。Esser &amp; Tinyakov（2023）に基づく。実現には現在知られていない複数の条件が同時成立する必要あり。</div>
+      </div>
+      <div class="band std">
+        <div class="band-title">標準シナリオ（科学的コンセンサス）</div>
+        <div class="band-val">0%（確定）</div>
+        <div class="band-note">MESA・PARSEC等の標準恒星進化モデル、LIGO/Virgo/KAGRAの観測データ、4AI全モデルのコンセンサス。太陽は54億年後に白色矮星（0.5〜0.6 M☉）として確定的に終焉を迎える。</div>
+      </div>
+      <div class="band con">
+        <div class="band-title">保守シナリオ（未知物理の考慮）</div>
+        <div class="band-val">0% 〜 極小</div>
+        <div class="band-note">余剰次元・量子重力等の標準模型を超えた物理現象を考慮しても、太陽質量規模での適用シナリオは確立されておらず、LHC実験での不検出（2011–2023年）も踏まえると実質ゼロと評価される。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>リスク・機会分析</h2>
+    <div class="grid">
+      <div class="box risk">
+        <h3>⚠ リスク項目</h3>
+        <ul>
+          <li><strong>誤情報の拡散リスク：</strong>「太陽がいつかブラックホールになる」という科学的に誤った情報がSNS・一般メディアで拡散し、不必要な社会不安や疑似科学の蔓延につながる可能性（Grok 3 mini 指摘）</li>
+          <li><strong>科学リテラシー格差：</strong>質量閾値（20〜25 M☉）という専門知識なしに恒星進化を理解することが困難であり、誤解が生じやすい</li>
+          <li><strong>未知物理の盲点：</strong>標準模型を超えた物理現象は理論的に予測外の事象を引き起こす可能性があるが、現在の観測装置では検出限界がある</li>
+          <li><strong>惑星状星雲・赤色巨星化による太陽系の変容：</strong>ブラックホール化ではないが、約50億年後の赤色巨星化で地球環境が根本的に変化する（こちらは確実）</li>
+        </ul>
+      </div>
+      <div class="box opp">
+        <h3>✅ 機会・正の示唆</h3>
+        <ul>
+          <li><strong>教育コンテンツとしての高い活用価値：</strong>「太陽がなぜBHにならないか」は恒星進化・重力崩壊・TOV限界・チャンドラセカール限界を学ぶ最良の教材（Grok 3 mini 指摘）</li>
+          <li><strong>重力波天文学の副次的発展：</strong>LIGO/Virgo/KAGRAによるBH質量分布観測が恒星進化論を精緻化し、宇宙理解を深化させる</li>
+          <li><strong>「ホーキング星」研究の派生知見：</strong>PBH内包恒星の研究は、暗黒物質の性質・宇宙初期の物理現象解明に貢献しうる（Claude Sonnet 4.6 指摘）</li>
+          <li><strong>基礎科学投資の促進：</strong>ブラックホール・恒星進化への関心が高まることで宇宙物理学への公的・民間投資が促進される可能性</li>
+          <li><strong>惑星移住研究の動機付け：</strong>確実な太陽の老化プロセスを正しく理解することで、長期的な人類の宇宙進出戦略の議論が促進される</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>AIコンセンサスマップ</h2>
+    <div class="consensus">
+      <div class="consensus-row">
+        <div><span class="consensus-tag tag-green">🟢 全AI一致した点（4モデル完全合意）</span></div>
+        <ul class="consensus-list">
+          <li class="green"><strong>①ブラックホール化確率はゼロ：</strong>Claude Sonnet 4.6・Gemini 2.5 Flash・GPT-4o mini・Grok 3 mini の全モデルが「太陽がブラックホールになる確率は科学的に0%」と結論。数値・根拠も完全一致。</li>
+          <li class="green"><strong>②太陽の最終形態は白色矮星：</strong>白色矮星（質量約0.5〜0.6 M☉）が太陽の確定的な終焉形態であることに全AI合意。MESAコード・観測データとも整合。</li>
+          <li class="green"><strong>③BH形成の質量閾値は初期質量20〜25 M☉以上：</strong>TOV限界・チャンドラセカール限界を根拠に、4AI全員がこの数値を提示。太陽（1.0 M☉）はこれを大幅に下回る。</li>
+          <li class="green"><strong>④約50億年後に主系列星を卒業し赤色巨星化：</strong>太陽の残り寿命（約50億年）と進化経路（赤色巨星→惑星状星雲→白色矮星）について全AI一致。</li>
+          <li class="green"><strong>⑤LIGO/Virgo等の観測データがコンセンサスを裏付け：</strong>重力波観測・ガイアミッション・ハッブル宇宙望遠鏡等の実観測データが恒星進化論を支持することに全AI合意。</li>
+        </ul>
+      </div>
+
+      <div class="consensus-row">
+        <div><span class="consensus-tag tag-yellow">🟡 意見・強調点が分かれた点</span></div>
+        <ul class="consensus-list">
+          <li class="yellow"><strong>①特殊シナリオの詳細度：</strong>Claude Sonnet 4.6は「ホーキング星」仮説・PBH捕獲確率（1/1,000万）・シュワルツシルト半径（3km）・連星系経由など5つの詳細シナリオを網羅。Grok 3 mini・GPT-4o miniは「影響はゼロ」と短く結論付け、特殊シナリオの検討を省略した。Gemini 2.5 Flashは中程度の詳細度。</li>
+          <li class="yellow"><strong>②「連星系Ia型超新星」経由のBH化可能性：</strong>Claude Sonnet 4.6は「連星系からの質量移動は理論上可能だが超新星爆発で吹き飛ぶためBHにはならない」と分析。他3AIはこの経路を省略または简略。現実的確率はゼロだが論理的整合性の観点から重要な区別。</li>
+          <li class="yellow"><strong>③太陽の主系列寿命の数値：</strong>GPT-4o miniは「10〜11億年」と表記（残り寿命か総寿命か不明確）。他3AIは「残り約50億年（総寿命約100億年）」と明確に記述。GPT-4o miniの数値は誤記または残り寿命の別計算の可能性があり、他3AIの数値が標準的。</li>
+          <li class="yellow"><strong>④社会的影響の評価軸：</strong>Grok 3 miniは「社会影響ゼロ（起こらないから）」と割り切り、教育的価値に焦点。Claude Sonnet 4.6は「思考実験として地球壊滅シナリオを詳述」。GPT-4o miniは「宇宙倫理・持続可能性の議論」に言及するなど、アプローチが異なる。</li>
+        </ul>
+      </div>
+
+      <div class="consensus-row">
+        <div><span class="consensus-tag tag-red">🔴 1つのAIだけが指摘したユニーク情報</span></div>
+        <ul class="consensus-list">
+          <li class="pinkred"><strong>Claude Sonnet 4.6 ユニーク指摘：</strong>「ホーキング星（Hawking Star）」の詳細シナリオ — PBHを内包した太陽がまず約1億年かけて光度が半減し、「準準巨星（sub-subgiant）」「赤色はぐれ星（red straggler）」として数十億年輝き続けた後、太陽質量以下のBHになるという特殊な進化経路を具体的に示した。Bellinger et al. の研究・Esser &amp; Tinyakov 2023年論文の具体的引用も本AIのみ。</li>
+          <li class="pinkred"><strong>Gemini 2.5 Flash ユニーク指摘：</strong>低質量赤色矮星（0.08〜0.5 M☉）の最終形態について「宇宙の年齢よりも寿命が長いため最終状態が観測上未確認」という点を明示。他の恒星カテゴリに比べ観測的裏付けが不完全であることを正直に指摘したのはGemini 2.5 Flashのみ。</li>
+          <li class="pinkred"><strong>GPT-4o mini ユニーク指摘：</strong>「Smith et al.（2023）」として2023年のブラックホール形成モデルの更新論文に言及。ただし論文詳細・著者情報が不明確であり、他AIや標準的な参照文献との照合が必要。宇宙倫理（space ethics）の観点から恒星進化研究を位置付けたのも本AIのみ。</li>
+          <li class="pinkred"><strong>Grok 3 mini ユニーク指摘：</strong>「科学的に誤った情報（太陽がいつかBHになるという俗説）の拡散が引き起こす疑似科学蔓延リスク」を明示的にリスク項目として挙げたのはGrok 3 miniのみ。教育・科学コミュニケーションの観点から実務的示唆を最も体系的に整理した。</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>参考文献・出典リスト</h2>
+    <div class="sources">
+      <ol>
+        <li>Esser, N. &amp; Tinyakov, P. (2023). 「原始ブラックホールの恒星捕獲確率に関する定量的研究」— ブリュッセル自由大学。PBH捕獲確率≈1/1,000万の根拠。</li>
+        <li>Bellinger, E.P. et al. 「恒星内部に原始ブラックホールを内包するホーキング星の恒星進化シミュレーション」— 国際共同研究チーム。</li>
+        <li>LIGO Scientific Collaboration / Virgo / KAGRA (2020–2024). 「重力波観測によるブラックホール・中性子星質量分布データ」— 観測的質量閾値の根拠。</li>
+        <li>Paxton, B. et al. 「MESA（Modules for Experiments in Stellar Astrophysics）恒星進化コード」— University of California Santa Barbara。</li>
+        <li>Bressan, A. et al. 「PARSEC恒星進化等時線」— Padova大学・恒星の質量別最終形態の理論的計算基盤。</li>
+        <li>NASA — Parker Solar Probe Mission （2018年打上げ〜現在）。太陽の現在の活動状態・構造の直接観測データ。</li>
+        <li>ESA — Gaia Mission Data Release 3（2022年）。恒星の質量・距離・進化状態の精密測定。</li>
+        <li>ESA — Solar and Heliospheric Observatory (SOHO). 太陽活動の長期継続観測（1995年〜現在）。</li>
+        <li>Chandrasekhar, S. (1931). 「白色矮星の最大質量（チャンドラセカール限界≈1.4 M☉）」— ノーベル物理学賞（1983年）受賞研究。</li>
+        <li>Tolman, R.C.; Oppenheimer, J.R.; Volkoff, G.M. (1939). 「中性子星の最大質量（TOV限界≈2.5〜3 M☉）」— Physical Review。</li>
+        <li>XENON1T Collaboration (2018) / PandaX-4T (2021). 「暗黒物質直接検出実験（不検出報告）」— 地下実験室における暗黒物質・通常物質相互作用の探索。</li>
+        <li>European Southern Observatory — VLT（超大型望遠鏡）による恒星質量分布調査データ。</li>
+        <li>CERN / LHC実験（2011–2023年）. 「ミニブラックホール探索実験：不検出報告」— 余剰次元・量子重力シナリオへの観測的制約。</li>
+        <li>Smith et al.（2023）. 「質量に基づくブラックホール形成モデルの更新」（GPT-4o mini 引用。詳細確認中）</li>
+      </ol>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="inner">
+      <div>
+        <strong style="color:#ccc;">総合商社 シニアリサーチアナリスト室</strong><br>
+        統合科学調査レポート ／ 生成日時：2026/6/7 19:17:20<br>
+        使用モデル：Claude Sonnet 4.6 ・ Gemini 2.5 Flash ・ GPT-4o mini ・ Grok 3 mini
+      </div>
+      <div style="max-width:500px;">
+        <strong style="color:#ccc;">免責事項</strong><br>
+        本レポートは複数AIモデルの調査結果を統合・編集したものであり、情報提供のみを目的としています。科学的結論は公表済み研究・観測データに基づきますが、未発表の最新研究や理論の更新により内容が変わる可能性があります。本レポートに含まれる情報を特定の意思決定・投資・教育目的に使用する際は、最新の査読済み学術論文および各機関の公式発表を一次情報源として参照してください。当レポートの内容に起因するいかなる損害についても、当室は責任を負いかねます。著作権は総合商社シニアリサーチアナリスト室に帰属します。無断転載禁止。
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+<style>
+#askFab{position:fixed;bottom:28px;right:28px;z-index:9999;background:linear-gradient(135deg,#15318F,#16B8B2);color:#fff;border:none;padding:14px 22px;border-radius:30px;font-size:14px;font-weight:700;cursor:pointer;box-shadow:0 6px 24px rgba(21,49,143,.35);touch-action:manipulation}
+#askOverlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:10000;align-items:center;justify-content:center}
+#askOverlay.open{display:flex}
+#askBox{background:#fff;border-radius:16px;padding:28px;width:min(640px,92vw);max-height:90vh;overflow-y:auto}
+#askTA{width:100%;padding:12px 14px;border:1px solid #C7D8E5;border-radius:10px;font-size:15px;font-family:inherit;resize:vertical;min-height:90px;outline:none;box-sizing:border-box}
+#askKey{width:100%;padding:9px 12px;border:1px solid #C7D8E5;border-radius:8px;font-size:12px;font-family:monospace;box-sizing:border-box;margin-top:8px}
+#askSubmit{flex:1;padding:12px;background:#15318F;color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;min-height:44px;touch-action:manipulation}
+#askSubmit:disabled{background:#aaa}
+#askClose{padding:12px 18px;background:none;border:1px solid #C7D8E5;border-radius:10px;font-size:14px;cursor:pointer;min-height:44px;touch-action:manipulation}
+#askResult{display:none;margin-top:18px;padding:16px;background:#F4F7FA;border-radius:10px;border-left:5px solid #16B8B2;font-size:13.5px;line-height:1.75;white-space:pre-wrap;max-height:400px;overflow-y:auto}
+</style>
+<button id="askFab">⬛ 追加質問・調査依頼</button>
+<div id="askOverlay">
+  <div id="askBox">
+    <h3 style="font-size:18px;font-weight:800;color:#15318F;margin-bottom:6px">⬛ 追加質問・調査依頼</h3>
+    <p style="font-size:13px;color:#5F6B7A;margin-bottom:18px">このレポートを踏まえてClaudeに追加質問できます。</p>
+    <textarea id="askTA" placeholder="追加の質問・調査依頼を入力"></textarea>
+    <label style="font-size:12px;color:#5F6B7A;margin-top:10px;display:block">Claude APIキー</label>
+    <input id="askKey" type="password" placeholder="sk-ant-..."/>
+    <p id="askKeySaved" style="font-size:11px;color:#00A878;margin-top:4px;display:none">✓ 保存済み（次回から自動入力）</p>
+    <div style="display:flex;gap:10px;margin-top:14px;flex-wrap:wrap">
+      <button id="askSubmit">送信して調査</button>
+      <button id="askClose">閉じる</button>
+    </div>
+    <div id="askResult"></div>
+  </div>
+</div>
+<div id="kuroData" data-query="太陽がブラックホールになる確率。" data-context="<!DOCTYPE html>
+<html lang=&quot;ja&quot;>
+<head>
+<meta charset=&quot;UTF-8&quot;>
+<meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;>
+<title>太陽がブラックホールになる確率 — 統合調査レポート</title>
+<style>
+:root{
+  --teal:#16B8B2;
+  --blue:#15318F;
+  --blue2:#1E5EDB;
+  --ink:#1F2430;
+  --muted:#5F6B7A;
+  --line:#C7D8E5;
+  --good:#00A878;
+  --mid:#F2A900;
+  --low:#E24A4A;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Helvetica Neue',Arial,'Hiragino Kaku Gothic ProN',sans-serif;background:#F4F7FA;color:var(--ink);font-size:15px;line-height:1.7;}
+a{color:var(--blue2);text-decoration:none;}
+.wrap{max-width:1100px;margin:0 auto;padding:0 28px;}
+
+header{background:linear-gradient(110deg,#1F2430,#15318F,#16B8B2);padding:48px 0 36px;}
+header h1{color:#fff !important;font-size:26px;font-weight:800;letter-spacing:-.3px;margin-bottom:10px;}
+header p{color:#fff !important;font-size:14px;opacity:1 !important;}
+header .meta{color:#fff !important;font-size:12px;margin-top:14px;display:flex;flex-wrap:wrap;gap:16px;}
+header .meta span{color:#fff !important;background:rgba(255,255,255,0.15);padding:4px 12px;border-radius:20px;font-size:11px;}
+header .badge-row{margin-top:10px;display:flex;flex-wrap:wrap;gap:8px;}
+header .badge-row span{color:#fff !important;font-size:11px;background:rgba(255,255,255,0.18);border:1px solid rgba(255,255,255,0.3);padding:3px 10px;border-radius:4px;}
+
+.section{padding:36px 0;}
+h2{font-size:20px;font-weight:700;color:var(--ink);margin-bottom:18px;padding-left:12px;border-left:5px solid var(--teal);}
+h3{font-size:16px;font-weight:700;color:var(--ink);margin:20px 0 10px;}
+p{margin-bottom:12px;color:var(--ink);}
+ul,ol{padding-left:20px;margin-bottom:12px;}
+li{margin-bottom:6px;}
+
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-bottom:28px;}
+.card{background:#fff;border-radius:10px;padding:22px 18px;box-shadow:0 2px 12px rgba(0,0,0,.07);}
+.card.c1{border-top:6px solid var(--low);}
+.card.c2{border-top:6px solid var(--blue2);}
+.card.c3{border-top:6px solid var(--mid);}
+.card.c4{border-top:6px solid var(--good);}
+.card .kpi{font-size:28px;font-weight:800;margin:10px 0 6px;}
+.card .kpi.red{color:var(--low);}
+.card .kpi.blue{color:var(--blue2);}
+.card .kpi.yellow{color:var(--mid);}
+.card .kpi.green{color:var(--good);}
+.card .label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;}
+.card .desc{font-size:12px;color:var(--muted);margin-top:6px;}
+
+.tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:24px;}
+table{width:100%;border-collapse:collapse;background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.07);}
+thead th{background:var(--blue);color:#fff;padding:12px 14px;font-size:13px;text-align:left;white-space:nowrap;}
+tbody tr:nth-child(odd){background:#fff;}
+tbody tr:nth-child(even){background:#F0F5FA;}
+tbody td{padding:11px 14px;font-size:13px;border-bottom:1px solid var(--line);}
+tbody tr:last-child td{border-bottom:none;}
+
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-bottom:24px;}
+.box{background:#fff;border-radius:10px;padding:22px 20px;box-shadow:0 2px 12px rgba(0,0,0,.07);}
+.box.risk{border-left:5px solid var(--low);}
+.box.opp{border-left:5px solid var(--good);}
+.box h3{margin-top:0;}
+
+.bar-chart{background:#fff;border-radius:10px;padding:24px;box-shadow:0 2px 12px rgba(0,0,0,.07);margin-bottom:24px;}
+.bar-row{margin-bottom:14px;}
+.bar-label{font-size:13px;color:var(--ink);margin-bottom:5px;display:flex;justify-content:space-between;}
+.bar-track{background:#E8EEF5;border-radius:4px;height:22px;overflow:hidden;}
+.bar-fill{height:100%;border-radius:4px;transition:width .4s ease;}
+.bar-fill.red{background:var(--low);}
+.bar-fill.yellow{background:var(--mid);}
+.bar-fill.green{background:var(--good);}
+.bar-fill.blue{background:var(--blue2);}
+
+.bands{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:24px;}
+.band{flex:1;min-width:180px;border-radius:10px;padding:20px 18px;color:#fff;}
+.band.opt{background:var("></div>
+<script src="https://nakkan1812-create.github.io/kuro-research-engine/widget.js"></script>
+
+</body>
+</html>
