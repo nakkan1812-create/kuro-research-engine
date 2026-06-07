@@ -8,6 +8,13 @@
     try{ localStorage.setItem(LS_KEY,k); localStorage.setItem('cKey',k); }catch(e){}
   }
 
+  // data属性からクエリを読み込む
+  const dataEl = document.getElementById('kuroData');
+  if(dataEl){
+    window._kuroQuery = dataEl.getAttribute('data-query') || '';
+    window._kuroContext = dataEl.getAttribute('data-context') || '';
+  }
+
   // APIキーを入力欄に設定
   function initKey(){
     const el = document.getElementById('askKey');
