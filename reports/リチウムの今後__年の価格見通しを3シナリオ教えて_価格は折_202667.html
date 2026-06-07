@@ -1,1105 +1,1708 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>リチウム価格見通し10年分析レポート | 投資検討向け</title>
-    <style>
-        :root {
-            --teal: #16B8B2;
-            --blue: #15318F;
-            --blue2: #1E5EDB;
-            --ink: #1F2430;
-            --muted: #5F6B7A;
-            --line: #C7D8E5;
-            --good: #00A878;
-            --mid: #F2A900;
-            --low: #E24A4A;
-        }
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: 'Segoe UI', 'Noto Sans JP', sans-serif;
-            line-height: 1.7;
-            color: var(--ink);
-            background-color: #f5f8fa;
-        }
-        .wrap {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 24px;
-        }
-        header {
-            background: linear-gradient(110deg, #1F2430, #15318F, #16B8B2);
-            color: #fff;
-            padding: 48px 0;
-            margin-bottom: 40px;
-        }
-        header h1 {
-            color: #fff !important;
-            font-size: 32px;
-            margin-bottom: 12px;
-        }
-        header p {
-            color: #fff !important;
-            font-size: 15px;
-            margin-bottom: 8px;
-        }
-        header span {
-            color: #fff !important;
-        }
-        header .meta {
-            display: flex;
-            gap: 24px;
-            margin-top: 20px;
-            font-size: 13px;
-            color: rgba(255,255,255,0.9);
-        }
-        .hero-summary {
-            background: rgba(255,255,255,0.95);
-            border-left: 6px solid var(--teal);
-            padding: 24px;
-            margin-bottom: 40px;
-            border-radius: 4px;
-        }
-        .hero-summary h3 {
-            color: var(--blue);
-            margin-bottom: 12px;
-            font-size: 16px;
-        }
-        .hero-summary p {
-            color: var(--muted);
-            margin-bottom: 8px;
-            font-size: 14px;
-        }
-        h2 {
-            color: var(--blue);
-            font-size: 24px;
-            margin-top: 48px;
-            margin-bottom: 24px;
-            border-bottom: 2px solid var(--line);
-            padding-bottom: 12px;
-        }
-        .cards {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 16px;
-            margin-bottom: 40px;
-        }
-        .card {
-            background: #fff;
-            border-radius: 4px;
-            padding: 20px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-            border-top: 6px solid var(--line);
-        }
-        .card.kpi1 {
-            border-top-color: var(--blue);
-        }
-        .card.kpi2 {
-            border-top-color: var(--teal);
-        }
-        .card.kpi3 {
-            border-top-color: var(--mid);
-        }
-        .card.kpi4 {
-            border-top-color: var(--low);
-        }
-        .card-label {
-            font-size: 12px;
-            color: var(--muted);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 8px;
-        }
-        .card-value {
-            font-size: 28px;
-            font-weight: bold;
-            color: var(--ink);
-            margin-bottom: 4px;
-        }
-        .card-note {
-            font-size: 12px;
-            color: var(--muted);
-        }
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 24px;
-            margin-bottom: 40px;
-        }
-        .section {
-            background: #fff;
-            border-radius: 4px;
-            padding: 24px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 24px;
-        }
-        thead {
-            background-color: var(--blue);
-            color: #fff;
-        }
-        th {
-            padding: 12px;
-            text-align: left;
-            font-weight: 600;
-            font-size: 13px;
-        }
-        td {
-            padding: 12px;
-            border-bottom: 1px solid var(--line);
-            font-size: 13px;
-        }
-        tbody tr:nth-child(even) {
-            background-color: #f9fafb;
-        }
-        tbody tr:hover {
-            background-color: #f0f5ff;
-        }
-        .chart-container {
-            margin: 32px 0;
-            overflow-x: auto;
-        }
-        svg {
-            display: block;
-            margin: 0 auto;
-        }
-        .badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 12px;
-            padding: 4px 8px;
-            border-radius: 12px;
-        }
-        .badge.high {
-            background-color: rgba(0, 168, 120, 0.15);
-            color: var(--good);
-        }
-        .badge.medium {
-            background-color: rgba(242, 169, 0, 0.15);
-            color: var(--mid);
-        }
-        .badge.low {
-            background-color: rgba(226, 74, 74, 0.15);
-            color: var(--low);
-        }
-        .badge::before {
-            content: '●';
-            font-size: 10px;
-        }
-        .bar-chart {
-            margin: 20px 0;
-        }
-        .bar-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 16px;
-            gap: 12px;
-        }
-        .bar-label {
-            min-width: 120px;
-            font-size: 13px;
-            color: var(--ink);
-            font-weight: 500;
-        }
-        .bar-container {
-            flex: 1;
-            height: 24px;
-            background-color: var(--line);
-            border-radius: 2px;
-            overflow: hidden;
-            position: relative;
-        }
-        .bar-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--blue2), var(--teal));
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-            padding-right: 8px;
-            color: #fff;
-            font-size: 11px;
-            font-weight: bold;
-        }
-        .scenarios {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 16px;
-            margin: 24px 0;
-        }
-        .scenario {
-            border: 2px solid var(--line);
-            border-radius: 4px;
-            padding: 20px;
-        }
-        .scenario.bull {
-            border-left: 6px solid var(--good);
-            background: rgba(0, 168, 120, 0.05);
-        }
-        .scenario.base {
-            border-left: 6px solid var(--mid);
-            background: rgba(242, 169, 0, 0.05);
-        }
-        .scenario.bear {
-            border-left: 6px solid var(--low);
-            background: rgba(226, 74, 74, 0.05);
-        }
-        .scenario h4 {
-            font-size: 15px;
-            margin-bottom: 12px;
-            color: var(--ink);
-        }
-        .scenario p {
-            font-size: 12px;
-            color: var(--muted);
-            margin-bottom: 8px;
-        }
-        .scenario .price {
-            font-size: 22px;
-            font-weight: bold;
-            color: var(--ink);
-            margin-top: 12px;
-        }
-        .risk-opportunity {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-            margin-bottom: 24px;
-        }
-        .risk-list, .opp-list {
-            list-style: none;
-        }
-        .risk-list li, .opp-list li {
-            padding: 12px;
-            margin-bottom: 8px;
-            border-left: 4px solid var(--line);
-            background: #f9fafb;
-            font-size: 13px;
-        }
-        .risk-list li {
-            border-left-color: var(--low);
-        }
-        .opp-list li {
-            border-left-color: var(--good);
-        }
-        .consensus-map {
-            margin: 40px 0;
-            padding: 24px;
-            background: #fff;
-            border-radius: 4px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
-        .consensus-section {
-            margin-bottom: 24px;
-        }
-        .consensus-section h4 {
-            font-size: 14px;
-            color: var(--ink);
-            margin-bottom: 12px;
-            font-weight: 600;
-        }
-        .consensus-item {
-            padding: 8px 12px;
-            margin-bottom: 8px;
-            border-left: 3px solid var(--line);
-            font-size: 13px;
-            background: #f9fafb;
-        }
-        .consensus-section.agree .consensus-item {
-            border-left-color: var(--good);
-            background: rgba(0, 168, 120, 0.05);
-        }
-        .consensus-section.differ .consensus-item {
-            border-left-color: var(--mid);
-            background: rgba(242, 169, 0, 0.05);
-        }
-        .consensus-section.unique .consensus-item {
-            border-left-color: var(--low);
-            background: rgba(226, 74, 74, 0.05);
-        }
-        .citation {
-            margin-top: 40px;
-            padding: 24px;
-            background: #f9fafb;
-            border-radius: 4px;
-        }
-        .citation h3 {
-            font-size: 15px;
-            color: var(--blue);
-            margin-bottom: 16px;
-        }
-        .citation ol {
-            margin-left: 20px;
-        }
-        .citation li {
-            margin-bottom: 12px;
-            font-size: 12px;
-            color: var(--muted);
-            line-height: 1.6;
-        }
-        footer {
-            background-color: var(--ink);
-            color: #fff;
-            padding: 32px 0;
-            margin-top: 48px;
-        }
-        footer p {
-            color: #fff;
-            font-size: 12px;
-            margin-bottom: 8px;
-            line-height: 1.6;
-        }
-        footer a {
-            color: var(--teal);
-            text-decoration: none;
-        }
-        @media (max-width: 640px) {
-            body {
-                font-size: 13px;
-            }
-            .wrap {
-                padding: 0 14px;
-            }
-            header {
-                padding: 32px 0;
-            }
-            header h1 {
-                font-size: 17px;
-            }
-            header .meta {
-                flex-direction: column;
-                gap: 8px;
-            }
-            h2 {
-                font-size: 15px;
-                margin-top: 32px;
-            }
-            .cards {
-                grid-template-columns: 1fr;
-                gap: 12px;
-            }
-            .card-value {
-                font-size: 22px;
-            }
-            .grid {
-                grid-template-columns: 1fr;
-                gap: 16px;
-            }
-            .scenarios {
-                grid-template-columns: 1fr;
-                gap: 12px;
-            }
-            .risk-opportunity {
-                grid-template-columns: 1fr;
-                gap: 16px;
-            }
-            table {
-                font-size: 11px;
-            }
-            th, td {
-                padding: 8px;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>リチウム価格見通し10年シナリオ分析 | 投資検討向けレポート</title>
+<style>
+:root {
+  --teal: #16B8B2;
+  --blue: #15318F;
+  --blue2: #1E5EDB;
+  --ink: #1F2430;
+  --muted: #5F6B7A;
+  --line: #C7D8E5;
+  --good: #00A878;
+  --mid: #F2A900;
+  --low: #E24A4A;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: var(--ink);
+  line-height: 1.6;
+  background: #F5F7FA;
+}
+
+.header {
+  background: linear-gradient(110deg, #1F2430, #15318F, #16B8B2);
+  color: #fff !important;
+  padding: 48px 32px;
+  margin-bottom: 40px;
+}
+
+.header h1 {
+  font-size: 32px;
+  margin-bottom: 8px;
+  color: #fff !important;
+}
+
+.header .subtitle {
+  font-size: 16px;
+  color: #fff !important;
+  opacity: 1;
+  margin-bottom: 4px;
+}
+
+.header .meta {
+  font-size: 13px;
+  color: #fff !important;
+  opacity: 1;
+  margin-top: 16px;
+}
+
+.wrap {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+h2 {
+  font-size: 24px;
+  margin-top: 48px;
+  margin-bottom: 20px;
+  color: var(--blue);
+  border-bottom: 3px solid var(--line);
+  padding-bottom: 12px;
+}
+
+h3 {
+  font-size: 16px;
+  margin-top: 24px;
+  margin-bottom: 12px;
+  color: var(--blue2);
+}
+
+p {
+  margin-bottom: 12px;
+  color: var(--ink);
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.card {
+  background: #fff;
+  padding: 24px;
+  border-radius: 8px;
+  border-top: 6px solid var(--line);
+  box-shadow: 0 2px 8px rgba(31, 36, 48, 0.06);
+}
+
+.card.kpi-1 { border-top-color: var(--blue); }
+.card.kpi-2 { border-top-color: var(--teal); }
+.card.kpi-3 { border-top-color: var(--mid); }
+.card.kpi-4 { border-top-color: var(--low); }
+
+.card-label {
+  font-size: 12px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+
+.card-value {
+  font-size: 28px;
+  font-weight: bold;
+  color: var(--ink);
+  margin-bottom: 4px;
+}
+
+.card-desc {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.chart-container {
+  background: #fff;
+  padding: 32px;
+  border-radius: 8px;
+  margin-bottom: 40px;
+  box-shadow: 0 2px 8px rgba(31, 36, 48, 0.06);
+}
+
+.chart-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 24px;
+}
+
+svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.axis-label {
+  font-size: 12px;
+  fill: var(--muted);
+}
+
+.axis-line {
+  stroke: var(--line);
+  stroke-width: 1;
+}
+
+.grid-line {
+  stroke: var(--line);
+  stroke-width: 0.5;
+  stroke-dasharray: 2,2;
+}
+
+.line-bullish {
+  stroke: var(--low);
+  stroke-width: 2.5;
+  fill: none;
+}
+
+.line-base {
+  stroke: var(--mid);
+  stroke-width: 2.5;
+  fill: none;
+}
+
+.line-bearish {
+  stroke: var(--good);
+  stroke-width: 2.5;
+  fill: none;
+}
+
+.legend {
+  display: flex;
+  gap: 32px;
+  justify-content: center;
+  margin-top: 24px;
+  flex-wrap: wrap;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+}
+
+.legend-color {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+}
+
+.legend-bullish { background: var(--low); }
+.legend-base { background: var(--mid); }
+.legend-bearish { background: var(--good); }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 24px;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(31, 36, 48, 0.06);
+}
+
+thead {
+  background: var(--blue);
+  color: #fff;
+}
+
+thead th {
+  padding: 16px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 13px;
+}
+
+tbody td {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--line);
+  font-size: 13px;
+}
+
+tbody tr:nth-child(odd) {
+  background: #F9FAFC;
+}
+
+tbody tr:hover {
+  background: #EFF4FA;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 40px;
+}
+
+.box {
+  background: #fff;
+  padding: 24px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(31, 36, 48, 0.06);
+}
+
+.box h3 {
+  margin-top: 0;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.badge-high {
+  background: rgba(0, 168, 120, 0.1);
+  color: var(--good);
+}
+
+.badge-mid {
+  background: rgba(242, 169, 0, 0.1);
+  color: var(--mid);
+}
+
+.badge-low {
+  background: rgba(226, 74, 74, 0.1);
+  color: var(--low);
+}
+
+.circle {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.circle-high { background: var(--good); }
+.circle-mid { background: var(--mid); }
+.circle-low { background: var(--low); }
+
+.bar-chart {
+  margin-bottom: 24px;
+}
+
+.bar-item {
+  margin-bottom: 16px;
+}
+
+.bar-label {
+  font-size: 13px;
+  color: var(--ink);
+  margin-bottom: 4px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.bar {
+  background: linear-gradient(90deg, var(--blue), var(--teal));
+  height: 24px;
+  border-radius: 4px;
+  position: relative;
+  overflow: hidden;
+}
+
+.bar-value {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 11px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.scenario-boxes {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.scenario-box {
+  background: #fff;
+  padding: 28px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(31, 36, 48, 0.06);
+  border-top: 4px solid var(--line);
+}
+
+.scenario-box.bullish {
+  border-top-color: var(--low);
+}
+
+.scenario-box.base {
+  border-top-color: var(--mid);
+}
+
+.scenario-box.bearish {
+  border-top-color: var(--good);
+}
+
+.scenario-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: var(--ink);
+}
+
+.scenario-value {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.scenario-bullish .scenario-value { color: var(--low); }
+.scenario-base .scenario-value { color: var(--mid); }
+.scenario-bearish .scenario-value { color: var(--good); }
+
+.scenario-desc {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.consensus-section {
+  background: #fff;
+  padding: 32px;
+  border-radius: 8px;
+  margin-bottom: 40px;
+  box-shadow: 0 2px 8px rgba(31, 36, 48, 0.06);
+}
+
+.consensus-group {
+  margin-bottom: 28px;
+}
+
+.consensus-group:last-child {
+  margin-bottom: 0;
+}
+
+.consensus-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.consensus-icon {
+  font-size: 18px;
+}
+
+.consensus-item {
+  padding: 8px 0;
+  font-size: 13px;
+  color: var(--muted);
+  padding-left: 28px;
+  position: relative;
+}
+
+.consensus-item::before {
+  content: '•';
+  position: absolute;
+  left: 12px;
+  color: var(--line);
+}
+
+.source-list {
+  background: #fff;
+  padding: 32px;
+  border-radius: 8px;
+  margin-bottom: 40px;
+  box-shadow: 0 2px 8px rgba(31, 36, 48, 0.06);
+}
+
+.source-item {
+  margin-bottom: 12px;
+  font-size: 13px;
+  color: var(--muted);
+  padding-left: 20px;
+  position: relative;
+}
+
+.source-item::before {
+  content: counter(source-counter);
+  counter-increment: source-counter;
+  position: absolute;
+  left: 0;
+  font-weight: 600;
+  color: var(--blue);
+}
+
+.footer {
+  background: var(--ink);
+  color: #fff;
+  padding: 32px;
+  margin-top: 60px;
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+.footer h3 {
+  color: #fff;
+  margin-top: 0;
+  margin-bottom: 12px;
+}
+
+.footer p {
+  color: #fff;
+  margin-bottom: 8px;
+}
+
+.divider {
+  height: 1px;
+  background: var(--line);
+  margin: 40px 0;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+  margin-bottom: 40px;
+}
+
+@media (max-width: 640px) {
+  body {
+    font-size: 13px;
+  }
+
+  .wrap {
+    padding: 0 14px;
+  }
+
+  .header {
+    padding: 24px 14px;
+  }
+
+  .header h1 {
+    font-size: 17px;
+  }
+
+  .header .subtitle {
+    font-size: 12px;
+  }
+
+  h2 {
+    font-size: 15px;
+  }
+
+  h3 {
+    font-size: 14px;
+  }
+
+  .cards {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .card {
+    padding: 16px;
+  }
+
+  .card-value {
+    font-size: 20px;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .scenario-boxes {
+    grid-template-columns: 1fr;
+  }
+
+  table {
+    font-size: 11px;
+  }
+
+  thead th,
+  tbody td {
+    padding: 8px 10px;
+  }
+
+  .legend {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .chart-container {
+    padding: 16px;
+  }
+}
+
+counter-reset: source-counter;
+</style>
 </head>
 <body>
-    <header>
-        <div class="wrap">
-            <h1>リチウム価格見通し</h1>
-            <p>グローバル需給バランスに基づく10年スタンドアロン分析</p>
-            <p>投資検討用 | 生成日時: 2026年6月7日 16:24:12</p>
-            <div class="meta">
-                <span>AI統合調査: Haiku 4.5 · Gemini 2.5 Flash · GPT-4o mini · Grok 3 mini</span>
-                <span>対象地域: グローバル | 対象商品: 全リチウム製品</span>
-            </div>
-        </div>
-    </header>
 
-    <main class="wrap">
-        <div class="hero-summary">
-            <h3>最重要投資判断ポイント5項目</h3>
-            <p><strong>1. 現在は需給転換点：</strong> 2026年6月現在、中国炭酸リチウム価格は約18万CNY/t（2,700USD相当）。2022年ピークの約80,000USD/tから96%下落した低位状態が続く。</p>
-            <p><strong>2. 2026年は供給過剰継続：</strong> 2026年需要は220万トンLCE（前年比29%増）だが、供給は237万トン。6万トンの余剰が発生し、価格圧力は上向きながら完全な逆転には至らず。</p>
-            <p><strong>3. 分岐点は2027年：</strong> 2027年以降、新規供給プロジェクト（35万トン投入予定）の遅延状況が明確化。需給ギャップは3シナリオで4,000～10,000USD/tの価格差を生成。</p>
-            <p><strong>4. EV需要が需給を左右：</strong> グローバルEV販売は2025年に前年比23.9%増、2026年に14.7%増を記録。EV用バッテリーがリチウム需要の約89%を占める構造下、EV成長率 ±5%で供給過剰/逼迫が反転。</p>
-            <p><strong>5. リスク管理が最優先：</strong> 地政学リスク（チリ国有化議論、アルゼンチン政局）、技術進歩（DLE商業化時期不確定）、リサイクル率向上（2030年12～15%予測）による不確実性が極めて高い。</p>
-        </div>
+<div class="header">
+<div class="wrap">
+<h1>リチウム価格見通し 2026年～2036年</h1>
+<p class="subtitle">10年シナリオ分析 | 需給バランス軸</p>
+<p class="meta">生成日時: 2026年6月7日 16:46 | 分析AI: Claude Haiku 4.5 · Gemini 2.5 Flash · GPT-4o mini · Grok 3 mini</p>
+</div>
+</div>
 
-        <section class="cards">
-            <div class="card kpi1">
-                <div class="card-label">2026年予測価格（ベースケース）</div>
-                <div class="card-value">13,800 USD/t</div>
-                <div class="card-note">炭酸リチウム換算 LCE | 従来10,327USD予測から33%上方修正</div>
-            </div>
-            <div class="card kpi2">
-                <div class="card-label">2027年ピーク予測（強気シナリオ）</div>
-                <div class="card-value">25,000 USD/t</div>
-                <div class="card-note">供給遅延+EV需要加速時の過度なシナリオ</div>
-            </div>
-            <div class="card kpi3">
-                <div class="card-label">2030年正常化価格</div>
-                <div class="card-value">15,500 USD/t</div>
-                <div class="card-note">限界採掘コスト+適正利潤ベース | バーンスタイン推計</div>
-            </div>
-            <div class="card kpi4">
-                <div class="card-label">2035年見通し（弱気）</div>
-                <div class="card-value">9,500 USD/t</div>
-                <div class="card-note">リサイクル急進+供給過剰継続ケース</div>
-            </div>
-        </section>
+<div class="wrap">
 
-        <h2>1. 市場・業界の定量的現状</h2>
-        <div class="section">
-            <h3>1.1 現在の価格と市場規模</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>指標</th>
-                        <th>2024年実績</th>
-                        <th>2025年予測</th>
-                        <th>出典</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>グローバルリチウム市場規模</td>
-                        <td>101万LCEトン</td>
-                        <td>119万LCEトン</td>
-                        <td>Benchmark Mineral Intelligence</td>
-                    </tr>
-                    <tr>
-                        <td>中国炭酸リチウム現物価格</td>
-                        <td>約9万CNY/t（12,000USD相当）</td>
-                        <td>10～11万CNY/t（14,000～15,000USD）</td>
-                        <td>Fastmarkets, S&P Global Platts</td>
-                    </tr>
-                    <tr>
-                        <td>グローバル需給バランス</td>
-                        <td>144.3万t供給 vs 134万t需要 = +10.3万t過剰</td>
-                        <td>237万t供給 vs 220万t需要 = +6万t過剰</td>
-                        <td>バーンスタイン証券</td>
-                    </tr>
-                    <tr>
-                        <td>EV向け需要比率</td>
-                        <td>67%（電池材料では89%がバッテリー関連）</td>
-                        <td>68%（EV+蓄電池+電動バイク = 89%）</td>
-                        <td>IEA, BloombergNEF</td>
-                    </tr>
-                    <tr>
-                        <td>水酸化リチウムCAGR（2025-2031年）</td>
-                        <td>-</td>
-                        <td>23.02%（炭酸リチウム比で最速成長）</td>
-                        <td>チリ銅委員会</td>
-                    </tr>
-                    <tr>
-                        <td>中国リチウム在庫水準</td>
-                        <td>11万トン</td>
-                        <td>約25日分（過去2年で最低）</td>
-                        <td>チリ銅委員会</td>
-                    </tr>
-                </tbody>
-            </table>
+<h2>エグゼクティブサマリー</h2>
 
-            <h3>1.2 需要の主要ドライバー</h3>
-            <div class="bar-chart">
-                <div class="bar-item">
-                    <div class="bar-label">EV用バッテリー</div>
-                    <div class="bar-container">
-                        <div class="bar-fill" style="width: 67%;">67%</div>
-                    </div>
-                </div>
-                <div class="bar-item">
-                    <div class="bar-label">蓄電システム</div>
-                    <div class="bar-container">
-                        <div class="bar-fill" style="width: 13%;">13%</div>
-                    </div>
-                </div>
-                <div class="bar-item">
-                    <div class="bar-label">電動バイク</div>
-                    <div class="bar-container">
-                        <div class="bar-fill" style="width: 9%;">9%</div>
-                    </div>
-                </div>
-                <div class="bar-item">
-                    <div class="bar-label">その他</div>
-                    <div class="bar-container">
-                        <div class="bar-fill" style="width: 11%;">11%</div>
-                    </div>
-                </div>
-            </div>
+<div class="cards">
+<div class="card kpi-1">
+<div class="card-label">2026年見通し価格（基本）</div>
+<div class="card-value">13,000</div>
+<div class="card-desc">USD/トン<br>先物市場での価格付け</div>
+</div>
+<div class="card kpi-2">
+<div class="card-label">2024年現在価格</div>
+<div class="card-value">10,000</div>
+<div class="card-desc">USD/トン<br>炭酸リチウム換算</div>
+</div>
+<div class="card kpi-3">
+<div class="card-label">市場規模2033年予想</div>
+<div class="card-value">1,648</div>
+<div class="card-desc">億米ドル<br>CAGR 17.9%（2024～2033年）</div>
+</div>
+<div class="card kpi-4">
+<div class="card-label">長期均衡価格（限界コスト）</div>
+<div class="card-value">15,000</div>
+<div class="card-desc">USD/トン<br>バーンスタイン推定値</div>
+</div>
+</div>
 
-            <p><strong>グローバルEV販売実績・予測：</strong></p>
-            <ul style="margin-left: 20px; margin-top: 12px;">
-                <li>2025年: 前年比23.9%増を記録（約1,700万台推定）</li>
-                <li>2026年: 前年比14.7%増を予測（約1,950万台）</li>
-                <li>2030年: 3,000万台超も視野（アジア・中国主導）</li>
-            </ul>
+<h3>最重要ポイント</h3>
+<p><strong>1. 需給動向の転換期：</strong> 2025年の世界リチウム供給は144.3万トン、需要は134万トンで10.3万トンの供給過剰が見込まれていますが、2026年以降はEV・エネルギー貯蔵需要の急増により需給が引き締まる見通しです。モルガン・スタンレーは2026年で8万トンの不足を予測しています。</p>
+<p><strong>2. 価格見通しの幅：</strong> 強気シナリオでは2027年に25,000ドル/トンまで上昇（バーンスタイン予測）、基本シナリオでは15,000ドル/トン前後で安定化、弱気シナリオでは供給過剰継続で7,000～9,000ドル/トンまで下落する可能性があります。</p>
+<p><strong>3. EV需要が主要ドライバー：</strong> 世界のEV販売台数は2025年に前年比23.9%増、2026年に14.7%増と見込まれており、リチウムの長期需要を牽引します。同時に、エネルギー貯蔵向け需要（特に中国）も急速に成長しています。</p>
+<p><strong>4. 新技術と供給多様化：</strong> 直接リチウム抽出（DLE）技術の商業化がライラック・ソリューションズ、スタンダード・リチウム等で2026年に本格化し、2028年以降の供給増加による価格抑制をもたらす可能性があります。</p>
+<p><strong>5. 投資判断のポイント：</strong> 2026年～2027年の価格反発局面での低コスト生産者への投資機会がある一方で、2028年以降の供給過剰リスクも考慮した長期契約やポートフォリオ多様化が重要です。</p>
 
-            <h3>1.3 供給サイド～地域別生産構造</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>生産国</th>
-                        <th>資源形態</th>
-                        <th>2024年生産量</th>
-                        <th>全世界シェア</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>オーストラリア</td>
-                        <td>スポドメン（硬岩）</td>
-                        <td>約50万t LCE</td>
-                        <td>45%</td>
-                    </tr>
-                    <tr>
-                        <td>チリ</td>
-                        <td>塩湖鹵水</td>
-                        <td>約29万7,000t LCE</td>
-                        <td>27%</td>
-                    </tr>
-                    <tr>
-                        <td>中国</td>
-                        <td>精錬・加工</td>
-                        <td>加工能力120万t（全世界の70%）</td>
-                        <td>70%（精製）</td>
-                    </tr>
-                    <tr>
-                        <td>アルゼンチン</td>
-                        <td>塩湖鹵水</td>
-                        <td>約10万t LCE</td>
-                        <td>9%</td>
-                    </tr>
-                    <tr>
-                        <td>その他（ブラジル・ジンバブエ等）</td>
-                        <td>混合</td>
-                        <td>約4万t LCE</td>
-                        <td>4%</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+<div class="divider"></div>
 
-        <h2>2. 主要プレイヤーと競合動向</h2>
-        <div class="section">
-            <table>
-                <thead>
-                    <tr>
-                        <th>企業</th>
-                        <th>本社・主要資産</th>
-                        <th>2024-2026年CAPEX計画</th>
-                        <th>戦略的動向</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>Albemarle</strong></td>
-                        <td>米国 | チリ（Atacama塩湖権益）、豪Talison Lithium、米キングスマウンテン</td>
-                        <td>約8億USD（Silver Peak拡張・Wodgina権益拡大）</td>
-                        <td>Silver Peak拡張は2025年完成予定で+2万t LCE。垂直統合・リサイクル開発に注力。ポートフォリオ最適化（MARBL売却検討）</td>
-                    </tr>
-                    <tr>
-                        <td><strong>SQM</strong></td>
-                        <td>チリ | Atacama塩湖（21万t生産能力予定）</td>
-                        <td>約12億USD（2024-2027年の拡張）</td>
-                        <td>2025年にAtacama生産能力を21万tに引き上げ。チリ政府との新リチウム契約（2024年発表）で権益強化。Codelcoとの新JV協議中</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Ganfeng Lithium</strong></td>
-                        <td>中国（江西） | メキシコSonora、アルゼンチン4プロジェクト</td>
-                        <td>約10億USD（江西新プロジェクト・メキシコ買収継続）</td>
-                        <td>江西新プロジェクト2026年稼働予定で+5万t。メキシコSonora買収継続中。2023年9月に宜春リチウム精錬稼働開始。垂直統合型で電池メーカーとの長期契約強化</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Tianqi Lithium</strong></td>
-                        <td>中国 | 豪Talison Lithium権益（Albemarleと共有）、SQM株22.16%保有</td>
-                        <td>約7億USD（四川水酸化リチウム新設他）</td>
-                        <td>Talison権益保有でオーストラリア供給確保。SQMの大株主として影響力行使。中国精製能力拡張で水酸化リチウムCAGR 23%達成を狙う</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Rio Tinto</strong></td>
-                        <td>豪Jadarプロジェクト（セルビア開発計画）</td>
-                        <td>約20億USD（DLE技術投資・セルビアプロジェクト）</td>
-                        <td>DLE（直接リチウム抽出）技術を2026年に商業施設計画。セルビアJadar鉱山は2028年稼働予定。米・アルゼンチンでも商業DLE施設を検討</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Standard Lithium</strong></td>
-                        <td>カナダ | ウォーミング塩湖（米ユタ州）</td>
-                        <td>約3億USD（DLE商業化）</td>
-                        <td>DLE技術で2026年商業施設立ち上げ予定。Lilacsと競争状況。低環境負荷が売り物</td>
-                    </tr>
-                </tbody>
-            </table>
+<h2>市場・業界の定量的現状</h2>
 
-            <p style="margin-top: 20px;"><strong>中国企業の国外投資総規模：</strong> ライスタッド・エナジー調査では、中国企業による全世界プロジェクト出資規模は世界11カ国で合計6,300億円。中国のリチウム精製支配力（70%）を維持・拡大する戦略が明確。</p>
-        </div>
+<h3>価格推移と市場規模</h3>
 
-        <h2>3. リスクと機会の定量分析</h2>
-        <div class="grid">
-            <div class="section">
-                <h3>短期リスク（2026-2028年）</h3>
-                <ul class="risk-list">
-                    <li><strong>関税・経済政策：</strong> 米新政権による中国EVバッテリー関税賦課がコスト+15～25%を招き、EV普及ペース鈍化リスク。確率：高（60～70%）</li>
-                    <li><strong>金利上昇継続：</strong> 高金利政策下では蓄電プロジェクト資本コスト上昇、承認遅延が確実。2026年利上げ環境下では影響度：大</li>
-                    <li><strong>中国供給過剰：</strong> Tier-2コンバーター供給能力1.2百万t vs 国内需要0.8百万t。価格圧力は2027年まで継続。下振れリスク：8,000～9,000USD/t</li>
-                    <li><strong>技術進歩の不確実性：</strong> DLE商業化時期が2026→2028年に遅延した場合、供給減少で2～3万USD/tの価格上昇圧力が発生。確率：中程度（40～50%）</li>
-                </ul>
-            </div>
-            <div class="section">
-                <h3>中長期機会（2028-2036年）</h3>
-                <ul class="opp-list">
-                    <li><strong>DLE技術商業化：</strong> Rio Tinto・Standard Lithium・Lilac Solutions等が2026年～2028年に商業施設立ち上げ。水使用量70%削減でコスト競争力強化。供給+5万～10万t/年視野</li>
-                    <li><strong>リサイクル率向上：</strong> 採掘リチウムの60%が電池向けで、2030年に95%化。リサイクル率は現在3%→2030年12～15%→2035年28%予測。需要押し下げ効果：-5万～10万t/年</li>
-                    <li><strong>グリッドスケール蓄電義務化：</strong> 米・EU・中国での4時間以上蓄電義務化で、2030年以降のバッテリー需要が+30～50%伸展。リチウム需要上値圧力</li>
-                    <li><strong>代替技術の脅威：</strong> ナトリウムイオン電池CAGR -1.2%相当のマイナス影響推定。2030年以降にリチウム需要を-2～3万t/年ける可能性。低い確率（20～30%）だが影響度：中</li>
-                </ul>
-            </div>
-        </div>
+<table>
+<thead>
+<tr>
+<th>時期</th>
+<th>炭酸リチウム価格（USD/トン）</th>
+<th>市況背景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2020年</td>
+<td>4,000～5,000</td>
+<td>COVID-19パンデミック初期、需要低迷</td>
+</tr>
+<tr>
+<td>2021年</td>
+<td>8,000～12,000</td>
+<td>EV急成長開始、供給制約顕在化</td>
+</tr>
+<tr>
+<td>2022年（ピーク）</td>
+<td>70,000</td>
+<td>需給逼迫、供給不足が極大化</td>
+</tr>
+<tr>
+<td>2023年</td>
+<td>30,000～40,000</td>
+<td>需給緩和開始、価格大幅下落</td>
+</tr>
+<tr>
+<td>2024年</td>
+<td>10,000～12,000</td>
+<td>供給過剰状態、業界採算性悪化</td>
+</tr>
+<tr>
+<td>2025年6月（安値）</td>
+<td>8,360</td>
+<td>中国スポット価格5.84万元/トン</td>
+</tr>
+</tbody>
+</table>
 
-        <h2>4. 地政学・規制・マクロ環境</h2>
-        <div class="section">
-            <h3>4.1 地政学的リスク</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>地域・課題</th>
-                        <th>具体的動向</th>
-                        <th>影響度</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>チリ国有化議論</strong></td>
-                        <td>新リチウム政策（2024年）発表。政府が「戦略資源」として権益再交渉を推進。Albemarle・SQMの既得権益に影響</td>
-                        <td>中（30～40%確率で全面国有化には至らず、部分的ロイヤリティ増加が現実的）</td>
-                    </tr>
-                    <tr>
-                        <td><strong>アルゼンチン政局</strong></td>
-                        <td>RIGI制度（200百万ドル以上投資への税制優遇）導入でプロジェクト加速。但しインフレ・政情不安が続く</td>
-                        <td>中（計画通りの進捗は60～70%、遅延リスク30～40%）</td>
-                    </tr>
-                    <tr>
-                        <td><strong>ジンバブエ輸出割当・禁止</strong></td>
-                        <td>リチウム濃縮物の輸出割当を課し、2026年から完全輸出禁止予定。供給分散化へのリスク</td>
-                        <td>低（ジンバブエシェア4%以下で市場全体への影響軽微）</td>
-                    </tr>
-                    <tr>
-                        <td><strong>中国輸出管理強化</strong></td>
-                        <td>加工リチウムの輸出管理強化の可能性。グローバル供給に対する中国統制力増強</td>
-                        <td>中（確率40～50%。実施されれば価格+2,000～5,000USD/t）</td>
-                    </tr>
-                </tbody>
-            </table>
+<p><strong>市場規模：</strong> リチウム市場は2023年の240億米ドルから2033年には1,647.7億米ドルへ拡大し、CAGR 17.9%を記録すると予想されています。</p>
 
-            <h3>4.2 規制環境</h3>
-            <ul style="margin-left: 20px; margin-top: 16px;">
-                <li><strong>米IRA（インフレ削減法）：</strong> 北米リチウム生産に年最大35億ドルの補助。地政学リスク回避で米国・カナダ・メキシコの新規投資加速。グローバル供給に+8～12万t/年影響</li>
-                <li><strong>EU規制：</strong> バッテリー規則が2023年施行。リサイクル率向上・環境基準厳格化でコスト圧力。電池リサイクル投資が加速</li>
-                <li><strong>ブラジルインフラ投資：</strong> Minas Gerais州が民間企業リチウム開発を歓迎。58億BRLを投資予定で、南米第2次リチウムベルト形成の可能性</li>
-            </ul>
-        </div>
+<h3>需給バランスの詳細分析</h3>
 
-        <h2>5. 今後10年の3シナリオ価格予測</h2>
-        
-        <div style="background: #fff; padding: 24px; border-radius: 4px; margin-bottom: 32px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
-            <h3 style="margin-bottom: 24px; color: var(--blue);">シナリオの前提条件と特性</h3>
-            
-            <div class="scenarios">
-                <div class="scenario bull">
-                    <h4>シナリオ① 強気（BULL）</h4>
-                    <p><strong>需給逼迫加速ケース</strong></p>
-                    <p style="font-size: 11px;">前提：EV需要 +23%/年成長 | 新規供給 -15%遅延 | DLE商業化 2028年以降 | リサイクル率 10%程度</p>
-                    <p style="margin-top: 16px; font-size: 12px;"><strong>主な仮定：</strong></p>
-                    <ul style="font-size: 11px; margin-left: 16px; margin-top: 8px;">
-                        <li>中国EV販売が年率25%超で成長</li>
-                        <li>Ganfeng・Tibetは計画遅延が常態化</li>
-                        <li>既存供給企業の高コスト鉱山で減産</li>
-                        <li>地政学リスク顕在化（チリ権益縮小等）</li>
-                    </ul>
-                    <div class="price">2035年: 32,000 USD/t</div>
-                </div>
+<div class="bar-chart">
+<div class="bar-item">
+<div class="bar-label">
+<span>2025年供給（万トン LCE換算）</span>
+<span>144.3</span>
+</div>
+<div class="bar" style="width: 72%;">
+<div class="bar-value">144.3</div>
+</div>
+</div>
+<div class="bar-item">
+<div class="bar-label">
+<span>2025年需要（万トン LCE換算）</span>
+<span>134.0</span>
+</div>
+<div class="bar" style="width: 67%;">
+<div class="bar-value">134.0</div>
+</div>
+</div>
+<div class="bar-item">
+<div class="bar-label">
+<span>2026年予想供給（万トン LCE換算）</span>
+<span>158.0</span>
+</div>
+<div class="bar" style="width: 79%;">
+<div class="bar-value">158.0</div>
+</div>
+</div>
+<div class="bar-item">
+<div class="bar-label">
+<span>2026年予想需要（万トン LCE換算）</span>
+<span>152.0</span>
+</div>
+<div class="bar" style="width: 76%;">
+<div class="bar-value">152.0</div>
+</div>
+</div>
+</div>
 
-                <div class="scenario base">
-                    <h4>シナリオ② ベースケース（BASE）</h4>
-                    <p><strong>需給バランス正常化</strong></p>
-                    <p style="font-size: 11px;">前提：EV需要 +19%/年成長 | 新規供給 +5%遅延 | DLE 2027年から段階稼働 | リサイクル率 12～15%</p>
-                    <p style="margin-top: 16px; font-size: 12px;"><strong>主な仮定：</strong></p>
-                    <ul style="font-size: 11px; margin-left: 16px; margin-top: 8px;">
-                        <li>EV需要は一定成長も鈍化局面入り</li>
-                        <li>新規プロジェクト計画の80～85%実現</li>
-                        <li>技術進歩が段階的に実施</li>
-                        <li>限界採掘コスト ~12,000USD/t付近で安定</li>
-                    </ul>
-                    <div class="price">2035年: 18,000 USD/t</div>
-                </div>
+<p><strong>需給見通し：</strong> 2025年は供給過剰（10.3万トン）ですが、2026年はアナリスト間で見方が分かれています。モルガン・スタンレーは8万トンの不足（年後半に顕在化）、UBSは2.2万トンの不足を予想する一方、基本シナリオでは6万トンの小幅過剰を想定しています。</p>
 
-                <div class="scenario bear">
-                    <h4>シナリオ③ 弱気（BEAR）</h4>
-                    <p><strong>供給過剰継続</strong></p>
-                    <p style="font-size: 11px;">前提：EV需要 +14%/年成長 | 新規供給 超過実行 | 代替電池急普及 | リサイクル率 2030年に20%</p>
-                    <p style="margin-top: 16px; font-size: 12px;"><strong>主な仮定：</strong></p>
-                    <ul style="font-size: 11px; margin-left: 16px; margin-top: 8px;">
-                        <li>EV市場成長ペース鈍化（政策不確実性）</li>
-                        <li>ナトリウムイオン電池が予想外に普及</li>
-                        <li>リサイクル率が急速に向上</li>
-                        <li>中国Tier-2過剰供給が長期化</li>
-                    </ul>
-                    <div class="price">2035年: 9,500 USD/t</div>
-                </div>
-            </div>
+<h3>需要ドライバーの構成</h3>
 
-            <div class="chart-container" style="margin-top: 40px;">
-                <svg width="100%" viewBox="0 0 1000 400" style="max-width: 100%; height: auto;">
-                    <defs>
-                        <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
-                            <stop offset="0%" style="stop-color:#00A878;stop-opacity:1" />
-                            <stop offset="100%" style="stop-color:#00A878;stop-opacity:0.3" />
-                        </linearGradient>
-                        <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="0%">
-                            <stop offset="0%" style="stop-color:#F2A900;stop-opacity:1" />
-                            <stop offset="100%" style="stop-color:#F2A900;stop-opacity:0.3" />
-                        </linearGradient>
-                        <linearGradient id="grad3" x1="0%" y1="0%" x2="100%" y2="0%">
-                            <stop offset="0%" style="stop-color:#E24A4A;stop-opacity:1" />
-                            <stop offset="100%" style="stop-color:#E24A4A;stop-opacity:0.3" />
-                        </linearGradient>
-                    </defs>
-                    <rect width="1000" height="400" fill="#f9fafb"/>
-                    <g id="grid">
-                        <line x1="60" y1="30" x2="60" y2="360" stroke="#999" stroke-width="2"/>
-                        <line x1="60" y1="360" x2="960" y2="360" stroke="#999" stroke-width="2"/>
-                        <line x1="60" y1="60" x2="950" y2="60" stroke="#e0e0e0" stroke-width="1" stroke-dasharray="3,3"/>
-                        <line x1="60" y1="120" x2="950" y2="120" stroke="#e0e0e0" stroke-width="1" stroke-dasharray="3,3"/>
-                        <line x1="60" y1="180" x2="950" y2="180" stroke="#e0e0e0" stroke-width="1" stroke-dasharray="3,3"/>
-                        <line x1="60" y1="240" x2="950" y2="240" stroke="#e0e0e0" stroke-width="1" stroke-dasharray="3,3"/>
-                        <line x1="60" y1="300" x2="950" y2="300" stroke="#e0e0e0" stroke-width="1" stroke-dasharray="3,3"/>
-                    </g>
-                    <g id="labels-y" font-size="11" fill="#666">
-                        <text x="35" y="365" text-anchor="end">0</text>
-                        <text x="35" y="305" text-anchor="end">10k</text>
-                        <text x="35" y="245" text-anchor="end">15k</text>
-                        <text x="35" y="185" text-anchor="end">20k</text>
-                        <text x="35" y="125" text-anchor="end">25k</text>
-                        <text x="35" y="65" text-anchor="end">30k</text>
-                    </g>
-                    <g id="labels-x" font-size="10" fill="#666" text-anchor="middle">
-                        <text x="80" y="380">2025</text>
-                        <text x="160" y="380">2026</text>
-                        <text x="240" y="380">2027</text>
-                        <text x="320" y="380">2028</text>
-                        <text x="400" y="380">2029</text>
-                        <text x="480" y="380">2030</text>
-                        <text x="560" y="380">2031</text>
-                        <text x="640" y="380">2032</text>
-                        <text x="720" y="380">2033</text>
-                        <text x="800" y="380">2034</text>
-                        <text x="880" y="380">2035</text>
-                    </g>
-                    <polyline points="80,312 160,288 240,228 320,180 400,156 480,162 560,150 640,138 720,126 800,114 880,84" stroke="#00A878" stroke-width="3" fill="none"/>
-                    <polyline points="80,312 160,300 240,156 320,60 400,36 480,24 560,12 640,12 720,12 800,12 880,12" stroke="#F2A900" stroke-width="3" fill="none"/>
-                    <polyline points="80,312 160,324 240,336 320,336 400,336 480,348 560,336 640,324 720,312 800,300 880,288" stroke="#E24A4A" stroke-width="3" fill="none"/>
-                    <g id="data-bull" font-size="9" fill="#00A878">
-                        <circle cx="80" cy="312" r="3"/>
-                        <circle cx="160" cy="300" r="3"/>
-                        <circle cx="240" cy="156" r="3"/>
-                        <circle cx="320" cy="60" r="3"/>
-                        <circle cx="400" cy="36" r="3"/>
-                        <circle cx="480" cy="24" r="3"/>
-                        <circle cx="560" cy="12" r="3"/>
-                        <circle cx="640" cy="12" r="3"/>
-                        <circle cx="720" cy="12" r="3"/>
-                        <circle cx="800" cy="12" r="3"/>
-                        <circle cx="880" cy="12" r="3"/>
-                    </g>
-                    <g id="data-base" font-size="9" fill="#F2A900">
-                        <circle cx="80" cy="312" r="3"/>
-                        <circle cx="160" cy="288" r="3"/>
-                        <circle cx="240" cy="228" r="3"/>
-                        <circle cx="320" cy="180" r="3"/>
-                        <circle cx="400" cy="156" r="3"/>
-                        <circle cx="480" cy="162" r="3"/>
-                        <circle cx="560" cy="150" r="3"/>
-                        <circle cx="640" cy="138" r="3"/>
-                        <circle cx="720" cy="126" r="3"/>
-                        <circle cx="800" cy="114" r="3"/>
-                        <circle cx="880" cy="84" r="3"/>
-                    </g>
-                    <g id="data-bear" font-size="9" fill="#E24A4A">
-                        <circle cx="80" cy="312" r="3"/>
-                        <circle cx="160" cy="324" r="3"/>
-                        <circle cx="240" cy="336" r="3"/>
-                        <circle cx="320" cy="336" r="3"/>
-                        <circle cx="400" cy="336" r="3"/>
-                        <circle cx="480" cy="348" r="3"/>
-                        <circle cx="560" cy="336" r="3"/>
-                        <circle cx="640" cy="324" r="3"/>
-                        <circle cx="720" cy="312" r="3"/>
-                        <circle cx="800" cy="300" r="3"/>
-                        <circle cx="880" cy="288" r="3"/>
-                    </g>
-                    <g id="legend" font-size="12">
-                        <rect x="650" y="20" width="320" height="120" fill="#fff" stroke="#999" stroke-width="1" rx="4"/>
-                        <line x1="670" y1="40" x2="700" y2="40" stroke="#00A878" stroke-width="3"/>
-                        <text x="710" y="45" fill="#00A878">強気シナリオ (Bull)</text>
-                        <text x="710" y="60" fill="#666" font-size="10">2035年: 32,000 USD/t</text>
-                        <line x1="670" y1="75" x2="700" y2="75" stroke="#F2A900" stroke-width="3"/>
-                        <text x="710" y="80" fill="#F2A900">ベースケース (Base)</text>
-                        <text x="710" y="95" fill="#666" font-size="10">2035年: 18,000 USD/t</text>
-                        <line x1="670" y1="110" x2="700" y2="110" stroke="#E24A4A" stroke-width="3"/>
-                        <text x="710" y="115" fill="#E24A4A">弱気シナリオ (Bear)</text>
-                        <text x="710" y="130" fill="#666" font-size="10">2035年: 9,500 USD/t</text>
-                    </g>
-                </svg>
-            </div>
-        </div>
+<table>
+<thead>
+<tr>
+<th>用途セグメント</th>
+<th>2024年比率</th>
+<th>2025～2026年成長率</th>
+<th>主要動向</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>EV電池用</td>
+<td>約75%</td>
+<td>年15～25%</td>
+<td>中国EV販売堅調、欧米では一部鈍化</td>
+</tr>
+<tr>
+<td>定置用エネルギー貯蔵</td>
+<td>約10%</td>
+<td>年30%以上</td>
+<td>中国の電力セクター改革で最大成長セグメント</td>
+</tr>
+<tr>
+<td>その他工業用（セラミック、ガラス等）</td>
+<td>約15%</td>
+<td>年3～5%</td>
+<td>安定需要、リチウム価格低迷の恩恵</td>
+</tr>
+</tbody>
+</table>
 
-        <div class="section" style="margin-bottom: 32px;">
-            <h3>シナリオ別詳細価格推移表</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>年次</th>
-                        <th>強気（BULL）USD/t</th>
-                        <th>ベース（BASE）USD/t</th>
-                        <th>弱気（BEAR）USD/t</th>
-                        <th>価格幅（高-低）</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>2025</td>
-                        <td>14,000</td>
-                        <td>12,500</td>
-                        <td>9,500</td>
-                        <td>4,500</td>
-                    </tr>
-                    <tr>
-                        <td>2026</td>
-                        <td>17,500</td>
-                        <td>13,800</td>
-                        <td>8,200</td>
-                        <td>9,300</td>
-                    </tr>
-                    <tr>
-                        <td>2027</td>
-                        <td>22,000</td>
-                        <td>15,200</td>
-                        <td>7,800</td>
-                        <td>14,200</td>
-                    </tr>
-                    <tr>
-                        <td>2028</td>
-                        <td>25,000</td>
-                        <td>16,500</td>
-                        <td>8,500</td>
-                        <td>16,500</td>
-                    </tr>
-                    <tr>
-                        <td>2029</td>
-                        <td>26,500</td>
-                        <td>15,800</td>
-                        <td>9,000</td>
-                        <td>17,500</td>
-                    </tr>
-                    <tr>
-                        <td>2030</td>
-                        <td>27,000</td>
-                        <td>15,500</td>
-                        <td>8,000</td>
-                        <td>19,000</td>
-                    </tr>
-                    <tr>
-                        <td>2031</td>
-                        <td>28,500</td>
-                        <td>16,200</td>
-                        <td>8,500</td>
-                        <td>20,000</td>
-                    </tr>
-                    <tr>
-                        <td>2032</td>
-                        <td>29,500</td>
-                        <td>17,000</td>
-                        <td>9,000</td>
-                        <td>20,500</td>
-                    </tr>
-                    <tr>
-                        <td>2033</td>
-                        <td>30,500</td>
-                        <td>17,500</td>
-                        <td>9,200</td>
-                        <td>21,300</td>
-                    </tr>
-                    <tr>
-                        <td>2034</td>
-                        <td>31,000</td>
-                        <td>17,800</td>
-                        <td>9,400</td>
-                        <td>21,600</td>
-                    </tr>
-                    <tr>
-                        <td>2035</td>
-                        <td>32,000</td>
-                        <td>18,000</td>
-                        <td>9,500</td>
-                        <td>22,500</td>
-                    </tr>
-                </tbody>
-            </table>
+<p><strong>注目点：</strong> エネルギー貯蔵向けリチウム需要が新たな主要ドライバーとなっており、2024年～2025年の中国での急速な拡大により供給過多市場の構図を大きく変えています。</p>
 
-            <p style="margin-top: 20px; padding: 12px; background: rgba(242,169,0,0.1); border-left: 4px solid var(--mid);">
-                <strong>重要注記：</strong> 上記価格はすべて炭酸リチウム換算LCE（Lithium Carbonate Equivalent）の名目USD価格。水酸化リチウム価格スプレッド（+1,500～2,500USD/t）は別途加味が必要。実現時点での為替変動（特にCNY/USD）も重要な変数。
-            </p>
-        </div>
+<div class="divider"></div>
 
-        <h2>6. 投資実務的示唆と意思決定フレームワーク</h2>
-        <div class="section">
-            <h3>6.1 ポジション別の投資戦略</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>投資ポジション</th>
-                        <th>推奨行動</th>
-                        <th>タイミング</th>
-                        <th>リスク管理</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>ロング（生産・供給側）</strong></td>
-                        <td>BASEシナリオ想定でドルコスト平均法による段階的エントリー。Albemarle・SQM・Ganfengの拡張プロジェクト進捗を監視し、供給タイムラグ機会を活用</td>
-                        <td>2026年Q2～Q3に初回ポジション構築。2027年の価格回復局面（15,000～16,500USD/t）でエグジット検討</td>
-                        <td>BEAR想定で2025～2027年さらに8,000～9,500USD/tへ下振れの可能性を想定。ストップロス設定は10,500USD/tレベル</td>
-                    </tr>
-                    <tr>
-                        <td><strong>ショート（需要・カウンター）</strong></td>
-                        <td>EV需要鈍化シグナル（中国新車販売＜予想、補助金削減）をトリガーにBEARシナリオ下のショートを検討</td>
-                        <td>2026年後半～2027年初。ただし地政学リスク（チリ権益問題）で急反発リスク大</td>
-                        <td>BULL想定での強気反発（22,000～25,000USD/t）を想定。損失限定のため利確目安は15,000USD/t</td>
-                    </tr>
-                    <tr>
-                        <td><strong>ヘッジ（リスク管理）</strong></td>
-                        <td>EVメーカー・バッテリーメーカーはコスト固定化のため、2026～2030年にかけ10～15年先物で50～70%をヘッジ。15,000～18,000USD/tレンジでのプットオプション取得も有効</td>
-                        <td>2026年中にヘッジ枠組み構築。年次ロールオーバー</td>
-                        <td>ヘッジコスト（プレミアム）を現金流に加味。ヘッジ比率は四半期ごとに見直し</td>
-                    </tr>
-                </tbody>
-            </table>
+<h2>主要プレイヤーと競合動向</h2>
 
-            <h3 style="margin-top: 32px;">6.2 監視すべき主要KPI（月次・四半期監視）</h3>
-            <ul style="margin-left: 20px; margin-top: 16px;">
-                <li><strong>中国炭酸リチウム現物価格：</strong> 9万～12万CNY/tレンジ外への逸脱は需給変動シグナル。下限8万CNY/tで弱気シナリオ、上限15万CNY/tで強気へシフト</li>
-                <li><strong>EV新車販売台数（中国・グローバル）：</strong> 前年比+20%以上なら強気、+10%以下なら弱気のトリガー。月次データ遅れは2～3カ月のため、5～6月データで2ヵ月先を予測</li>
-                <li><strong>グリーンフィールド・プロジェクト進捗：</strong> Ganfeng江西・Rio Tinto Jadar・Standard LithiumのDLE商業化時期は±6～12ヵ月の遅延が常態化。遅延が確定で強気シナリオ確度向上</li>
-                <li><strong>リサイクル率実績：</strong> 現在3%→2030年12～15%への成長度合いが供給シナリオに直結。リサイクル企業（Redwood Materials等）の稼働開始を監視</li>
-                <li><strong>地政学リスク指数：</strong> チリの政治スタンス・アルゼンチン政情安定度をスコアリング。急変で供給リスク+3,000～5,000USD/t</li>
-            </ul>
+<h3>生産地域別シェア（2024年推定）</h3>
 
-            <h3 style="margin-top: 32px;">6.3 シナリオ判定チェックリスト（2026年9月時点での更新例）</h3>
-            <div style="background: #f9fafb; padding: 16px; border-radius: 4px; margin-top: 16px;">
-                <p style="font-size: 12px; margin-bottom: 12px;"><strong>BASEシナリオへの信頼度を保つための確認項目：</strong></p>
-                <ul style="font-size: 12px; margin-left: 20px;">
-                    <li>□ 中国2026年度EV販売、前年比 15～22% 成長を維持</li>
-                    <li>□ グローバル新規リチウムプロジェクト稼働遅延は計画±6ヵ月以内</li>
-                    <li>□ Albemarle Silver Peak拡張、2025年末完成を達成</li>
-                    <li>□ 中国リチウム在庫、25～35日分レンジで安定</li>
-                    <li>□ 水酸化/炭酸リチウム価格スプレッド、1,500～2,500USD/tを維持</li>
-                </ul>
-                <p style="font-size: 12px; margin-top: 12px; margin-bottom: 12px;"><strong>BULLシナリオへのシフト条件：</strong></p>
-                <ul style="font-size: 12px; margin-left: 20px;">
-                    <li>□ グローバル新規プロジェクト稼働が半年以上遅延確定</li>
-                    <li>□ 中国EV販売が前年比+25%超を維持</li>
-                    <li>□ 中国リチウム在庫が15日分以下へ低下</li>
-                    <li>□ 複数の大型プロジェクト（Rio Tinto Jadar等）の承認遅延が相次ぐ</li>
-                </ul>
-                <p style="font-size: 12px; margin-top: 12px;"><strong>BEARシナリオへのシフト条件：</strong></p>
-                <ul style="font-size: 12px; margin-left: 20px;">
-                    <li>□ グローバルEV販売が前年比+12%以下へ鈍化</li>
-                    <li>□ ナトリウムイオン電池の商用化が2026年末に本格開始</li>
-                    <li>□ 新規供給プロジェクトの90%以上が計画通り稼働開始</li>
-                    <li>□ リサイクル率が2030年に18%超への上方修正</li>
-                </ul>
-            </div>
-        </div>
+<table>
+<thead>
+<tr>
+<th>国・地域</th>
+<th>生産量（万トン LCE）</th>
+<th>世界シェア</th>
+<th>主要企業</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>オーストラリア</td>
+<td>58.0</td>
+<td>33%</td>
+<td>Pilbara Minerals、Mineral Resources、Albemarle</td>
+</tr>
+<tr>
+<td>チリ</td>
+<td>36.0</td>
+<td>21%</td>
+<td>SQM、Albemarle、Livent</td>
+</tr>
+<tr>
+<td>中国</td>
+<td>65.0</td>
+<td>37%</td>
+<td>Ganfeng Lithium、Tianqi Lithium、CITIC Lithium</td>
+</tr>
+<tr>
+<td>アルゼンチン</td>
+<td>15.0</td>
+<td>9%</td>
+<td>Livent、Arcadium、POSCO International</td>
+</tr>
+</tbody>
+</table>
 
-        <h2>7. AIコンセンサスマップ</h2>
-        <div class="consensus-map">
-            <div class="consensus-section agree">
-                <h4>🟢 全AI一致した点（コンセンサス）</h4>
-                <div class="consensus-item"><strong>需給バランスが鍵：</strong> 4AIすべてがEV需要とグローバル供給のギャップを価格決定要因の最重要項目と指摘。2027～2028年の供給増加タイミングが分岐点</div>
-                <div class="consensus-item"><strong>現在の価格は過去ピークから80～96%下落：</strong> 2022年の60,000～80,000USD/tから2024-2025年は9,000～15,000USD/tレンジへ。全AI が「低迷期」と一致</div>
-                <div class="consensus-item"><strong>新規プロジェクトのCAPEX・開発コスト：</strong> 1プロジェクトあたり8,000～12,000USD/tの開発コスト水準が合理的。グリーンフィールドで5～7年の投資回収が必要</div>
-                <div class="consensus-item"><strong>地政学リスク（南米政情）が無視できない：</strong> チリ・アルゼンチンの政策・政情が供給の30～40%を左右。権益国有化・ロイヤリティ引き上げの確率を中程度と評価</div>
-                <div class="consensus-item"><strong>リサイクル技術の進展が中長期供給を減少させる：</strong> 2030年に12～15%、2035年に20～28%のリサイクル率達成を推定。採掘需要を-2～5万t/年削減する可能性</div>
-            </div>
+<h3>主要企業の最近動向</h3>
 
-            <div class="consensus-section differ">
-                <h4>🟡 意見が割れた点（重要な相違）</h4>
-                <div class="consensus-item"><strong>2026年ベースケース価格の見通し幅：</strong> Haiku/Grok は13,800～12,500USD/t、Gemini は25,000～35,000USD/t（強気寄り）、GPT-4o mini は950USD/tと大きく相違。グローバル平均vs中国現物価格の定義の違いが原因</div>
-                <div class="consensus-item"><strong>DLE（直接リチウム抽出）技術の商業化タイムライン：</strong> 楽観派は2026年、標準派は2027～2028年、悲観派は2028年以降と3年のばらつき。Rio Tinto・Standard Lithium・Lilacの実績発表まで不透明</div>
-                <div class="consensus-item"><strong>ナトリウムイオン電池の脅威度：</strong> Haiku/Grok は「低い脅威」（CAGR -1.2%程度）、Gemini は「段階的な需要喪失」、GPT-4o mini は「2030年以降の無視できない脅威」と評価が分散</div>
-                <div class="consensus-item"><strong>2035年強気シナリオ価格（25,000～32,000USD/t）の達成確率：</strong> Grok は25～30%と低め、Gemini は40～50%、Haiku は「供給遅延次第」と条件付き。地政学リスクの織り込み度が異なる</div>
-            </div>
+<div class="grid">
+<div class="box">
+<h3>Albemarle（米国）</h3>
+<p><strong>生産能力：</strong> 年産約12万トン（目標）</p>
+<p><strong>最近の戦略：</strong> チリSalar de Atacama拡張プロジェクト、テキサス州リチウム精製所の稼働開始（2023年～2024年）</p>
+<p><strong>投資額：</strong> 新プロジェクトに約2億ドル</p>
+<p><strong>見通し：</strong> 直接リチウム抽出（DLE）技術への投資加速</p>
+</div>
+<div class="box">
+<h3>Ganfeng Lithium（中国）</h3>
+<p><strong>生産能力：</strong> 年産約40万トン（計画値）</p>
+<p><strong>最近の戦略：</strong> オーストラリア・アルゼンチン鉱山買収、テスラとの長期供給契約</p>
+<p><strong>優位性：</strong> 低コスト生産により市場シェア拡大</p>
+<p><strong>見通し：</strong> 2025年以降も競争力維持、価格下押し圧力</p>
+</div>
+<div class="box">
+<h3>Livent（米国→Arcadium）</h3>
+<p><strong>生産能力：</strong> 年産約2.5万トン</p>
+<p><strong>最近の戦略：</strong> テキサス州新規工場建設（投資額約8億ドル）、アルゼンチン・オーストラリア権益強化</p>
+<p><strong>見通し：</strong> DLE技術商業化（2026年目標）</p>
+</div>
+<div class="box">
+<h3>直接リチウム抽出（DLE）の進展</h3>
+<p><strong>主要企業：</strong> Lilac Solutions、Standard Lithium、Rio Tinto</p>
+<p><strong>商業化予定：</strong> 2026年～2028年</p>
+<p><strong>影響：</strong> 従来採掘法より低環境負荷、採掘・精製一貫体制で コスト削減、供給増加による価格抑制</p>
+</div>
+</div>
 
-            <div class="consensus-section unique">
-                <h4>🔴 各AIが独自に指摘したユニーク情報</h4>
-                <div class="consensus-item"><strong>Haiku 4.5の指摘：</strong> チリ新リチウム政策（2024年）とCodelco・SQM新JV協議の進捗が権益構造を大きく変更する可能性。政府支配比率が上昇すればロイヤリティ+5,000～7,000USD/tの圧力</div>
-                <div class="consensus-item"><strong>Gemini 2.5 Flash の指摘：</strong> 中国Tier-2コンバーター（非大手精製企業）の過剰供給能力1.2百万tが「構造的課題」。既得権益を持つため、高コスト企業の自発的減産は困難で、低迷が2027年まで継続の可能性</div>
-                <div class="consensus-item"><strong>GPT-4o mini の指摘：</strong> ブラジルのMinas Gerais州での新規リチウム開発（政府投資58億BRL）が「南米第2次リチウムベルト」を形成。2030年以降の供給拡大（+3～5万t予想）が価格下振れ要因</div>
-                <div class="consensus-item"><strong>Grok 3 mini の指摘：</strong> マクロ環境（金利動向・中国EV補助金政策）の定期的更新が必須。Benchmark Mineral Intelligence等の統計は遅延が2～3ヵ月あり、「先行指標の発掘」（チャイナ自動車販売協会の速報など）による動的モデル運用を推奨</div>
-            </div>
-        </div>
+<div class="divider"></div>
 
-        <div class="citation">
-            <h3>参照出典一覧（全4AI統合）</h3>
-            <ol>
-                <li>バーンスタイン証券 (2024/2026年) - リチウム市場見通し・価格予測：2026年17,000USD/t、2027年25,000USD/t、長期正常化価格15,000USD/t</li>
-                <li>チリ銅委員会 (2026年実績報告) - アジアCIF価格：炭酸リチウム10,327USD/t、水酸化リチウム10,920USD/t、水酸化リチウムCAGR 23.02% (2025-2031年)</li>
-                <li>Benchmark Mineral Intelligence (2024-2026年月次統計) - グローバル需給バランス、プロジェクト進捗トラッキング、中国リチウム在庫レポート</li>
-                <li>Fastmarkets / S&P Global Platts (月次・週次) - 中国炭酸リチウム現物価格・先物価格、アジア市場相場</li>
-                <li>IEA (2024年World EV Outlook) - グローバルEV販売実績・予測、国別政策動向</li>
-                <li>BloombergNEF (2023-2026年LithiumLandmark) - リチウム需要CAGR予測 (20%超)、バッテリー需要シナリオ分析</li>
-                <li>Rio Tinto / Standard Lithium / Lilac Solutions プレスリリース (2024-2026年) - DLE技術進捗・商業化スケジュール</li>
-                <li>Albemarle・SQM・Ganfeng Lithium・Tianqi Lithium 決算報告・IR資料 - CAPEX計画・生産能力拡張スケジュール</li>
-                <li>ライスタッド・エナジー (2024年レポート) - 中国企業リチウムプロジェクト国外投資総額6,300億円（世界11カ国）</li>
-                <li>USGS (Mineral Commodity Summaries 2024) - グローバルリチウム生産・消費統計、国別シェア</li>
-                <li>チリ政府・アルゼンチン政府 (2024年政策声明) - 新リチウム政策、RIGI制度、国有化議論、環境規制</li>
-                <li>ブラジルMinas Gerais州政府 (2024年) - 民間リチウム投資誘致、58億BRL投資計画</li>
-                <li>ジンバブエ政府 (2024年声明) - リチウム濃縮物輸出割当・禁止予定</li>
-                <li>米商務省 / EU委員会 - IRA施策（北米リチウム補助35億USD/年）、バッテリー規則施行</li>
-            </ol>
-        </div>
+<h2>リスク・機会の定量分析</h2>
 
-        <h2>免責事項</h2>
-        <div class="section" style="background: rgba(226, 74, 74, 0.05); border-left: 4px solid var(--low);">
-            <p style="font-size: 12px; color: var(--muted); line-height: 1.8;">
-                本レポートは、複数のAI（Claude Haiku 4.5、Google Gemini 2.5 Flash、OpenAI GPT-4o mini、xAI Grok 3 mini）から取得した情報を統合し、総合商社のシニアリサーチアナリストが作成した分析資料です。本レポートに記載された情報、分析、価格見通しは、調査時点（2026年6月7日）における利用可能な複数の公開情報に基づいており、特定の投資商品の推奨・勧誘を意図したものではありません。
-            </p>
-            <p style="font-size: 12px; color: var(--muted); line-height: 1.8; margin-top: 12px;">
-                3つのシナリオ（強気・ベース・弱気）に示された価格見通しは、提示された前提条件に基づく条件付き予測であり、将来の市場価格を保証するものではありません。地政学的リスク、規制変更、技術進歩の不確実性、マクロ経済変動（為替、金利、EV政策）など、多数の要因により実績が大きく乖離する可能性があります。
-            </p>
-            <p style="font-size: 12px; color: var(--muted); line-height: 1.8; margin-top: 12px;">
-                投資判断に際しては、本レポートを参考情報の一つとして位置付け、ご自身の投資方針・リスク許容度に基づき専門の投資顧問・コンサルタントにご相談の上、最終判断されることを強く推奨いたします。本資料の無断転載・転用は禁止いたします。
-            </p>
-        </div>
-    </main>
+<div class="grid">
+<div class="box">
+<h3>短期リスク（2026年～2028年）</h3>
+<table>
+<thead>
+<tr>
+<th>リスク要因</th>
+<th>影響度</th>
+<th>確率</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>EV需要の想定外の鈍化</td>
+<td style="color: var(--low);">高</td>
+<td>中程度</td>
+</tr>
+<tr>
+<td>中国EV販売成長率の低下</td>
+<td style="color: var(--low);">高</td>
+<td>中程度</td>
+</tr>
+<tr>
+<td>関税・セーフガードによるコスト上昇</td>
+<td style="color: var(--mid);">中</td>
+<td>高い</td>
+</tr>
+<tr>
+<td>ナトリウムイオン電池の急速普及</td>
+<td style="color: var(--mid);">中</td>
+<td>中程度</td>
+</tr>
+<tr>
+<td>地政学リスク（ジンバブエ輸出制限等）</td>
+<td style="color: var(--low);">高</td>
+<td>低い</td>
+</tr>
+<tr>
+<td>既存鉱山の減産・閉鎖（低価格対応）</td>
+<td style="color: var(--mid);">中</td>
+<td>高い</td>
+</tr>
+</tbody>
+</table>
+</div>
 
-    <footer>
-        <div class="wrap">
-            <p><strong>リチウム価格見通し 10年分析レポート | グローバル投資検討向け</strong></p>
-            <p>生成日時: 2026年6月7日 16:24:12 JST</p>
-            <p>調査方法論: 複数AI統合調査（Haiku 4.5 · Gemini 2.5 Flash · GPT-4o mini · Grok 3 mini）</p>
-            <p>対象市場: グローバル | 対象商品: リチウム全製品（水酸化・炭酸等、LCE換算）</p>
-            <p>分析責任機関: 総合商社シニアリサーチ | © 2026 All Rights Reserved</p>
-        </div>
-    </footer>
+<div class="box">
+<h3>中長期機会（2028年～2036年）</h3>
+<table>
+<thead>
+<tr>
+<th>成長機会</th>
+<th>成長率</th>
+<th>市場規模</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>EV市場拡大（2035年7,000万台/年）</td>
+<td>年15～25%</td>
+<td>6,000～8,000万台</td>
+</tr>
+<tr>
+<td>定置用エネルギー貯蔵</td>
+<td>年30%以上</td>
+<td>2025年実績660億ドル</td>
+</tr>
+<tr>
+<td>バッテリーリサイクル（EU65%回収率目標）</td>
+<td>年20～35%</td>
+<td>2035年10万～15万トン</td>
+</tr>
+<tr>
+<td>アジア新興国の生活水準向上</td>
+<td>年12～18%</td>
+<td>印・タイ・ベトナム等</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div class="divider"></div>
+
+<h2>地政学・規制環境</h2>
+
+<h3>主要政策・規制動向</h3>
+
+<div class="grid">
+<div class="box">
+<h3>米国：インフレ削減法（IRA）</h3>
+<p><strong>内容：</strong> 北米サプライチェーン構築への補助金・優遇措置</p>
+<p><strong>EV電池要件：</strong> 2025年から80%以上の部素材を北米産にする必要（段階的）</p>
+<p><strong>リチウム業界への影響：</strong> テスラ等による北米リチウム精製所投資加速</p>
+<p><strong>効果：</strong> 中国への輸出依存度低下、北米価格支持効果</p>
+</div>
+
+<div class="box">
+<h3>EU：バッテリー規制</h3>
+<p><strong>リサイクル率目標：</strong> 2025年に65%、2030年に85%</p>
+<p><strong>採掘・採鉱規制：</strong> 環境基準強化、コスト上昇</p>
+<p><strong>リチウム業界への影響：</strong> リサイクル由来供給の拡大、採掘企業の投資決定遅延</p>
+<p><strong>長期効果：</strong> 一次リチウム需要の年10%程度抑制可能性</p>
+</div>
+
+<div class="box">
+<h3>日本：供給チェーン強化政策</h3>
+<p><strong>経済安全保障推進法：</strong> 蓄電池・部素材に約1.88兆円支援（助成金最大6,682億円）</p>
+<p><strong>認定件数：</strong> 蓄電池7件、部素材27件、製造装置8件（計42件）</p>
+<p><strong>効果：</strong> 国内リチウム精製能力強化、アジアでの価格競争力確保</p>
+</div>
+
+<div class="box">
+<h3>南米の地政学リスク</h3>
+<p><strong>チリ：</strong> リチウム業界国有化方針の論議、SQMの利権更新不透明性</p>
+<p><strong>アルゼンチン：</strong> 政治リスク、規制の不確実性（ミレイ大統領政策転換）</p>
+<p><strong>ジンバブエ：</strong> 輸出制限、政策不確実性</p>
+<p><strong>影響：</strong> 供給確保の不透明性、価格上方リスク</p>
+</div>
+</div>
+
+<div class="divider"></div>
+
+<h2>3シナリオ価格見通し（2026年～2036年）</h2>
+
+<h3>シナリオ定義</h3>
+
+<table>
+<thead>
+<tr>
+<th>シナリオ</th>
+<th>需給バランス</th>
+<th>主要仮定</th>
+<th>重要変数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>強気シナリオ</strong></td>
+<td>需給逼迫継続</td>
+<td>EV加速（25%以上成長）、エネルギー貯蔵急伸（40%超成長）、DLE商業化大幅遅延、供給投資決定遅延</td>
+<td>2027年：需要200万トン超、供給180万トン</td>
+</tr>
+<tr>
+<td><strong>基本シナリオ</strong></td>
+<td>段階的緩和</td>
+<td>EV成長15%程度、エネルギー貯蔵成長25%、新規生産投資が2027年～2028年に段階的立ち上がり、DLE2028年から本格供給</td>
+<td>2030年：均衡化、以後小幅過剰</td>
+</tr>
+<tr>
+<td><strong>弱気シナリオ</strong></td>
+<td>構造的供給過剰</td>
+<td>EV需要停滞（10%程度成長に低下）、ナトリウムイオン電池15%～20%シェア奪取、中国低コスト生産継続、新規投資が計画通り立ち上がり</td>
+<td>2026年以降継続的過剰、競争激化</td>
+</tr>
+</tbody>
+</table>
+
+<h3>価格シナリオ（USD/トン 炭酸リチウム換算）</h3>
+
+<div class="chart-container">
+<div class="chart-title">リチウム価格見通し3シナリオ（2026年～2036年）</div>
+<svg viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<linearGradient id="gridGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+<stop offset="0%" style="stop-color:#f5f5f5;stop-opacity:1" />
+<stop offset="100%" style="stop-color:#ffffff;stop-opacity:1" />
+</linearGradient>
+</defs>
+<rect width="1000" height="500" fill="url(#gridGrad)" />
+<line x1="80" y1="450" x2="960" y2="450" class="axis-line" stroke-width="2" />
+<line x1="80" y1="50" x2="80" y2="450" class="axis-line" stroke-width="2" />
+<line x1="80" y1="400" x2="960" y2="400" class="grid-line" />
+<line x1="80" y1="350" x2="960" y2="350" class="grid-line" />
+<line x1="80" y1="300" x2="960" y2="300" class="grid-line" />
+<line x1="80" y1="250" x2="960" y2="250" class="grid-line" />
+<line x1="80" y1="200" x2="960" y2="200" class="grid-line" />
+<line x1="80" y1="150" x2="960" y2="150" class="grid-line" />
+<line x1="80" y1="100" x2="960" y2="100" class="grid-line" />
+<text x="70" y="455" class="axis-label" text-anchor="end">0</text>
+<text x="70" y="405" class="axis-label" text-anchor="end">5K</text>
+<text x="70" y="355" class="axis-label" text-anchor="end">10K</text>
+<text x="70" y="305" class="axis-label" text-anchor="end">15K</text>
+<text x="70" y="255" class="axis-label" text-anchor="end">20K</text>
+<text x="70" y="205" class="axis-label" text-anchor="end">25K</text>
+<text x="70" y="155" class="axis-label" text-anchor="end">30K</text>
+<text x="70" y="105" class="axis-label" text-anchor="end">35K</text>
+<text x="100" y="475" class="axis-label">2026</text>
+<text x="190" y="475" class="axis-label">2027</text>
+<text x="280" y="475" class="axis-label">2028</text>
+<text x="370" y="475" class="axis-label">2029</text>
+<text x="460" y="475" class="axis-label">2030</text>
+<text x="550" y="475" class="axis-label">2031</text>
+<text x="640" y="475" class="axis-label">2032</text>
+<text x="730" y="475" class="axis-label">2033</text>
+<text x="820" y="475" class="axis-label">2034</text>
+<text x="910" y="475" class="axis-label">2035</text>
+<polyline class="line-bullish" points="100,335 190,190 280,195 370,215 460,260 550,305 640,330 730,345 820,355 910,365" />
+<polyline class="line-base" points="100,370 190,305 280,310 370,315 460,320 550,318 640,315 730,310 820,308 910,305" />
+<polyline class="line-bearish" points="100,400 190,390 280,375 370,360 460,350 550,340 640,330 730,320 820,315 910,310" />
+<circle cx="100" cy="335" r="4" fill="var(--low)" />
+<circle cx="190" cy="190" r="4" fill="var(--low)" />
+<circle cx="280" cy="195" r="4" fill="var(--low)" />
+<circle cx="370" cy="215" r="4" fill="var(--low)" />
+<circle cx="460" cy="260" r="4" fill="var(--low)" />
+<circle cx="550" cy="305" r="4" fill="var(--low)" />
+<circle cx="640" cy="330" r="4" fill="var(--low)" />
+<circle cx="730" cy="345" r="4" fill="var(--low)" />
+<circle cx="820" cy="355" r="4" fill="var(--low)" />
+<circle cx="910" cy="365" r="4" fill="var(--low)" />
+<circle cx="100" cy="370" r="4" fill="var(--mid)" />
+<circle cx="190" cy="305" r="4" fill="var(--mid)" />
+<circle cx="280" cy="310" r="4" fill="var(--mid)" />
+<circle cx="370" cy="315" r="4" fill="var(--mid)" />
+<circle cx="460" cy="320" r="4" fill="var(--mid)" />
+<circle cx="550" cy="318" r="4" fill="var(--mid)" />
+<circle cx="640" cy="315" r="4" fill="var(--mid)" />
+<circle cx="730" cy="310" r="4" fill="var(--mid)" />
+<circle cx="820" cy="308" r="4" fill="var(--mid)" />
+<circle cx="910" cy="305" r="4" fill="var(--mid)" />
+<circle cx="100" cy="400" r="4" fill="var(--good)" />
+<circle cx="190" cy="390" r="4" fill="var(--good)" />
+<circle cx="280" cy="375" r="4" fill="var(--good)" />
+<circle cx="370" cy="360" r="4" fill="var(--good)" />
+<circle cx="460" cy="350" r="4" fill="var(--good)" />
+<circle cx="550" cy="340" r="4" fill="var(--good)" />
+<circle cx="640" cy="330" r="4" fill="var(--good)" />
+<circle cx="730" cy="320" r="4" fill="var(--good)" />
+<circle cx="820" cy="315" r="4" fill="var(--good)" />
+<circle cx="910" cy="310" r="4" fill="var(--good)" />
+<text x="100" y="420" class="axis-label" text-anchor="middle" font-size="11">10K</text>
+<text x="190" y="420" class="axis-label" text-anchor="middle" font-size="11">25K</text>
+<text x="100" y="430" class="axis-label" text-anchor="middle" font-size="10">強気</text>
+<text x="190" y="430" class="axis-label" text-anchor="middle" font-size="10">ピーク</text>
+</svg>
+<div class="legend">
+<div class="legend-item">
+<div class="legend-color legend-bullish"></div>
+<span>強気シナリオ</span>
+</div>
+<div class="legend-item">
+<div class="legend-color legend-base"></div>
+<span>基本シナリオ</span>
+</div>
+<div class="legend-item">
+<div class="legend-color legend-bearish"></div>
+<span>弱気シナリオ</span>
+</div>
+</div>
+</div>
+
+<h3>数値シナリオ詳細</h3>
+
+<table>
+<thead>
+<tr>
+<th>年</th>
+<th>強気（USD/t）</th>
+<th>基本（USD/t）</th>
+<th>弱気（USD/t）</th>
+<th>強気の根拠</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2026</td>
+<td>17,000</td>
+<td>13,000</td>
+<td>10,000</td>
+<td>バーンスタイン予測、需給引き締まり開始</td>
+</tr>
+<tr>
+<td>2027</td>
+<td>25,000</td>
+<td>15,500</td>
+<td>12,000</td>
+<td>需給逼迫ピーク（供給制約顕在化）、DLE遅延</td>
+</tr>
+<tr>
+<td>2028</td>
+<td>24,500</td>
+<td>15,200</td>
+<td>9,000</td>
+<td>DLE商業化遅延継続、EV成長加速</td>
+</tr>
+<tr>
+<td>2029</td>
+<td>23,500</td>
+<td>15,000</td>
+<td>8,500</td>
+<td>供給僅増、需要加速（年30%成長仮定）</td>
+</tr>
+<tr>
+<td>2030</td>
+<td>22,000</td>
+<td>15,000</td>
+<td>9,000</td>
+<td>初期DLE供給開始、限界コスト向け調整</td>
+</tr>
+<tr>
+<td>2031</td>
+<td>20,000</td>
+<td>15,200</td>
+<td>8,500</td>
+<td>DLE拡大段階、供給増加始まる</td>
+</tr>
+<tr>
+<td>2032</td>
+<td>18,500</td>
+<td>15,500</td>
+<td>8,000</td>
+<td>DLE供給本格化、価格緩和傾向</td>
+</tr>
+<tr>
+<td>2033</td>
+<td>17,500</td>
+<td>15,700</td>
+<td>7,500</td>
+<td>需給バランス改善、長期均衡へ</td>
+</tr>
+<tr>
+<td>2034</td>
+<td>17,000</td>
+<td>15,800</td>
+<td>7,500</td>
+<td>長期均衡相場（限界コスト付近）</td>
+</tr>
+<tr>
+<td>2035</td>
+<td>16,500</td>
+<td>15,900</td>
+<td>7,500</td>
+<td>構造的均衡化（供給過剰で弱気）</td>
+</tr>
+<tr>
+<td>2036</td>
+<td>16,000</td>
+<td>16,000</td>
+<td>7,500</td>
+<td>長期正常化、限界コスト水準</td>
+</tr>
+</tbody>
+</table>
+
+<h3>シナリオ別特性</h3>
+
+<div class="scenario-boxes">
+<div class="scenario-box bullish">
+<div class="scenario-title">強気シナリオ</div>
+<div class="scenario-value">25,000ドル</div>
+<div style="font-size: 11px; color: var(--muted); margin-bottom: 12px;">2027年ピーク時</div>
+<div class="scenario-desc">
+<strong>想定：</strong> EV販売が年25%以上、エネルギー貯蔵が年40%超で成長。DLE技術の商業化が2029年以降に遅延。オーストラリア鉱山の環境規制強化で新規投資が決定延期。
+<br><br><strong>影響度：</strong> 低コスト生産者（Ganfeng等）の高収益化、M&A活動活発化。新興企業への投資機会。
+<br><br><strong>確率：</strong> 20～25%
+</div>
+</div>
+
+<div class="scenario-box base">
+<div class="scenario-title">基本シナリオ</div>
+<div class="scenario-value">15,000～16,000ドル</div>
+<div style="font-size: 11px; color: var(--muted); margin-bottom: 12px;">2030年以降安定</div>
+<div class="scenario-desc">
+<strong>想定：</strong> EV成長年15%程度、エネルギー貯蔵年25%成長。DLE技術が2028年から本格的に供給開始。既存鉱山と新規プロジェクト投資が段階的に進行。2030年前後で需給均衡化。
+<br><br><strong>影響度：</strong> 限界コスト（15,000ドル付近）で長期安定。既存生産者の安定経営。
+<br><br><strong>確率：</strong> 50～55%
+</div>
+</div>
+
+<div class="scenario-box bearish">
+<div class="scenario-title">弱気シナリオ</div>
+<div class="scenario-value">7,500～9,000ドル</div>
+<div style="font-size: 11px; color: var(--muted); margin-bottom: 12px;">2030年以降低迷</div>
+<div class="scenario-desc">
+<strong>想定：</strong> EV需要が年10%程度の低成長に鈍化、ナトリウムイオン電池が15～20%のシェア奪取。中国の低コスト生産が継続し、新規投資が計画通り稼働。構造的供給過剰。
+<br><br><strong>影響度：</strong> 業界採算性悪化、M&A統合圧力、低コスト生産者への淘汰。
+<br><br><strong>確率：</strong> 20～25%
+</div>
+</div>
+</div>
+
+<div class="divider"></div>
+
+<h2>投資検討向け実務示唆</h2>
+
+<h3>シナリオ別投資戦略</h3>
+
+<div class="grid">
+<div class="box">
+<h3>強気シナリオを想定する場合</h3>
+<p><strong>タイミング：</strong> 2026年～2027年の価格反発局面</p>
+<ul style="padding-left: 20px; margin-bottom: 12px;">
+<li><strong>低コスト生産者への集中投資：</strong> Ganfeng Lithium、Tianqi Lithium等の中国企業や、オーストラリアの Pilbara Minerals等。営業利益マージンが年30～40%に拡大する局面での取得が有効。</li>
+<li><strong>供給制約企業へのM&A対象注視：</strong> 新規プロジェクト遅延企業への買収機会。</li>
+<li><strong>エネルギー貯蔵関連企業へのバスケット投資：</strong> BYD、CATL等のバッテリーメーカー。</li>
+</ul>
+<p><strong>リスク対応：</strong> 需要急落時の耐性確認、高レバレッジ企業は回避。</p>
+</div>
+
+<div class="box">
+<h3>基本シナリオを想定する場合</h3>
+<p><strong>戦略：</strong> 長期的な安定需要を前提とした構造投資</p>
+<ul style="padding-left: 20px; margin-bottom: 12px;">
+<li><strong>固定価格長期供給契約の確保：</strong> バッテリーメーカーとの10年契約等で価格変動リスクをヘッジ。限界コスト（15,000ドル）付近での契約が優位。</li>
+<li><strong>DLE技術への早期参入：</strong> ライラック・ソリューション等の有望企業への投資。2028年以降の供給ソースとして機能。</li>
+<li><strong>既存資産のコスト競争力強化：</strong> チリ・オーストラリアの既存鉱山の生産性向上投資。限界コスト低下企業に優位性。</li>
+<li><strong>リサイクル技術企業への投資：</strong> 2035年以降のリサイクル供給拡大に対応。</li>
+</ul>
+<p><strong>ポートフォリオ：</strong> 生産者40%、バッテリーメーカー40%、リサイクル企業20%の配分。</p>
+</div>
+
+<div class="box">
+<h3>弱気シナリオを想定する場合</h3>
+<p><strong>回避対象：</strong> 高CAPEX新規プロジェクト、高レバレッジ企業</p>
+<ul style="padding-left: 20px; margin-bottom: 12px;">
+<li><strong>採算性ハイリスク企業からの撤退：</strong> 限界コスト15,000ドル以上の新規鉱山投資企業。弱気シナリオでは採算割れの可能性。</li>
+<li><strong>低コスト生産の競争力確保企業のみ選別：</strong> 限界コスト8,000～10,000ドル企業（Ganfeng、中国系）のみ収益確保。</li>
+<li><strong>代替バッテリー企業への投資シフト：</strong> ナトリウムイオン電池（CATL、比亜迪等）、鉄空気電池（Commonwealth Fusion等）。</li>
+<li><strong>需要セグメント多様化：</strong> EV以外の工業用リチウム需要（セラミック、医薬品等）に注力する企業を選好。</li>
+</ul>
+<p><strong>重要：</strong> 価格が9,000ドルを割った段階で供給サイドの再編（M&A、閉鎖）が急速に進み、逆張り買いの機会が生じる可能性。</p>
+</div>
+
+<div class="box">
+<h3>リスク分散マップ</h3>
+<table style="font-size: 12px;">
+<thead>
+<tr>
+<th>リスク区分</th>
+<th>対応手法</th>
+<th>優先度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>価格変動リスク</td>
+<td>先物・スワップ、長期契約ロック</td>
+<td>高</td>
+</tr>
+<tr>
+<td>地政学リスク</td>
+<td>生産地の多様化（澳・智・亜）</td>
+<td>高</td>
+</tr>
+<tr>
+<td>技術リスク</td>
+<td>DLE等複数技術へのポートフォリオ投資</td>
+<td>中</td>
+</tr>
+<tr>
+<td>需要リスク</td>
+<td>EV+エネルギー貯蔵+リサイクルの組み合わせ</td>
+<td>高</td>
+</tr>
+<tr>
+<td>競争激化リスク</td>
+<td>限界コスト競争力が高い企業のみ選別</td>
+<td>高</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div class="divider"></div>
+
+<h2>AIコンセンサスマップ</h2>
+
+<div class="consensus-section">
+
+<div class="consensus-group">
+<div class="consensus-title">
+<span class="consensus-icon">🟢</span>
+全AI一致した点（業界見通しの中核）
+</div>
+<div class="consensus-item"><strong>需給バランスが2026年～2027年に改善：</strong> 4つのAI全てが「2025年の供給過剰から2026年以降の需給引き締まり」を指摘。モルガン・スタンレー、UBS、バーンスタイン等の主要アナリスト引用で一致。</div>
+<div class="consensus-item"><strong>EV需要がリチウムの主要ドライバー：</strong> 世界EV販売台数の成長率（2025年23.9%増、2026年14.7%増）を複数AIが共通参照。EV産業の成長がリチウム需要の75%を占める基本前提で合致。</div>
+<div class="consensus-item"><strong>基本シナリオの長期価格は15,000ドル/トン前後：</strong> Haiku、GPT-4o mini、Grok 3が同一の「限界コスト15,000ドル」での長期均衡を指摘。バーンスタインの開示情報に基づく整合性。</div>
+<div class="consensus-item"><strong>DLE技術が2026年～2028年に商業化開始：</strong> ライラック・ソリューション、スタンダード・リチウム等の企業名と実行スケジュールを全AI言及。供給ダイナミクス変化の共通認識。</div>
+<div class="consensus-item"><strong>中国企業による低コスト競争が価格下押し：</strong> Ganfeng Lithium、Tianqi Lithium、CATLの競争優位性を複数AI指摘。市場シェア拡大トレンドで見解一致。</div>
+</div>
+
+<div class="consensus-group">
+<div class="consensus-title">
+<span class="consensus-icon">🟡</span>
+意見が割れた点（分析の不確実性フロンティア）
+</div>
+<div class="consensus-item"><strong>2026年の具体的な需給ギャップ規模：</strong> 
+<strong>Haiku 4.5の見方：</strong> モルガン・スタンレーの「8万トン不足」を強調、UBSの「2.2万トン」とのスプレッドに言及。供給制約が顕在化する見通し。
+<br><strong>Grok 3 miniの見方：</strong> 「すでに供給過剰状態」と表現し、2026年の供給過剰6万トン想定を明記。供給過剰の継続を示唆。
+<br><strong>分析的含意：</strong> アナリスト見通しのスプレッドが大きく、2026年の需給判定が投資判断の分岐点となる可能性。</div>
+
+<div class="consensus-item"><strong>強気シナリオの2027年ピーク値：</strong>
+<strong>Haiku 4.5：</strong> バーンスタイン引用で「25,000ドル/トン」を明記。需給逼迫による上昇圧力を強調。
+<br><strong>GPT-4o mini：</strong> より保守的に「35,000ドル/トン」の強気シナリオ設定（2033年時点）。中期の価格上昇余地を拡大解釈。
+<br><strong>Grok 3 mini：</strong> マイルドな「38米ドル/kg（38,000ドル/トン）」を2035年の強気シナリオ値として設定。長期視点での上昇余地評価。
+<br><strong>分析的含意：</strong> 短期ピーク（2027年前後）vs長期ピーク（2033年～2035年）のトレンド解釈が分かれている。DLE供給開始タイミングの見積もり違いが原因の可能性。</div>
+
+<div class="consensus-item"><strong>ナトリウムイオン電池普及の速度と規模：</strong>
+<strong>Haiku 4.5：</strong> 「代替バッテリー技術の開発に関心」と保守的に言及。2036年までのリチウム市場シェアへの影響は限定的と示唆。
+<br><strong>Grok 3 mini：</strong> 弱気シナリオで「ナトリウムイオン電池15%～20%シェア奪取」と明示。2030年以降のリチウム需要抑制要因として重視。
+<br><strong>分析的含意：</strong> 技術代替の進度予測に1～2年のズレあり。CATLやBYDのナトリウムイオン電池実用化スケジュール解釈が異なる可能性。</div>
+
+<div class="consensus-item"><strong>地政学リスクの価格影響度（定量評価）：</strong>
+<strong>Haiku 4.5：</strong> 「地政学リスク：影響度『高』、確率『低い』」と整理。南米の政治リスクは存在するが価格への実現確率は低いと判断。
+<br><strong>Grok 3 mini：</strong> チリ・アルゼンチン・ジンバブエの規制リスクを「供給確保の不透明性」として強調。米国IRAによる北米サプライチェーン再編を価格支持要因に挙げる。
+<br><strong>分析的含意：</strong> 地政学リスクの『顕在化確率』の評価が分かれている。マクロシナリオの南米不安定化の想定差異。</div>
+</div>
+
+<div class="consensus-group">
+<div class="consensus-title">
+<span class="consensus-icon">🔴</span>
+1つのAIだけが指摘したユニーク情報
+</div>
+<div class="consensus-item"><strong>【Haiku 4.5のユニーク指摘】</strong> エネルギー貯蔵向けリチウム需要が「新たな需要ドライバー」として中国の電力セクター改革に伴って2025年後半に急伸したこと。具体的に「2025年最初の10か月でバッテリー貯蔵システム売上660億ドル、EV輸出540億ドルを上回った」という具体的データを開示。このセグメントの成長率（年30%以上）が強気シナリオの需給逼迫を主導する重要要因として言及。</div>
+
+<div class="consensus-item"><strong>【GPT-4o miniのユニーク指摘】</strong> 「CAPEX・投資コストのベンチマーク」セクションで、Albemareのプロジェクト利益率「約400ドル/t」、SQMのプロジェクト「約300ドル/t」という限界利益の定量値を明記。生産企業の採算性分析の具体的ベースラインを提供。</div>
+
+<div class="consensus-item"><strong>【Grok 3 miniのユニーク指摘】</strong> 「米ドル/kg」単位での価格表記（他AIはUSD/トン）を採用し、かつ2024年の現在価格を「12米ドル/kg」と明記。単位変換が必要だが、より細粒度の価格レベル表現。また「環境規制強化で単価が上昇傾向」という新規プロジェクトのCAPEX上昇を明示的に指摘。</div>
+
+<div class="consensus-item"><strong>【全AIが言及しなかった重要点】</strong> バッテリーのセカンドライフ（EV搭載後の定置用貯蔵への転用）がリサイクル以外の需要構造変化として市場規模に与える影響。リサイクルは言及されるが、セカンドライフの経済インセンティブ（新規リチウム購買の減少効果）については定量的な分析が欠落。</div>
+</div>
+
+</div>
+
+<div class="divider"></div>
+
+<h2>出典リスト</h2>
+
+<div class="source-list">
+<div class="source-item">Benchmark Mineral Intelligence - リチウム市場週間レポート（2024年～2025年）</div>
+<div class="source-item">S&P Global Platts - リチウム価格指数および供給見通し（2025年6月版）</div>
+<div class="source-item">バーンスタイン・リサーチ「Lithium Outlook 2025-2027」- 世界的リチウム企業分析</div>
+<div class="source-item">モルガン・スタンレー「Lithium Supply-Demand Forecast」（2025年）</div>
+<div class="source-item">UBS Investment Research - 「Lithium Market Dynamics」レポート</div>
+<div class="source-item">Albemarle Corporation 投資家説明資料および四半期決算報告書（2024年～2025年）</div>
+<div class="source-item">SQM（Sociedad Química y Minera de Chile）年次報告書および中期経営計画書</div>
+<div class="source-item">中国工業和信息化部（MIIT）「新能源電池产业发展白皮书」（2024年）</div>
+<div class="source-item">欧州委員会「Critical Raw Materials Act」実装ガイダンス（2024年）</div>
+<div class="source-item">日本経済産業省「経済安全保障推進法に基づく供給確保計画」認定企業一覧（2024年12月更新版）</div>
+<div class="source-item">米国財務省IRA（インフレ削減法）北米サプライチェーン要件文書</div>
+<div class="source-item">ライラック・ソリューションズ「DLE Technology Commercialization Timeline」公開情報</div>
+<div class="source-item">Pilbara Minerals Limited 投資家発表資料（2025年Q2）</div>
+<div class="source-item">Ganfeng Lithium Co., Ltd. アニュアルレポート和訳版（2024年度版）</div>
+<div class="source-item">CATL（Contemporary Amperex Technology Co., Limited）製品ラインアップ発表資料（2024年～2025年）</div>
+</div>
+
+<div class="divider"></div>
+
+</div>
+
+<div class="footer">
+<div class="wrap">
+<h3>免責事項</h3>
+<p>本レポートは、複数の生成AI（Claude Haiku 4.5、Gemini 2.5 Flash、GPT-4o mini、Grok 3 mini）による公開情報の統合分析に基づき作成されています。以下の点にご注意ください：</p>
+<p><strong>予測の不確実性：</strong> 本レポートに含まれるリチウム価格シナリオは、複数の仮定に基づいた条件付き予測です。地政学、技術革新、規制変更、マクロ経済環境の急激な変化等により、実現値が大きく乖離する可能性があります。</p>
+<p><strong>データ出所：</strong> 引用された統計数値およびアナリスト見通しは、複数のリサーチ機関（バーンスタイン、モルガン・スタンレー、UBS等）の公開情報ですが、これらの情報の正確性・完全性を保証するものではありません。</p>
+<p><strong>投資判断への利用：</strong> 本レポートは一般的な情報提供を目的としており、特定の投資商品への推奨や勧誘ではありません。実際の投資判断にあたっては、ご自身の投資目的、リスク許容度、ポートフォリオ構成に基づき、プロフェッショナル・アドバイザーの個別コンサルテーションを受けることを強く推奨します。</p>
+<p><strong>定期更新：</strong> リチウム市場は急速に変化しています。本レポートは2026年6月7日時点の情報に基づいており、四半期ごとの更新が必要です。古い分析結果に依存した投資決定は避けてください。</p>
+<p><strong>生成AI利用の限界：</strong> 本レポートは生成AIによる複数ソースの統合分析ですが、AIの特性上、事実誤認や時系列誤差が存在する可能性があります。重要な数値・引用については、原典による確認をお勧めします。</p>
+<p style="margin-top: 20px; font-size: 12px; color: #999;">レポート生成：2026年6月7日 16:46 | 分析モデル：Claude Haiku 4.5、Gemini 2.5 Flash、GPT-4o mini、Grok 3 mini の複合統合 | このレポートの無断転載を禁止します。</p>
+</div>
+</div>
+
+<style>#askFab{position:fixed;bottom:28px;right:28px;z-index:9999;background:linear-gradient(135deg,#15318F,#16B8B2);color:#fff;border:none;padding:14px 22px;border-radius:30px;font-size:14px;font-weight:700;cursor:pointer;box-shadow:0 6px 24px rgba(21,49,143,.35)}#askOverlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:10000;align-items:center;justify-content:center}#askOverlay.open{display:flex}#askBox{background:#fff;border-radius:16px;padding:28px;width:min(640px,92vw);max-height:90vh;overflow-y:auto}#askTA{width:100%;padding:12px 14px;border:1px solid #C7D8E5;border-radius:10px;font-size:15px;font-family:inherit;resize:vertical;min-height:90px;outline:none}#askKey{width:100%;padding:9px 12px;border:1px solid #C7D8E5;border-radius:8px;font-size:12px;font-family:monospace;box-sizing:border-box;margin-top:8px}#askSubmit{flex:1;padding:12px;background:#15318F;color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;min-height:44px}#askSubmit:disabled{background:#aaa}#askClose{padding:12px 18px;background:none;border:1px solid #C7D8E5;border-radius:10px;font-size:14px;cursor:pointer;min-height:44px}#askResult{display:none;margin-top:18px;padding:16px;background:#F4F7FA;border-radius:10px;border-left:5px solid #16B8B2;font-size:13.5px;line-height:1.75;white-space:pre-wrap;max-height:400px;overflow-y:auto}</style>
+<button id="askFab" onclick="document.getElementById('askOverlay').classList.add('open')">⬛ 追加質問・調査依頼</button>
+<div id="askOverlay" onclick="if(event.target===this)this.classList.remove('open')">
+  <div id="askBox">
+    <h3 style="font-size:18px;font-weight:800;color:#15318F;margin-bottom:6px">⬛ 追加質問・調査依頼</h3>
+    <p style="font-size:13px;color:#5F6B7A;margin-bottom:18px">このレポートを踏まえてClaudeに追加質問できます。</p>
+    <textarea id="askTA" placeholder="追加の質問・調査依頼を入力"></textarea>
+    <label style="font-size:12px;color:#5F6B7A;margin-top:10px;display:block">Claude APIキー</label>
+    <input id="askKey" type="password" placeholder="sk-ant-..."/>
+    <p id="askKeySaved" style="font-size:11px;color:#00A878;margin-top:4px;display:none">✓ 保存済み（次回から自動入力）</p>
+    <div style="display:flex;gap:10px;margin-top:14px;flex-wrap:wrap">
+      <button id="askSubmit">送信して調査</button>
+      <button id="askClose">閉じる</button>
+    </div>
+    <div id="askResult"></div>
+  </div>
+</div>
+<script>(function(){
+  const QUERY=`リチウムの今後１０年の価格見通しを3シナリオ教えて。価格は折れ線グラフで示して。`;
+  const CONTEXT=`<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>リチウム価格見通し10年シナリオ分析 | 投資検討向けレポート</title>
+<style>
+:root {
+  --teal: #16B8B2;
+  --blue: #15318F;
+  --blue2: #1E5EDB;
+  --ink: #1F2430;
+  --muted: #5F6B7A;
+  --line: #C7D8E5;
+  --good: #00A878;
+  --mid: #F2A900;
+  --low: #E24A4A;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: var(--ink);
+  line-height: 1.6;
+  background: #F5F7FA;
+}
+
+.header {
+  background: linear-gradient(110deg, #1F2430, #15318F, #16B8B2);
+  color: #fff !important;
+  padding: 48px 32px;
+  margin-bottom: 40px;
+}
+
+.header h1 {
+  font-size: 32px;
+  margin-bottom: 8px;
+  color: #fff !important;
+}
+
+.header .subtitle {
+  font-size: 16px;
+  color: #fff !important;
+  opacity: 1;
+  margin-bottom: 4px;
+}
+
+.header .meta {
+  font-size: 13px;
+  color: #fff !important;
+  opacity: 1;
+  margin-top: 16px;
+}
+
+.wrap {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+h2 {
+  font-size: 24px;
+  margin-top: 48px;
+  margin-bottom: 20px;
+  color: var(--blue);
+  border-bottom: 3px solid var(--line);
+  padding-bottom: 12px;
+}
+
+h3 {
+  font-size: 16px;
+  margin-top: 24px;
+  margin-bottom: 12px;
+  color: var(--blue2);
+}
+
+p {
+  margin-bottom: 12px;
+  color: var(--ink);
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.card {
+  background: #fff;
+  padding: 24px;
+  border-radius: 8px;
+  border-top: 6px solid var(--line);
+  box-shadow: 0 2px 8px rgba(31, 36, 48, 0.06);
+}
+
+.card.kpi-1 { border-top-color: var(--blue); }
+.card.kpi-2 { border-top-color: var(--teal); }
+.card.kpi-3 { border-top-color: var(--mid); }
+.card.kpi-4 { border-top-color: var(--low); }
+
+.card-label {
+  font-size: 12px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+
+.card-value {
+  font-size: 28px;
+  font-weight: bold;
+  color: var(--ink);
+  margin-bottom: 4px;
+}
+
+.card-desc {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.chart-container {
+  background: #fff;
+  padding: 32px;
+  border-radius: 8px;
+  margin-bottom: 40px;
+  box-shadow: 0 2px 8px rgba(31, 36, 48, 0.06);
+}
+
+.chart-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 24px;
+}
+
+svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.axis-label {
+  font-size: 12px;
+  fill: var(--muted);
+}
+
+.axis-line {
+  stroke: var(--line);
+  stroke-width: 1;
+}
+
+.grid-line {
+  stroke: var(--line);
+  stroke-width: 0.5;
+  stroke-dasharray: 2,2;
+}
+
+.line-bullish {
+  stroke: var(--low);
+  stroke-width: 2.5;
+  fill: none;
+}
+
+.line-base {
+  stroke: var(--mid);
+  stroke-width: 2.5;
+  fill: none;
+}
+
+.line-bearish {
+  stroke: var(--good);
+  stroke-width: 2.5;
+  fill: none;
+}
+
+.legend {
+  display: flex;
+  gap: 32px;
+  justify-content: center;
+  margin-top: 24px;
+  flex-wrap: wrap;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+}
+
+.legend-color {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+}
+
+.legend-bullish { background: var(--low); }
+.legend-base { background: var(--mid); }
+.legend-bearish { background: var(--good); }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 24px;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(31, 36, 48, 0.06);
+}
+
+thead {
+  background: var(--blue);
+  color: #fff;
+}
+
+thead th {
+  padding: 16px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 13px;
+}
+
+tbody td {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--line);
+  font-size: 13px;
+}
+
+tbody tr:nth-child(odd) {
+  background: #F9FAFC;
+}
+
+tbody tr:hover {
+  background: #EFF4FA;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 40px;
+}
+
+.box {
+  background: #fff;
+  padding: 24px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(31, 36, 48, 0.06);
+}
+
+.box h`;
+  const LS_KEY='kuro_api_key';
+  // localStorageからAPIキーを読み込む（どのスキームでも試みる）
+  function loadKey(){try{return localStorage.getItem(LS_KEY)||localStorage.getItem('cKey')||'';}catch(e){return '';}}
+  function saveKey(k){try{localStorage.setItem(LS_KEY,k);localStorage.setItem('cKey',k);}catch(e){}}
+  const keyEl=document.getElementById('askKey');
+  const savedKey=loadKey();
+  if(savedKey){keyEl.value=savedKey;document.getElementById('askKeySaved').style.display='block';}
+  keyEl.addEventListener('input',()=>{
+    if(keyEl.value.trim()){saveKey(keyEl.value.trim());document.getElementById('askKeySaved').style.display='block';}
+  });
+  async function runAsk(){
+    const q=document.getElementById('askTA').value.trim();
+    const k=keyEl.value.trim();
+    if(!q){alert('質問を入力してください');return;}
+    if(!k){alert('Claude APIキーを入力してください');return;}
+    saveKey(k);
+    const btn=document.getElementById('askSubmit');btn.disabled=true;btn.textContent='調査中...';
+    const res=document.getElementById('askResult');res.style.display='block';res.textContent='調査中...';
+    const prompt=`以下の調査レポートを踏まえて、追加の質問に答えてください。
+
+【調査テーマ】
+${QUERY}
+
+【レポート概要】
+${CONTEXT}
+
+【追加質問】
+${q}
+
+具体的な数値・企業名・出典を含めて詳しく回答してください。`;
+    try{
+      const headers={'Content-Type':'application/json','x-api-key':k,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'};
+      const messages=[{role:'user',content:prompt}];
+      res.textContent='🔍 調査中...';
+      for(let i=0;i<15;i++){
+        const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers,
+          body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:3000,
+            tools:[{type:'web_search_20250305',name:'web_search',max_uses:5}],messages})});
+        const d=await r.json();
+        if(!r.ok)throw new Error(d.error?.message||'Error '+r.status);
+        const getText=c=>(Array.isArray(c)?c:[c]).filter(x=>x&&x.type==='text').map(x=>x.text).join('');
+        if(d.stop_reason==='end_turn'){res.textContent=getText(d.content)||'（回答なし）';break;}
+        if(d.stop_reason==='tool_use'){
+          messages.push({role:'assistant',content:d.content});
+          const uses=d.content.filter(c=>c.type==='tool_use');
+          res.textContent='🔍 検索中: '+uses.map(u=>u.input?.query||'').join(', ');
+          messages.push({role:'user',content:uses.map(u=>({type:'tool_result',tool_use_id:u.id,content:[{type:'text',text:'Search completed.'}]}))});
+          continue;
+        }
+        res.textContent=getText(d.content)||'（回答なし）';break;
+      }
+    }catch(e){res.textContent='エラー: '+e.message;}
+    btn.disabled=false;btn.textContent='送信して調査';
+  }
+  document.getElementById('askSubmit').addEventListener('click',runAsk);
+  document.getElementById('askSubmit').addEventListener('touchend',function(e){e.preventDefault();runAsk();},{passive:false});
+  document.getElementById('askClose').addEventListener('click',function(){document.getElementById('askOverlay').classList.remove('open');});
+  document.getElementById('askClose').addEventListener('touchend',function(e){e.preventDefault();document.getElementById('askOverlay').classList.remove('open');},{passive:false});
+  document.getElementById('askFab').addEventListener('touchend',function(e){e.preventDefault();document.getElementById('askOverlay').classList.add('open');},{passive:false});
+  window.runAsk=runAsk;
+})();</script>
 </body>
 </html>
 ```
