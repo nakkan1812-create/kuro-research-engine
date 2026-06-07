@@ -81,6 +81,41 @@
         res.textContent = getText(d.content) || '（回答なし）'; break;
       }
     }catch(e){ res.textContent = 'エラー: ' + e.message; }
+    // 回答後にボタン行を表示
+    try{
+      const eb = document.getElementById('askInlineBtns');
+      if(eb) eb.remove();
+      const ghUrl = document.getElementById('kuroData')?.getAttribute('data-ghurl') || '';
+      const div = document.createElement('div');
+      div.id = 'askInlineBtns';
+      div.style.cssText = 'display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px';
+      if(ghUrl){
+        const btnGh = document.createElement('button');
+        btnGh.textContent = '🔗 GitHubで開く';
+        btnGh.style.cssText = 'background:linear-gradient(90deg,#16B8B2,#008E8B);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:700;padding:9px 14px;cursor:pointer;touch-action:manipulation';
+        btnGh.addEventListener('click', function(){ window.open(ghUrl,'_blank'); });
+        btnGh.addEventListener('touchend', function(e){ e.preventDefault(); window.open(ghUrl,'_blank'); }, {passive:false});
+        div.appendChild(btnGh);
+      }
+      if(window._kuroDlFn){
+        const btnDl = document.createElement('button');
+        btnDl.textContent = '📄 ダウンロード';
+        btnDl.style.cssText = 'background:#00A878;color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:700;padding:9px 14px;cursor:pointer;touch-action:manipulation';
+        btnDl.addEventListener('click', window._kuroDlFn);
+        btnDl.addEventListener('touchend', function(e){ e.preventDefault(); window._kuroDlFn(); }, {passive:false});
+        div.appendChild(btnDl);
+      }
+      if(window._kuroPreviewFn){
+        const btnPv = document.createElement('button');
+        btnPv.textContent = '🔗 新しいタブで開く';
+        btnPv.style.cssText = 'background:none;border:1px solid #C7D8E5;border-radius:8px;font-size:12px;padding:9px 14px;cursor:pointer;touch-action:manipulation';
+        btnPv.addEventListener('click', window._kuroPreviewFn);
+        btnPv.addEventListener('touchend', function(e){ e.preventDefault(); window._kuroPreviewFn(); }, {passive:false});
+        div.appendChild(btnPv);
+      }
+      const resEl = document.getElementById('askResult');
+      if(resEl) resEl.parentNode.insertBefore(div, resEl);
+    }catch(ex){}
     btn.disabled = false; btn.textContent = '送信して調査';
   }
 
