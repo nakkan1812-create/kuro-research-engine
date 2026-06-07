@@ -569,8 +569,8 @@ function buildAskWidget(query, synthesisText){
   const q = esc(query);
   const ctx = esc(synthesisText.slice(0,4000));
   const JS = '(function(){'
-    + 'var QUERY="' + q.replace(/"/g,'\\"') + '";'
-    + 'var CONTEXT="' + ctx.replace(/"/g,'\\"') + '";'
+    + 'var QUERY=' + JSON.stringify(q) + ';'
+    + 'var CONTEXT=' + JSON.stringify(ctx) + ';'
     + 'var LS_KEY="kuro_api_key";'
     + 'function loadKey(){try{return localStorage.getItem(LS_KEY)||localStorage.getItem("cKey")||"";}catch(e){return ""}}'
     + 'function saveKey(k){try{localStorage.setItem(LS_KEY,k);localStorage.setItem("cKey",k);}catch(e){}}'
