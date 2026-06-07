@@ -379,8 +379,19 @@ async function genQuestions(){
     const r=await callClaudeSearch(ck,
       'あなたは総合商社のトレードビジネス・投資検討の専門アドバイザーです。\n【調査テーマ】'+q+'\nこの調査をより深く実務的に行うため、まずこのテーマの複雑度を判断し最適な質問数を自律的に決定してください。目安：事実確認=1〜2問、比較分析=3〜5問、M&A・業界構造=6〜10問。調査精度を最大化する質問を生成してください（調査目的・比較対象・既知データ・重視指標等）。\nJSON形式のみで返答（説明文不要）：{"questions":["質問1","質問2"]}',
       m.c,800);
-    const match=r.match(/\{[\s\S]*\}/); if(!match) throw new Error('JSON解析失敗');
-    const {questions}=JSON.parse(match[0]);
+    const match=r.match(/\{[\s\S]*\}/);
+    if(!match){
+      const c=$('qContainer'); c.innerHTML=''; c.dataset.questions='[]'; c.dataset.count='0';
+      setRunning(false); btn.disabled=false; btn.innerHTML='⬛ 黒が質問を生成する';
+      await startAll(); return;
+    }
+    let questions;
+    try{ questions=JSON.parse(match[0]).questions; }catch(ex){ questions=[]; }
+    if(!questions||questions.length===0){
+      const c=$('qContainer'); c.innerHTML=''; c.dataset.questions='[]'; c.dataset.count='0';
+      setRunning(false); btn.disabled=false; btn.innerHTML='⬛ 黒が質問を生成する';
+      await startAll(); return;
+    }
     const c=$('qContainer'); c.innerHTML='';
     c.dataset.questions=JSON.stringify(questions); c.dataset.count=questions.length;
     questions.forEach((q,i)=>{
