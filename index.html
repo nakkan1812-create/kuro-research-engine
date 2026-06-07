@@ -325,14 +325,36 @@ async function callClaudeSearch(apiKey, prompt, model, maxTok=5000, onStatus) {
   throw new Error('応答を取得できませんでした');
 }
 
-async function callClaudeDirect(apiKey, prompt, model, maxTok=32000) {
+async function callClaudeDirect(apiKey, prompt, model, maxTok=32000, onChunk) {
   const headers = {'Content-Type':'application/json','x-api-key':apiKey,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'};
   const resp = await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers,
-    body:JSON.stringify({model,max_tokens:maxTok,messages:[{role:'user',content:prompt}]})});
-  const data = await resp.json();
-  if(!resp.ok) throw new Error(data.error?.message||'Claude HTTP '+resp.status);
-  const getText = c => (Array.isArray(c)?c:[c]).filter(x=>x&&x.type==='text').map(x=>x.text).join('');
-  return {text:getText(data.content),truncated:data.stop_reason==='max_tokens'};
+    body:JSON.stringify({model,max_tokens:maxTok,stream:true,messages:[{role:'user',content:prompt}]})});
+  if(!resp.ok){const e=await resp.json();throw new Error(e.error?.message||'Claude HTTP '+resp.status);}
+  const reader=resp.body.getReader();
+  const decoder=new TextDecoder();
+  let text='', truncated=false, buf='';
+  while(true){
+    const {done,value}=await reader.read();
+    if(done) break;
+    buf+=decoder.decode(value,{stream:true});
+    const lines=buf.split('
+');
+    buf=lines.pop();
+    for(const line of lines){
+      if(!line.startsWith('data:')) continue;
+      const raw=line.slice(5).trim();
+      if(raw==='[DONE]') break;
+      try{
+        const ev=JSON.parse(raw);
+        if(ev.type==='content_block_delta'&&ev.delta?.type==='text_delta'){
+          text+=ev.delta.text;
+          if(onChunk) onChunk(text);
+        }
+        if(ev.type==='message_delta'&&ev.delta?.stop_reason==='max_tokens') truncated=true;
+      }catch(e){}
+    }
+  }
+  return {text,truncated};
 }
 
 async function callGemini(k,prompt,model){
@@ -449,7 +471,10 @@ async function startAll(){
   const synthPrompt='あなたは総合商社のシニアリサーチアナリストです。複数AIの調査結果を統合して、プロフェッショナルなスタンドアロンHTMLレポートを生成してください。\n\n【調査テーマ】'+q+(ctx?'\n\n【補足情報】\n'+ctx:'')+'\n\n'+parts+'\n\n【出力形式】<!DOCTYPE html>から</html>まで、完全なHTMLドキュメントのみを出力。説明文・コードブロック記号は不要。\n\n【デザイン要件】\n- <head>内に必ず: <meta name="viewport" content="width=device-width, initial-scale=1.0">\n- CSS変数: :root{'+cssVars+'}\n- ヘッダー: background:linear-gradient(110deg,#1F2430,#15318F,#16B8B2);color:#fff\n- メトリクスカード4枚（最重要KPI。border-top:6pxで色分け）\n- データテーブル（thead濃紺背景、tbody交互色。モバイルではスクロール可能にoverflow-x:auto）\n- CSSバーチャート（実際の数値比率でwidth%を設定）\n- 信頼度バッジ: 高=緑丸、中=黄丸、低=赤丸\n- 2カラムレイアウト（リスク/機会など）\n- 試算バンド3枚（楽観/標準/保守）\n- 出典リスト（番号付き）\n- フッターに免責事項\n- 【AIコンセンサスマップ】セクションを必ず追加（レポート末尾、出典の前）：\n  🟢 全AI一致した点（3〜5項目）\n  🟡 意見が割れた点（各AIの見解を明記、2〜4項目）\n  🔴 1つのAIだけが指摘したユニーク情報（各AI1項目ずつ）\n- モバイル対応（必須）: @media(max-width:640px){body{font-size:13px} .wrap{padding:0 14px} h1{font-size:17px} h2{font-size:15px} .grid,.cards{grid-template-columns:1fr} table{font-size:11px}}\n\n【品質要件】\n- 各AIの重要情報を全て盛り込む（矛盾は論理的に整理）\n- 具体的な企業名・金額・年月を必ず記載。一般論不可\n- 出典は実際に参照した情報源を列挙\n- 生成日時: '+date+'\n- モデル: '+m.head+'\n- セクション見出しは必ず<h2>タグで記述。HTMLコメント（<!-- ... -->）はコード全体を通じて一切使用しないこと\n- レポートが途中で切れないよう、最後に必ず</body></html>で終了すること\n\n/* 冒頭に一切の前置きなし。<!DOCTYPE html>から即開始 */';
   try{
     $('synthStatus').textContent='HTMLレポートを生成中...';
-    const {text:htmlOutput,truncated}=await callClaudeDirect(ck,synthPrompt,m.c,32000);
+    const {text:htmlOutput,truncated}=await callClaudeDirect(ck,synthPrompt,m.c,32000,chunk=>{
+      const pct=Math.min(95,Math.round(chunk.length/320));
+      $('synthStatus').textContent='生成中... '+pct+'%（'+Math.round(chunk.length/1000)+'KB）';
+    });
     const htmlStart=htmlOutput.search(/<!DOCTYPE html>/i);
     let cleanHtml=htmlStart>=0?htmlOutput.slice(htmlStart):htmlOutput;
     if(!/<\/html>/i.test(cleanHtml)) cleanHtml+='\n</body>\n</html>';
