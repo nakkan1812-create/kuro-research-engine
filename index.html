@@ -347,7 +347,8 @@ async function callClaudeDirect(apiKey, prompt, model, maxTok=32000, onChunk) {
     const {done,value}=await reader.read();
     if(done) break;
     buf+=decoder.decode(value,{stream:true});
-    const lines=buf.split('\n');
+    const lines=buf.split('
+');
     buf=lines.pop();
     for(const line of lines){
       if(!line.startsWith('data:')) continue;
