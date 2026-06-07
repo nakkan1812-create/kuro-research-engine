@@ -16,10 +16,7 @@ body{font-family:"Noto Sans JP",sans-serif;background:var(--bg);color:var(--ink)
 .wrap{max-width:1060px;margin:0 auto;padding:0 28px}
 .container{padding:26px 0}
 .card{background:var(--surface);border-radius:12px;padding:22px;margin-bottom:18px;border:1px solid var(--line2);box-shadow:0 4px 16px rgba(21,49,143,.04)}
-.sec-title{font-size:11px;font-weight:900;color:var(--muted);text-transform:uppercase;letter-spacing:.09em;margin-bottom:16px}
 .phase-badge{display:inline-block;background:var(--ink);color:#fff;font-size:11px;font-weight:800;padding:4px 12px;border-radius:20px;margin-bottom:14px;letter-spacing:.04em}
-
-/* TIER SELECTOR */
 .tier-section{margin-bottom:16px}
 .tier-label{font-size:12px;font-weight:700;color:var(--muted);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em}
 .tier-row{display:flex;gap:8px}
@@ -30,8 +27,6 @@ body{font-family:"Noto Sans JP",sans-serif;background:var(--bg);color:var(--ink)
 .tier-btn.active-l{border-color:#5F6B7A;background:#f0f0f0;color:#5F6B7A}
 .tier-btn .t-name{font-size:14px;font-weight:900;display:block;margin-bottom:2px}
 .tier-btn .t-models{font-size:10px;font-weight:500;line-height:1.4;display:block;opacity:.8}
-
-/* KEYS (bottom, collapsible) */
 .key-toggle{width:100%;padding:12px 16px;background:var(--surface);border:1px solid var(--line2);border-radius:10px;text-align:left;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:space-between;color:var(--muted)}
 .key-toggle:hover{background:var(--panel)}
 .key-toggle .arrow{font-size:10px;transition:transform .2s}
@@ -45,14 +40,10 @@ body{font-family:"Noto Sans JP",sans-serif;background:var(--bg);color:var(--ink)
 .key-row input:focus{outline:none;border-color:var(--blue2);box-shadow:0 0 0 3px rgba(30,94,219,.1)}
 .eye{background:none;border:1px solid var(--line);border-radius:8px;padding:9px 11px;cursor:pointer;color:var(--muted);font-size:13px}
 .ks{font-size:11px;margin-top:4px;color:var(--muted)}
-
-/* INPUTS */
 .query-area,.answer-area{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:10px;font-size:14px;font-family:"Noto Sans JP",sans-serif;resize:vertical;background:var(--panel)}
 .query-area{min-height:90px}
 .answer-area{min-height:66px}
 .query-area:focus,.answer-area:focus{outline:none;border-color:var(--blue2);box-shadow:0 0 0 3px rgba(30,94,219,.1)}
-
-/* BUTTONS */
 .primary-btn{width:100%;padding:14px;background:linear-gradient(90deg,var(--blue),var(--blue2));color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;margin-top:12px;transition:opacity .15s;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
 .primary-btn:hover{opacity:.9}
 .primary-btn:disabled{background:#aeaeb2;cursor:default;opacity:1}
@@ -60,16 +51,11 @@ body{font-family:"Noto Sans JP",sans-serif;background:var(--bg);color:var(--ink)
 .ghost-btn:hover{background:var(--panel)}
 .dl-btn{padding:11px 22px;background:var(--good);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
 .dl-btn:hover{opacity:.9}
-
 .spinner{display:inline-block;width:14px;height:14px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;vertical-align:middle;margin-right:6px}
 @keyframes spin{to{transform:rotate(360deg)}}
-
-/* Q BLOCKS */
 .q-block{margin-bottom:16px}
 .q-label{font-size:14px;font-weight:700;margin-bottom:8px;color:var(--ink);display:flex;align-items:flex-start;gap:10px}
 .q-num{min-width:24px;height:24px;border-radius:50%;background:var(--blue);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;flex-shrink:0;margin-top:1px}
-
-/* AI PANELS */
 .ai-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .ai-panel{border-radius:10px;padding:16px}
 .ai-claude{background:#EEF2FF;border:1px solid #c7d7ff}
@@ -90,17 +76,13 @@ body{font-family:"Noto Sans JP",sans-serif;background:var(--bg);color:var(--ink)
 .ai-text{font-size:12.5px;line-height:1.75;white-space:pre-wrap;word-break:break-word;max-height:340px;overflow-y:auto;color:var(--ink)}
 .ai-text.empty{color:#aaa;font-style:italic}
 .status-line{font-size:11px;color:var(--teal-d);margin-top:4px;font-weight:600;min-height:16px}
-
 .progress-bar{height:4px;background:var(--line2);border-radius:2px;margin-bottom:22px;overflow:hidden;display:none}
 .progress-fill{height:100%;background:linear-gradient(90deg,var(--blue),var(--teal));border-radius:2px;transition:width .5s;width:0%}
-
-.synth-wrap{background:var(--ink);border-radius:12px;padding:24px}
-.synth-label{font-size:11px;font-weight:900;color:rgba(255,255,255,.5);letter-spacing:.09em;text-transform:uppercase;margin-bottom:14px}
-.synth-text{font-size:14px;line-height:1.85;white-space:pre-wrap;word-break:break-word;color:#f0f4ff;max-height:600px;overflow-y:auto}
 .btn-row{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
-
 @keyframes spin-gear{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
 .gear-spin{animation:spin-gear 1.2s linear infinite;display:inline-block!important;transform-origin:center}
+.setup-banner{background:linear-gradient(90deg,#15318F,#16B8B2);color:#fff;border-radius:10px;padding:14px 18px;margin-bottom:18px;font-size:13px;font-weight:600;line-height:1.6}
+.setup-banner.hidden{display:none}
 @media(max-width:640px){
   .keys-grid{grid-template-columns:1fr}
   .ai-grid{grid-template-columns:1fr}
@@ -133,11 +115,12 @@ body{font-family:"Noto Sans JP",sans-serif;background:var(--bg);color:var(--ink)
 
 <div class="wrap container">
 
-<!-- PHASE 1: テーマ + 品質設定 -->
+<div class="setup-banner" id="setupBanner">
+  🔑 初回のみ：画面下部の「APIキー設定」からキーを入力してください。次回以降は自動読み込みされます。
+</div>
+
 <div class="card" id="p1">
   <div class="phase-badge">PHASE 1 — テーマ入力</div>
-
-  <!-- 品質ティア -->
   <div class="tier-section">
     <div class="tier-label">🎚 調査品質・モデル選択</div>
     <div class="tier-row">
@@ -155,13 +138,11 @@ body{font-family:"Noto Sans JP",sans-serif;background:var(--bg);color:var(--ink)
       </button>
     </div>
   </div>
-
   <textarea class="query-area" id="query" placeholder="調査テーマを入力してください。&#10;例：2100年、小惑星帯の希少金属採掘が商業化した場合の市場規模・主要プレイヤー・地球経済へのインパクト&#10;※具体的なほどレポート品質が上がります"></textarea>
   <div id="qError" style="color:#E94A5F;font-size:13px;margin-top:8px;padding:8px 12px;background:#fff1f2;border-radius:8px;display:none"></div>
   <button class="primary-btn" onclick="genQuestions()" id="askBtn">⬛ 黒が質問を生成する</button>
 </div>
 
-<!-- PHASE 2 -->
 <div class="card" id="p2" style="display:none">
   <div class="phase-badge">PHASE 2 — 黒からの質問</div>
   <p style="font-size:13px;color:var(--muted);margin-bottom:16px">より精度の高い調査のために確認します。回答は全AIとウェブ検索に反映されます。</p>
@@ -171,39 +152,37 @@ body{font-family:"Noto Sans JP",sans-serif;background:var(--bg);color:var(--ink)
 
 <div class="progress-bar" id="pbar"><div class="progress-fill" id="pfill"></div></div>
 
-<!-- PHASE 3 -->
 <div class="card" id="p3" style="display:none">
   <div class="phase-badge">PHASE 3 — 4AI並行調査中</div>
   <div style="margin-top:12px"></div>
   <div class="ai-grid">
     <div class="ai-panel ai-claude">
-      <div class="ai-label"><div class="dot" id="d-c"></div><span id="lbl-c">Claude Opus 4.8（ウェブ検索）</span></div>
+      <div class="ai-label"><div class="dot" id="d-c"></div><span id="lbl-c">Claude Sonnet 4.6（ウェブ検索）</span></div>
       <div class="ai-text empty" id="r-c">待機中</div>
       <div class="status-line" id="s-c"></div>
     </div>
     <div class="ai-panel ai-gemini">
-      <div class="ai-label"><div class="dot" id="d-g"></div><span id="lbl-g">Gemini 2.5 Pro</span></div>
+      <div class="ai-label"><div class="dot" id="d-g"></div><span id="lbl-g">Gemini 2.5 Flash</span></div>
       <div class="ai-text empty" id="r-g">待機中</div>
       <div class="status-line" id="s-g"></div>
     </div>
     <div class="ai-panel ai-chatgpt">
-      <div class="ai-label"><div class="dot" id="d-o"></div><span id="lbl-o">GPT-4o</span></div>
+      <div class="ai-label"><div class="dot" id="d-o"></div><span id="lbl-o">GPT-4o mini</span></div>
       <div class="ai-text empty" id="r-o">待機中</div>
       <div class="status-line" id="s-o"></div>
     </div>
     <div class="ai-panel ai-grok">
-      <div class="ai-label"><div class="dot" id="d-x"></div><span id="lbl-x">Grok 3</span></div>
+      <div class="ai-label"><div class="dot" id="d-x"></div><span id="lbl-x">Grok 3 mini</span></div>
       <div class="ai-text empty" id="r-x">待機中</div>
       <div class="status-line" id="s-x"></div>
     </div>
   </div>
 </div>
 
-<!-- PHASE 4 -->
 <div class="card" id="p4" style="display:none">
   <div class="phase-badge">PHASE 4 — 黒による統合レポート</div>
   <div style="margin-top:12px"></div>
-  <div id="synthStatus" style="font-size:13px;color:var(--muted);padding:6px 0 12px">HTMLレポートを生成中（ウェブ検索で事実確認中）...</div>
+  <div id="synthStatus" style="font-size:13px;color:var(--muted);padding:6px 0 12px">HTMLレポートを生成中...</div>
   <iframe id="reportFrame" style="width:100%;min-height:600px;border:1px solid var(--line2);border-radius:10px;display:none" scrolling="no" onload="adjustFrame()"></iframe>
   <div class="btn-row" id="reportBtns" style="display:none">
     <button class="dl-btn" onclick="dlReport()">📄 HTMLをダウンロード</button>
@@ -212,7 +191,6 @@ body{font-family:"Noto Sans JP",sans-serif;background:var(--bg);color:var(--ink)
   </div>
 </div>
 
-<!-- APIキー（一番下・折りたたみ） -->
 <div class="card" style="margin-top:8px">
   <button class="key-toggle" id="keyToggleBtn" onclick="toggleKeys()">
     <span>🔑 APIキー設定 <span id="keyStatus" style="font-size:11px;font-weight:500;margin-left:8px"></span></span>
@@ -241,20 +219,22 @@ body{font-family:"Noto Sans JP",sans-serif;background:var(--bg);color:var(--ink)
         <div class="ks" id="xks">未設定 — console.x.ai</div>
       </div>
     </div>
+    <p style="font-size:11px;color:var(--muted);margin-top:14px;line-height:1.6">
+      ✅ キーはこのブラウザのlocalStorageにのみ保存されます。GitHubには一切含まれません。
+    </p>
   </div>
 </div>
 
-</div><!-- /wrap -->
+</div>
 
 <script>
 const $ = id => document.getElementById(id);
 
-// モデル定義
 const MODELS = {
-  h: { c:'claude-opus-4-8',    g:'gemini-2.5-pro',   o:'gpt-4o',      x:'grok-3',
-       lc:'Claude Opus 4.8（ウェブ検索）', lg:'Gemini 2.5 Pro', lo:'GPT-4o',      lx:'Grok 3',
+  h: { c:'claude-opus-4-8', g:'gemini-2.5-pro', o:'gpt-4o', x:'grok-3',
+       lc:'Claude Opus 4.8（ウェブ検索）', lg:'Gemini 2.5 Pro', lo:'GPT-4o', lx:'Grok 3',
        head:'Opus 4.8 · Gemini 2.5 Pro · GPT-4o · Grok 3' },
-  m: { c:'claude-sonnet-4-6',  g:'gemini-2.5-flash', o:'gpt-4o-mini', x:'grok-3-mini',
+  m: { c:'claude-sonnet-4-6', g:'gemini-2.5-flash', o:'gpt-4o-mini', x:'grok-3-mini',
        lc:'Claude Sonnet 4.6（ウェブ検索）', lg:'Gemini 2.5 Flash', lo:'GPT-4o mini', lx:'Grok 3 mini',
        head:'Sonnet 4.6 · Gemini 2.5 Flash · GPT-4o mini · Grok 3 mini' },
   l: { c:'claude-haiku-4-5-20251001', g:'gemini-2.5-flash', o:'gpt-4o-mini', x:'grok-3-mini',
@@ -266,11 +246,9 @@ let currentTier = 'm';
 function setTier(t) {
   currentTier = t;
   ['h','m','l'].forEach(x => {
-    const btn = $('tier-'+x);
-    btn.className = 'tier-btn' + (x===t ? ' active-'+t : '');
+    $('tier-'+x).className = 'tier-btn' + (x===t ? ' active-'+t : '');
   });
-  const m = MODELS[t];
-  $('headerSub').textContent = m.head + ' · Web Search';
+  $('headerSub').textContent = MODELS[t].head + ' · Web Search';
   updateLabels();
 }
 
@@ -282,38 +260,34 @@ function updateLabels(){
   $('lbl-x').textContent = m.lx;
 }
 
-// キー管理
+// キー管理 — localStorageのみ（DEFAULT_KEYS完全削除）
 const HINTS = {cKey:'console.anthropic.com',gKey:'aistudio.google.com/apikey',oKey:'platform.openai.com/api-keys',xKey:'console.x.ai'};
 const STS = {cKey:'cks',gKey:'gks',oKey:'oks',xKey:'xks'};
-const _dk=(s)=>atob(s);
-const DEFAULT_KEYS = {
-  cKey:_dk('***REMOVED_ANTHROPIC_KEY***'),
-  gKey:_dk('***REMOVED_GEMINI_KEY***'),
-  oKey:_dk('***REMOVED_OPENAI_KEY***'),
-  xKey:_dk('***REMOVED_XAI_KEY***')
-};
 
 function updateKS(id){
   const k=$(id).value.trim(), el=$(STS[id]);
-  el.textContent = k?'✓ 設定済み':'未設定 — '+HINTS[id];
-  el.style.color = k?'#00A878':'#aaa';
+  el.textContent = k ? '✓ 設定済み' : '未設定 — '+HINTS[id];
+  el.style.color = k ? '#00A878' : '#aaa';
   refreshKeyStatus();
 }
+
 function refreshKeyStatus(){
   const keys = ['cKey','gKey','oKey','xKey'].filter(id=>$(id).value.trim());
-  $('keyStatus').textContent = keys.length ? `（${keys.length}個設定済み）` : '（未設定）';
+  $('keyStatus').textContent = keys.length ? '（'+keys.length+'個設定済み）' : '（未設定）';
+  if($('cKey').value.trim()) $('setupBanner').classList.add('hidden');
 }
 
 function lsGet(k){try{return localStorage.getItem(k);}catch(e){return null;}}
 function lsSet(k,v){try{localStorage.setItem(k,v);}catch(e){}}
 
 Object.keys(HINTS).forEach(id=>{
-  const s=lsGet(id)||DEFAULT_KEYS[id]; if(s){$(id).value=s;lsSet(id,s);}
+  const s = lsGet(id);
+  if(s) $(id).value = s;
   $(id).addEventListener('input',()=>{ lsSet(id,$(id).value); updateKS(id); });
   updateKS(id);
 });
 
-function toggle(id){ const e=$(id); e.type=e.type==='password'?'text':'password'; }
+function toggle(id){ const e=$(id); e.type = e.type==='password' ? 'text' : 'password'; }
 
 function toggleKeys(){
   const btn=$('keyToggleBtn'), panel=$('keysPanel');
@@ -328,136 +302,89 @@ function res(ai,txt,err){
 }
 function status(ai,txt){ $('s-'+ai).textContent=txt||''; }
 
-// Claude API（ウェブ検索アジェンティックループ）
-async function callClaudeOpus(apiKey, prompt, model, maxTok=5000, onStatus) {
-  const headers = {
-    'Content-Type':'application/json',
-    'x-api-key': apiKey,
-    'anthropic-version':'2023-06-01',
-    'anthropic-dangerous-direct-browser-access':'true'
-  };
-  const messages = [{ role:'user', content: prompt }];
-  const MAX_ITER = 25;
-
-  for(let i=0; i<MAX_ITER; i++){
-    const resp = await fetch('https://api.anthropic.com/v1/messages',{
-      method:'POST', headers,
-      body: JSON.stringify({ model, max_tokens:maxTok,
-        tools:[{ type:'web_search_20250305', name:'web_search', max_uses:10 }],
-        messages })
-    });
+async function callClaudeSearch(apiKey, prompt, model, maxTok=5000, onStatus) {
+  const headers = {'Content-Type':'application/json','x-api-key':apiKey,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'};
+  const messages = [{role:'user',content:prompt}];
+  for(let i=0; i<25; i++){
+    const resp = await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers,
+      body:JSON.stringify({model,max_tokens:maxTok,tools:[{type:'web_search_20250305',name:'web_search',max_uses:10}],messages})});
     const data = await resp.json();
-    if(!resp.ok) throw new Error(data.error?.message||`Claude HTTP ${resp.status}`);
-
+    if(!resp.ok) throw new Error(data.error?.message||'Claude HTTP '+resp.status);
     const getText = c => (Array.isArray(c)?c:[c]).filter(x=>x&&x.type==='text').map(x=>x.text).join('');
-
     if(data.stop_reason==='end_turn') return getText(data.content);
-
     if(data.stop_reason==='tool_use'){
-      messages.push({ role:'assistant', content: data.content });
+      messages.push({role:'assistant',content:data.content});
       const uses = data.content.filter(c=>c.type==='tool_use');
-      const queries = uses.map(u=>u.input?.query).filter(Boolean);
-      if(onStatus && queries.length) onStatus('🔍 検索中: '+queries.join(', '));
-      const toolResults = uses.map(u=>{
-        const rb = data.content.filter(c=>(c.type==='web_search_result'||c.type==='tool_result')&&(c.tool_use_id===u.id||!c.tool_use_id));
-        return { type:'tool_result', tool_use_id:u.id,
-          content: rb.length>0 ? rb.map(b=>({type:'text',text:JSON.stringify(b.content||b)})) : [{type:'text',text:'Search completed.'}] };
-      });
-      messages.push({ role:'user', content: toolResults });
+      if(onStatus) onStatus('🔍 検索中: '+uses.map(u=>u.input?.query).filter(Boolean).join(', '));
+      messages.push({role:'user',content:uses.map(u=>({type:'tool_result',tool_use_id:u.id,content:[{type:'text',text:'Search completed.'}]}))});
       continue;
     }
-
-    const text = getText(data.content); if(text) return text; break;
+    const text=getText(data.content); if(text) return text; break;
   }
-
-  const lastA = [...messages].reverse().find(m=>m.role==='assistant');
-  if(lastA){ const c=Array.isArray(lastA.content)?lastA.content:[lastA.content]; const t=c.filter(x=>x&&x.type==='text').map(x=>x.text).join(''); if(t) return t; }
   throw new Error('応答を取得できませんでした');
 }
 
-// Claude API（ウェブ検索なし・高速版。合成レポート生成用）
-async function callClaudeDirect(apiKey, prompt, model, maxTok=8000, onStatus) {
-  const headers = {
-    'Content-Type':'application/json',
-    'x-api-key': apiKey,
-    'anthropic-version':'2023-06-01',
-    'anthropic-dangerous-direct-browser-access':'true'
-  };
-  if(onStatus) onStatus('HTMLレポートを生成中...');
-  const resp = await fetch('https://api.anthropic.com/v1/messages',{
-    method:'POST', headers,
-    body: JSON.stringify({ model, max_tokens:maxTok, messages:[{role:'user',content:prompt}] })
-  });
+async function callClaudeDirect(apiKey, prompt, model, maxTok=32000) {
+  const headers = {'Content-Type':'application/json','x-api-key':apiKey,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'};
+  const resp = await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers,
+    body:JSON.stringify({model,max_tokens:maxTok,messages:[{role:'user',content:prompt}]})});
   const data = await resp.json();
-  if(!resp.ok) throw new Error(data.error?.message||`Claude HTTP ${resp.status}`);
+  if(!resp.ok) throw new Error(data.error?.message||'Claude HTTP '+resp.status);
   const getText = c => (Array.isArray(c)?c:[c]).filter(x=>x&&x.type==='text').map(x=>x.text).join('');
-  return { text: getText(data.content), truncated: data.stop_reason === 'max_tokens' };
+  return {text:getText(data.content),truncated:data.stop_reason==='max_tokens'};
 }
 
-async function callGemini(k, prompt, model){
-  const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${k}`,{
-    method:'POST', headers:{'Content-Type':'application/json'},
-    body: JSON.stringify({contents:[{parts:[{text:prompt}]}], generationConfig:{maxOutputTokens:3000}})
-  });
-  const d = await r.json(); if(!r.ok) throw new Error(d.error?.message||`Gemini ${r.status}`);
+async function callGemini(k,prompt,model){
+  const r=await fetch('https://generativelanguage.googleapis.com/v1beta/models/'+model+':generateContent?key='+k,
+    {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({contents:[{parts:[{text:prompt}]}],generationConfig:{maxOutputTokens:3000}})});
+  const d=await r.json(); if(!r.ok) throw new Error(d.error?.message||'Gemini '+r.status);
   return d.candidates?.[0]?.content?.parts?.[0]?.text||'（回答なし）';
 }
 
-async function callOpenAI(k, prompt, model){
-  let r;
-  try {
-    r = await fetch('https://api.openai.com/v1/chat/completions',{
-      method:'POST', headers:{'Content-Type':'application/json','Authorization':`Bearer ${k}`},
-      body: JSON.stringify({model, max_tokens:3000, messages:[{role:'user',content:prompt}]})
-    });
-  } catch(e) {
-    throw new Error('OpenAI: 接続エラー（ネットワークまたはAPIキーを確認）');
-  }
-  const d = await r.json(); if(!r.ok) throw new Error(d.error?.message||`OpenAI ${r.status}`);
+async function callOpenAI(k,prompt,model){
+  const r=await fetch('https://api.openai.com/v1/chat/completions',
+    {method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+k},
+     body:JSON.stringify({model,max_tokens:3000,messages:[{role:'user',content:prompt}]})});
+  const d=await r.json(); if(!r.ok) throw new Error(d.error?.message||'OpenAI '+r.status);
   return d.choices?.[0]?.message?.content||'（回答なし）';
 }
 
-async function callGrok(k, prompt, model){
-  let r;
-  try {
-    r = await fetch('https://api.x.ai/v1/chat/completions',{
-      method:'POST', headers:{'Content-Type':'application/json','Authorization':`Bearer ${k}`},
-      body: JSON.stringify({model, max_completion_tokens:3000, messages:[{role:'user',content:prompt}]})
-    });
-  } catch(e) {
-    throw new Error('Grok接続エラー（CORSまたはネットワーク）');
-  }
-  if(r.status===403) throw new Error('Grok 403: APIキーを確認してください（console.x.ai）');
+async function callGrok(k,prompt,model){
+  const r=await fetch('https://api.x.ai/v1/chat/completions',
+    {method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+k},
+     body:JSON.stringify({model,max_completion_tokens:3000,messages:[{role:'user',content:prompt}]})});
+  if(r.status===403) throw new Error('Grok 403: APIキーを確認してください');
   if(r.status===429) throw new Error('Grok レート制限。しばらく後に再試行してください');
-  const d = await r.json(); if(!r.ok) throw new Error(d.error?.message||`Grok ${r.status}`);
+  const d=await r.json(); if(!r.ok) throw new Error(d.error?.message||'Grok '+r.status);
   return d.choices?.[0]?.message?.content||'（回答なし）';
 }
 
 function showQErr(msg){
   const e=$('qError');
   if(e){e.textContent='⚠ '+msg;e.style.display='block';setTimeout(()=>e.style.display='none',5000);}
-  else try{alert(msg);}catch(ex){}
 }
 
-// PHASE 1: 質問生成
 async function genQuestions(){
-  if(document.activeElement) document.activeElement.blur(); // iOSキーボード閉じる
+  if(document.activeElement) document.activeElement.blur();
   const ck=$('cKey').value.trim(), q=$('query').value.trim();
-  if(!ck){showQErr('ClaudeのAPIキーを設定してください（画面下部のAPIキー設定から）');return;}
+  if(!ck){
+    $('keysPanel').classList.add('open'); $('keyToggleBtn').classList.add('open');
+    showQErr('ClaudeのAPIキーを設定してください（画面下部のAPIキー設定から）'); return;
+  }
   if(!q){showQErr('調査テーマを入力してください');return;}
   const btn=$('askBtn'); btn.disabled=true; btn.innerHTML='<span class="spinner"></span>質問を生成中...';
   setRunning(true);
   try{
-    const m = MODELS[currentTier];
-    const r = await callClaudeOpus(ck,
-      `あなたは総合商社のトレードビジネス・投資検討の専門アドバイザーです。\n【調査テーマ】${q}\nこの調査をより深く実務的に行うため、まずこのテーマの複雑度を判断し最適な質問数を自律的に決定してください。目安：事実確認=1〜2問、比較分析=3〜5問、M&A・業界構造=6〜10問。調査精度を最大化する質問を生成してください（調査目的・比較対象・既知データ・重視指標等）。\nJSON形式のみで返答（説明文不要）：{"questions":["質問1","質問2"]}`,
-      m.c, 800);
+    const m=MODELS[currentTier];
+    const r=await callClaudeSearch(ck,
+      'あなたは総合商社のトレードビジネス・投資検討の専門アドバイザーです。\n【調査テーマ】'+q+'\nこの調査をより深く実務的に行うため、まずこのテーマの複雑度を判断し最適な質問数を自律的に決定してください。目安：事実確認=1〜2問、比較分析=3〜5問、M&A・業界構造=6〜10問。調査精度を最大化する質問を生成してください（調査目的・比較対象・既知データ・重視指標等）。\nJSON形式のみで返答（説明文不要）：{"questions":["質問1","質問2"]}',
+      m.c,800);
     const match=r.match(/\{[\s\S]*\}/); if(!match) throw new Error('JSON解析失敗');
     const {questions}=JSON.parse(match[0]);
     const c=$('qContainer'); c.innerHTML='';
     c.dataset.questions=JSON.stringify(questions); c.dataset.count=questions.length;
     questions.forEach((q,i)=>{
-      c.innerHTML+=`<div class="q-block"><div class="q-label"><div class="q-num">${i+1}</div><span>${q}</span></div><textarea class="answer-area" id="a-${i}" placeholder="回答（スキップ可）"></textarea></div>`;
+      c.innerHTML+='<div class="q-block"><div class="q-label"><div class="q-num">'+(i+1)+'</div><span>'+q+'</span></div><textarea class="answer-area" id="a-'+i+'" placeholder="回答（スキップ可）"></textarea></div>';
     });
     $('p2').style.display='block';
     $('p2').scrollIntoView({behavior:'smooth',block:'start'});
@@ -466,358 +393,129 @@ async function genQuestions(){
   btn.disabled=false; btn.innerHTML='⬛ 黒が質問を生成する';
 }
 
-function buildPrompt(aiName, query, ctx){
-  return `あなたは${aiName}です。以下の調査テーマについて、徹底的かつ実務レベルの深掘り調査レポートを作成してください。
-
-【調査テーマ】
-${query}
-${ctx?`\n【補足情報（依頼者提供）】\n${ctx}`:''}
-以下の構成で、各項目に具体的な企業名・数値・出典を必ず含めて作成してください：
-
-1. エグゼクティブサマリー（最重要ポイント5点、数値を必ず含む）
-2. 市場・業界の定量的現状（規模・価格・成長率・直近データ）
-3. 主要プレイヤーと競合動向（具体的企業名・戦略・最近の動き）
-4. CAPEX・投資コストのベンチマーク（実際の案件名・金額・$/t）
-5. リスクと機会の定量分析（短期・中長期）
-6. 地政学・規制・マクロ環境
-7. 今後の見通しと実務的示唆
-
-曖昧な一般論は不可。具体的な企業名・金額・パーセンテージ・年月を必ず記載。`;
+function buildPrompt(aiName,query,ctx){
+  return 'あなたは'+aiName+'です。以下の調査テーマについて、徹底的かつ実務レベルの深掘り調査レポートを作成してください。\n\n【調査テーマ】\n'+query+(ctx?'\n\n【補足情報（依頼者提供）】\n'+ctx:'')+'\n\n以下の構成で、各項目に具体的な企業名・数値・出典を必ず含めて作成してください：\n1. エグゼクティブサマリー（最重要ポイント5点、数値を必ず含む）\n2. 市場・業界の定量的現状（規模・価格・成長率・直近データ）\n3. 主要プレイヤーと競合動向（具体的企業名・戦略・最近の動き）\n4. CAPEX・投資コストのベンチマーク（実際の案件名・金額・$/t）\n5. リスクと機会の定量分析（短期・中長期）\n6. 地政学・規制・マクロ環境\n7. 今後の見通しと実務的示唆\n\n曖昧な一般論は不可。具体的な企業名・金額・パーセンテージ・年月を必ず記載。';
 }
 
-// PHASE 2: 4AI同時調査
 async function startAll(){
-  const ck=$('cKey').value.trim(), gk=$('gKey').value.trim(),
-        ok=$('oKey').value.trim(), xk=$('xKey').value.trim(),
-        q=$('query').value.trim();
+  const ck=$('cKey').value.trim(),gk=$('gKey').value.trim(),ok=$('oKey').value.trim(),xk=$('xKey').value.trim(),q=$('query').value.trim();
   if(!ck){alert('ClaudeのAPIキーは必須です');return;}
   if(!gk&&!ok&&!xk){alert('Gemini/ChatGPT/Grokのいずれか1つ以上のAPIキーが必要です');return;}
-
   const c=$('qContainer');
   const qs=JSON.parse(c.dataset.questions||'[]');
   let ctx='';
-  for(let i=0;i<parseInt(c.dataset.count||'0');i++){
-    const a=$(`a-${i}`)?.value.trim(); if(a) ctx+=`Q: ${qs[i]}\nA: ${a}\n\n`;
-  }
-
-  const m = MODELS[currentTier];
+  for(let i=0;i<parseInt(c.dataset.count||'0');i++){const a=$('a-'+i)?.value.trim();if(a)ctx+='Q: '+qs[i]+'\nA: '+a+'\n\n';}
+  const m=MODELS[currentTier];
   const btn=$('startBtn'); btn.disabled=true; btn.innerHTML='<span class="spinner"></span>4AI同時調査中...';
-  setRunning(true);
-  updateLabels();
+  setRunning(true); updateLabels();
   $('p3').style.display='block'; $('p4').style.display='none';
   $('pbar').style.display='block'; $('pfill').style.width='5%';
   $('p3').scrollIntoView({behavior:'smooth',block:'start'});
-
-  ['c','g','o','x'].forEach(ai=>{ dot(ai,''); const e=$('r-'+ai); e.textContent='待機中'; e.classList.add('empty'); e.style.color=''; status(ai,''); });
-
+  ['c','g','o','x'].forEach(ai=>{dot(ai,'');const e=$('r-'+ai);e.textContent='待機中';e.classList.add('empty');e.style.color='';status(ai,'');});
   const results={};
-  const run = async(ai, fn) => {
+  const run=async(ai,fn)=>{
     dot(ai,'run'); $('r-'+ai).textContent='調査中...'; $('r-'+ai).classList.remove('empty');
-    try{ const r=await fn(); results[ai]=r; res(ai,r); dot(ai,'ok'); status(ai,'✓ 完了'); }
-    catch(e){ res(ai,'エラー: '+e.message,true); dot(ai,'err'); status(ai,'❌ '+e.message.slice(0,40)); }
+    try{const r=await fn();results[ai]=r;res(ai,r);dot(ai,'ok');status(ai,'✓ 完了');}
+    catch(e){res(ai,'エラー: '+e.message,true);dot(ai,'err');status(ai,'❌ '+e.message.slice(0,40));}
   };
-
   status('c','Claudeが起動中...');
-  const tasks=[run('c',()=>callClaudeOpus(ck,buildPrompt(m.lc.split('（')[0],q,ctx),m.c,4000,t=>status('c',t)))];
-  if(gk){status('g','Geminiに送信中...'); tasks.push(run('g',()=>callGemini(gk,buildPrompt(m.lg,q,ctx),m.g)));}
-  else{ dot('g','skip'); $('r-g').textContent='APIキー未設定'; }
-  if(ok){status('o','ChatGPTに送信中...'); tasks.push(run('o',()=>callOpenAI(ok,buildPrompt(m.lo,q,ctx),m.o)));}
-  else{ dot('o','skip'); $('r-o').textContent='APIキー未設定'; }
-  if(xk){status('x','Grokに送信中...'); tasks.push(run('x',()=>callGrok(xk,buildPrompt(m.lx,q,ctx),m.x)));}
-  else{ dot('x','skip'); $('r-x').textContent='APIキー未設定'; }
-
+  const tasks=[run('c',()=>callClaudeSearch(ck,buildPrompt(m.lc.split('（')[0],q,ctx),m.c,4000,t=>status('c',t)))];
+  if(gk){status('g','Geminiに送信中...');tasks.push(run('g',()=>callGemini(gk,buildPrompt(m.lg,q,ctx),m.g)));}
+  else{dot('g','skip');$('r-g').textContent='APIキー未設定';}
+  if(ok){status('o','ChatGPTに送信中...');tasks.push(run('o',()=>callOpenAI(ok,buildPrompt(m.lo,q,ctx),m.o)));}
+  else{dot('o','skip');$('r-o').textContent='APIキー未設定';}
+  if(xk){status('x','Grokに送信中...');tasks.push(run('x',()=>callGrok(xk,buildPrompt(m.lx,q,ctx),m.x)));}
+  else{dot('x','skip');$('r-x').textContent='APIキー未設定';}
   $('pfill').style.width='40%';
   await Promise.allSettled(tasks);
   $('pfill').style.width='75%';
-
   $('p4').style.display='block';
   $('p4').scrollIntoView({behavior:'smooth',block:'start'});
-
-  const parts=['c','g','o','x'].filter(ai=>results[ai])
-    .map(ai=>{ const n={c:m.lc,g:m.lg,o:m.lo,x:m.lx}[ai].split('（')[0]; return `【${n}の調査結果】\n${results[ai]}`; }).join('\n\n---\n\n');
-
-  const date = new Date().toLocaleString('ja-JP');
-  const cssVars = `--teal:#16B8B2;--blue:#15318F;--blue2:#1E5EDB;--ink:#1F2430;--muted:#5F6B7A;--line:#C7D8E5;--good:#00A878;--mid:#F2A900;--low:#E24A4A`;
-  const synthPrompt=`あなたは総合商社のシニアリサーチアナリストです。複数AIの調査結果を統合して、プロフェッショナルなスタンドアロンHTMLレポートを生成してください。
-
-【調査テーマ】${q}
-${ctx?`\n【補足情報】\n${ctx}`:''}
-${parts}
-
-【出力形式】<!DOCTYPE html>から</html>まで、完全なHTMLドキュメントのみを出力。説明文・コードブロック記号は不要。
-
-【デザイン要件】
-- <head>内に必ず: <meta name="viewport" content="width=device-width, initial-scale=1.0">
-- CSS変数: :root{${cssVars}}
-- ヘッダー: background:linear-gradient(110deg,#1F2430,#15318F,#16B8B2);color:#fff
-- メトリクスカード4枚（最重要KPI。border-top:6pxで色分け）
-- データテーブル（thead濃紺背景、tbody交互色。モバイルではスクロール可能にoverflow-x:auto）
-- CSSバーチャート（実際の数値比率でwidth%を設定）
-- 信頼度バッジ: 高=緑丸、中=黄丸、低=赤丸
-- 2カラムレイアウト（リスク/機会など）
-- 試算バンド3枚（楽観/標準/保守）
-- 出典リスト（番号付き）
-- フッターに免責事項
-- 【AIコンセンサスマップ】セクションを必ず追加（レポート末尾、出典の前）：
-  🟢 全AI一致した点（3〜5項目）
-  🟡 意見が割れた点（各AIの見解を明記、2〜4項目）
-  🔴 1つのAIだけが指摘したユニーク情報（各AI1項目ずつ）
-- モバイル対応（必須）: @media(max-width:640px){body{font-size:13px} .wrap{padding:0 14px} h1{font-size:17px} h2{font-size:15px} .grid,.cards{grid-template-columns:1fr} table{font-size:11px}}
-
-【品質要件】
-- 各AIの重要情報を全て盛り込む（矛盾は論理的に整理）
-- 具体的な企業名・金額・年月を必ず記載。一般論不可
-- 出典は実際に参照した情報源を列挙
-- 生成日時: ${date}
-- モデル: ${m.head}
-- セクション見出しは必ず<h2>タグで記述。HTMLコメント（<!-- ... -->）はコード全体を通じて一切使用しないこと（コメントが閉じられないとその後のHTMLが全て消えるため）
-- レポートが途中で切れないよう、最後に必ず</body></html>で終了すること
-
-/* 冒頭に一切の前置きなし。<!DOCTYPE html>から即開始 */`;
-
+  const parts=['c','g','o','x'].filter(ai=>results[ai]).map(ai=>{const n={c:m.lc,g:m.lg,o:m.lo,x:m.lx}[ai].split('（')[0];return '【'+n+'の調査結果】\n'+results[ai];}).join('\n\n---\n\n');
+  const date=new Date().toLocaleString('ja-JP');
+  const cssVars='--teal:#16B8B2;--blue:#15318F;--blue2:#1E5EDB;--ink:#1F2430;--muted:#5F6B7A;--line:#C7D8E5;--good:#00A878;--mid:#F2A900;--low:#E24A4A';
+  const synthPrompt='あなたは総合商社のシニアリサーチアナリストです。複数AIの調査結果を統合して、プロフェッショナルなスタンドアロンHTMLレポートを生成してください。\n\n【調査テーマ】'+q+(ctx?'\n\n【補足情報】\n'+ctx:'')+'\n\n'+parts+'\n\n【出力形式】<!DOCTYPE html>から</html>まで、完全なHTMLドキュメントのみを出力。説明文・コードブロック記号は不要。\n\n【デザイン要件】\n- <head>内に必ず: <meta name="viewport" content="width=device-width, initial-scale=1.0">\n- CSS変数: :root{'+cssVars+'}\n- ヘッダー: background:linear-gradient(110deg,#1F2430,#15318F,#16B8B2);color:#fff\n- メトリクスカード4枚（最重要KPI。border-top:6pxで色分け）\n- データテーブル（thead濃紺背景、tbody交互色。モバイルではスクロール可能にoverflow-x:auto）\n- CSSバーチャート（実際の数値比率でwidth%を設定）\n- 信頼度バッジ: 高=緑丸、中=黄丸、低=赤丸\n- 2カラムレイアウト（リスク/機会など）\n- 試算バンド3枚（楽観/標準/保守）\n- 出典リスト（番号付き）\n- フッターに免責事項\n- 【AIコンセンサスマップ】セクションを必ず追加（レポート末尾、出典の前）：\n  🟢 全AI一致した点（3〜5項目）\n  🟡 意見が割れた点（各AIの見解を明記、2〜4項目）\n  🔴 1つのAIだけが指摘したユニーク情報（各AI1項目ずつ）\n- モバイル対応（必須）: @media(max-width:640px){body{font-size:13px} .wrap{padding:0 14px} h1{font-size:17px} h2{font-size:15px} .grid,.cards{grid-template-columns:1fr} table{font-size:11px}}\n\n【品質要件】\n- 各AIの重要情報を全て盛り込む（矛盾は論理的に整理）\n- 具体的な企業名・金額・年月を必ず記載。一般論不可\n- 出典は実際に参照した情報源を列挙\n- 生成日時: '+date+'\n- モデル: '+m.head+'\n- セクション見出しは必ず<h2>タグで記述。HTMLコメント（<!-- ... -->）はコード全体を通じて一切使用しないこと\n- レポートが途中で切れないよう、最後に必ず</body></html>で終了すること\n\n/* 冒頭に一切の前置きなし。<!DOCTYPE html>から即開始 */';
   try{
     $('synthStatus').textContent='HTMLレポートを生成中...';
-    const { text: htmlOutput, truncated } = await callClaudeDirect(ck,synthPrompt,m.c,32000,t=>{ $('synthStatus').textContent='生成中: '+t; });
-
-    // 前文除去：<!DOCTYPE html>以降を抽出（</html>がなくても可）
-    const htmlStart = htmlOutput.search(/<!DOCTYPE html>/i);
-    let cleanHtml = htmlStart >= 0 ? htmlOutput.slice(htmlStart) : htmlOutput;
-    // 途中切れ補完：閉じタグがなければ追加
-    if(!/\<\/html\>/i.test(cleanHtml)){
-      cleanHtml += '\n</body>\n</html>';
-    }
-
+    const {text:htmlOutput,truncated}=await callClaudeDirect(ck,synthPrompt,m.c,32000);
+    const htmlStart=htmlOutput.search(/<!DOCTYPE html>/i);
+    let cleanHtml=htmlStart>=0?htmlOutput.slice(htmlStart):htmlOutput;
+    if(!/<\/html>/i.test(cleanHtml)) cleanHtml+='\n</body>\n</html>';
     window._report={query:q,ctx,results,htmlOutput:cleanHtml,tier:currentTier,date:new Date().toISOString()};
-
-    // iframeに表示
-    const blob = new Blob([cleanHtml], {type:'text/html;charset=utf-8'});
-    const blobUrl = URL.createObjectURL(blob);
-    const frame = $('reportFrame');
-    frame.src = blobUrl;
-    frame.style.display = 'block';
-    if(truncated){
-      $('synthStatus').textContent = '⚠ レポートが最大長に達しました。内容が途中で切れている可能性があります';
-      $('synthStatus').style.color='var(--yellow)';
-    } else {
-      $('synthStatus').textContent = '✓ レポート生成完了';
-    }
-    $('reportBtns').style.display = 'flex';
-  }catch(e){
-    $('synthStatus').textContent='エラー: '+e.message;
-    $('synthStatus').style.color='var(--red)';
-  }
-
+    const blob=new Blob([cleanHtml],{type:'text/html;charset=utf-8'});
+    const frame=$('reportFrame');
+    frame.src=URL.createObjectURL(blob);
+    frame.style.display='block';
+    $('synthStatus').textContent=truncated?'⚠ レポートが最大長に達しました':'✓ レポート生成完了';
+    if(truncated) $('synthStatus').style.color='var(--yellow)';
+    $('reportBtns').style.display='flex';
+  }catch(e){$('synthStatus').textContent='エラー: '+e.message;$('synthStatus').style.color='var(--red)';}
   $('pfill').style.width='100%';
   setTimeout(()=>$('pbar').style.display='none',1000);
   setRunning(false);
   btn.disabled=false; btn.innerHTML='⬛ 4AI同時並行調査スタート';
 }
 
-// パスワードハッシュ（djb2変形）
 function hashPw(s){let h=5381;for(let i=0;i<s.length;i++)h=((h<<5)+h)^s.charCodeAt(i);return(h>>>0).toString(36);}
 
-function buildAskWidget(apiKey, query, synthesisText, pw){
-  const esc = s => s.replace(/`/g,'\\`').replace(/\$/g,'\\$');
-  const pwHash = pw ? hashPw(pw) : '';
-
-  const pwSection = pw ? `
-<div id="pw-section">
-<div id="pw-overlay" style="position:fixed;inset:0;background:rgba(15,20,40,.97);z-index:99999;display:flex;align-items:center;justify-content:center;font-family:'Noto Sans JP',sans-serif">
-  <div style="background:#fff;border-radius:16px;padding:36px 32px;width:min(420px,90vw);text-align:center;box-shadow:0 24px 60px rgba(0,0,0,.4)">
-    <div style="width:54px;height:54px;background:linear-gradient(135deg,#15318F,#16B8B2);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:24px;margin:0 auto 16px">⬛</div>
-    <h2 style="font-size:18px;font-weight:800;color:#1F2430;margin-bottom:6px">黒の調査レポート</h2>
-    <p style="font-size:12px;color:#5F6B7A;margin-bottom:22px;line-height:1.7">このレポートにはAPIキーが含まれています。<br>開くにはパスワードを入力してください。</p>
-    <input id="pw-input" type="password" placeholder="パスワードを入力"
-      style="width:100%;padding:13px 14px;border:1.5px solid #C7D8E5;border-radius:10px;font-size:16px;margin-bottom:12px;outline:none;box-sizing:border-box;-webkit-appearance:none"
-      onkeydown="if(event.key==='Enter')checkPw()"/>
-    <button onclick="checkPw()" style="width:100%;padding:14px;background:linear-gradient(90deg,#15318F,#1E5EDB);color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent">レポートを開く</button>
-    <div id="pw-err" style="color:#E94A5F;font-size:12px;margin-top:10px;display:none">❌ パスワードが違います</div>
-  </div>
-</div>
-<script>
-(function(){
-  const H='${pwHash}';
-  function sh(s){let h=5381;for(let i=0;i<s.length;i++)h=((h<<5)+h)^s.charCodeAt(i);return(h>>>0).toString(36);}
-  window.checkPw=function(){
-    const v=document.getElementById('pw-input').value;
-    if(sh(v)===H){document.getElementById('pw-overlay').style.display='none';}
-    else{const e=document.getElementById('pw-err');e.style.display='block';setTimeout(()=>e.style.display='none',2000);document.getElementById('pw-input').value='';document.getElementById('pw-input').focus();}
-  };
-  document.getElementById('pw-input').focus();
-})();
-<\/script>
-</div>` : '';
-
-  return `
-${pwSection}
-<style>
-#askFab{position:fixed;bottom:28px;right:28px;z-index:9999;background:linear-gradient(135deg,#15318F,#16B8B2);color:#fff;border:none;padding:14px 22px;border-radius:30px;font-size:14px;font-weight:700;cursor:pointer;box-shadow:0 6px 24px rgba(21,49,143,.35);letter-spacing:-.01em;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
-#askFab:hover{opacity:.9}
-#askOverlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:10000;align-items:center;justify-content:center}
-#askOverlay.open{display:flex}
-#askBox{background:#fff;border-radius:16px;padding:28px;width:min(640px,92vw);max-height:90vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.25)}
-#askBox h3{font-size:18px;font-weight:800;color:#15318F;margin-bottom:6px}
-#askBox .sub{font-size:13px;color:#5F6B7A;margin-bottom:18px}
-#askTA{width:100%;padding:12px 14px;border:1px solid #C7D8E5;border-radius:10px;font-size:15px;font-family:inherit;resize:vertical;min-height:90px;outline:none;-webkit-appearance:none}
-#askTA:focus{border-color:#1E5EDB;box-shadow:0 0 0 3px rgba(30,94,219,.1)}
-#askKeyRow{display:flex;gap:8px;margin-top:10px}
-#askKey{flex:1;padding:9px 12px;border:1px solid #C7D8E5;border-radius:8px;font-size:12px;font-family:monospace;-webkit-appearance:none}
-#askBtns{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
-#askSubmit{flex:1;padding:12px;background:#15318F;color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent;min-height:44px}
-#askSubmit:disabled{background:#aaa;cursor:default}
-#askClose{padding:12px 18px;background:none;border:1px solid #C7D8E5;border-radius:10px;font-size:14px;cursor:pointer;touch-action:manipulation;min-height:44px}
-#askResult{display:none;margin-top:18px;padding:16px;background:#F4F7FA;border-radius:10px;border-left:5px solid #16B8B2;font-size:13.5px;line-height:1.75;white-space:pre-wrap;word-break:break-word;max-height:400px;overflow-y:auto}
-#api-del-section{position:fixed;bottom:84px;right:28px;z-index:9998}
-#api-del-btn{display:inline-flex;align-items:center;gap:6px;padding:9px 16px;background:#fff;color:#E94A5F;border:1.5px solid #E94A5F;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;box-shadow:0 2px 10px rgba(0,0,0,.12);touch-action:manipulation;-webkit-tap-highlight-color:transparent}
-#api-del-btn:hover{background:#fff0f2}
-@media(max-width:640px){
-  #askFab{bottom:16px;right:16px;padding:12px 16px;font-size:13px}
-  #api-del-section{bottom:70px;right:16px}
-  #askBox{padding:20px 16px;border-radius:12px}
-  #askBtns{flex-direction:column}
-  #askSubmit,#askClose{width:100%}
-}
-</style>
-<button id="askFab" onclick="document.getElementById('askOverlay').classList.add('open')">⬛ 追加質問・調査依頼</button>
-<div id="askOverlay" onclick="if(event.target===this)this.classList.remove('open')">
-  <div id="askBox">
-    <h3>⬛ 追加質問・調査依頼</h3>
-    <div class="sub">このレポートを踏まえて、Claudeに追加で質問・調査依頼ができます。</div>
-    <textarea id="askTA" placeholder="例：SanviraのOman案件についてもっと詳しく&#10;例：日本の許認可プロセスと想定スケジュールを教えて"></textarea>
-    <div id="askKeyRow">
-      <input id="askKey" type="password" placeholder="Claude APIキー（sk-ant-...）" value="${esc(apiKey)}"/>
-    </div>
-    <div id="askBtns">
-      <button id="askSubmit" onclick="runAsk()">送信して調査</button>
-      <button id="askClose" onclick="document.getElementById('askOverlay').classList.remove('open')">閉じる</button>
-    </div>
-    <div id="askResult"></div>
-  </div>
-</div>
-<div id="api-del-section">
-  <button id="api-del-btn" onclick="deleteApiAndDownload()" title="APIキーを削除した共有用レポートを生成">🗑️ API削除して共有用に保存</button>
-</div>
-<script>
-(function(){
-  const QUERY=\`${esc(query)}\`;
-  const CONTEXT=\`${esc(synthesisText.slice(0,4000))}\`;
-  async function runAsk(){
-    const q=document.getElementById('askTA').value.trim();
-    const k=document.getElementById('askKey').value.trim();
-    if(!q){alert('質問を入力してください');return;}
-    if(!k){alert('Claude APIキーを入力してください');return;}
-    const btn=document.getElementById('askSubmit');
-    btn.disabled=true; btn.textContent='調査中...';
-    const res=document.getElementById('askResult');
-    res.style.display='block'; res.textContent='調査中...';
-    const prompt=\`以下の調査レポートを踏まえて、追加の質問に答えてください。ウェブ検索を使って最新情報も確認してください。\\n\\n【調査テーマ】\\n\${QUERY}\\n\\n【レポート概要（抜粋）】\\n\${CONTEXT}\\n\\n【追加質問・依頼】\\n\${q}\\n\\n具体的な数値・企業名・出典を含めて詳しく回答してください。\`;
-    try{
-      const messages=[{role:'user',content:prompt}];
-      const MAX=15;
-      let answer='';
-      for(let i=0;i<MAX;i++){
-        const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',
-          headers:{'Content-Type':'application/json','x-api-key':k,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
-          body:JSON.stringify({model:'claude-opus-4-8',max_tokens:4000,tools:[{type:'web_search_20250305',name:'web_search',max_uses:5}],messages})});
-        const d=await r.json();
-        if(!r.ok) throw new Error(d.error?.message||'Error '+r.status);
-        if(d.stop_reason==='end_turn'){answer=(d.content||[]).filter(c=>c.type==='text').map(c=>c.text).join('');break;}
-        if(d.stop_reason==='tool_use'){
-          messages.push({role:'assistant',content:d.content});
-          const uses=d.content.filter(c=>c.type==='tool_use');
-          res.textContent='🔍 検索中: '+uses.map(u=>u.input?.query||'').join(', ');
-          messages.push({role:'user',content:uses.map(u=>({type:'tool_result',tool_use_id:u.id,content:[{type:'text',text:'Search completed.'}]}))});
-          continue;
-        }
-        answer=(d.content||[]).filter(c=>c.type==='text').map(c=>c.text).join('');break;
-      }
-      res.textContent=answer||'（回答なし）';
-    }catch(e){res.textContent='エラー: '+e.message;res.style.borderLeftColor='#E24A4A';}
-    btn.disabled=false; btn.textContent='送信して調査';
-  }
-  window.runAsk=runAsk;
-
-  window.deleteApiAndDownload=function(){
-    if(!confirm('APIキーを削除した共有用レポートをダウンロードします。\\nAPIキー・パスワード保護・このボタンが除去されます。\\n続けますか？')) return;
-    const parser=new DOMParser();
-    const doc=parser.parseFromString('<!DOCTYPE html>'+document.documentElement.outerHTML,'text/html');
-    const pwSec=doc.getElementById('pw-section'); if(pwSec) pwSec.remove();
-    const ak=doc.getElementById('askKey'); if(ak) ak.removeAttribute('value');
-    const delSec=doc.getElementById('api-del-section'); if(delSec) delSec.remove();
-    const html='<!DOCTYPE html>\\n'+doc.documentElement.outerHTML;
-    const blob=new Blob([html],{type:'text/html;charset=utf-8'});
-    const url=URL.createObjectURL(blob);
-    const a=document.createElement('a'); a.href=url;
-    a.download='DA_'+(document.title||'調査レポート').replace(/\\.html$/i,'')+'_共有用.html';
-    a.click(); URL.revokeObjectURL(url);
-  };
-})();
-<\/script>`;
+function buildAskWidget(apiKey,query,synthesisText,pw){
+  const esc=s=>s.replace(/`/g,'\\`').replace(/\$/g,'\\$');
+  const pwHash=pw?hashPw(pw):'';
+  const pwSection=pw?`<div id="pw-section"><div id="pw-overlay" style="position:fixed;inset:0;background:rgba(15,20,40,.97);z-index:99999;display:flex;align-items:center;justify-content:center"><div style="background:#fff;border-radius:16px;padding:36px 32px;width:min(420px,90vw);text-align:center"><div style="width:54px;height:54px;background:linear-gradient(135deg,#15318F,#16B8B2);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:24px;margin:0 auto 16px">⬛</div><h2 style="font-size:18px;font-weight:800;color:#1F2430;margin-bottom:6px">黒の調査レポート</h2><p style="font-size:12px;color:#5F6B7A;margin-bottom:22px">パスワードを入力してください。</p><input id="pw-input" type="password" placeholder="パスワードを入力" style="width:100%;padding:13px 14px;border:1.5px solid #C7D8E5;border-radius:10px;font-size:16px;margin-bottom:12px;outline:none;box-sizing:border-box" onkeydown="if(event.key==='Enter')checkPw()"/><button onclick="checkPw()" style="width:100%;padding:14px;background:linear-gradient(90deg,#15318F,#1E5EDB);color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer">開く</button><div id="pw-err" style="color:#E94A5F;font-size:12px;margin-top:10px;display:none">❌ パスワードが違います</div></div></div><script>(function(){const H='${pwHash}';function sh(s){let h=5381;for(let i=0;i<s.length;i++)h=((h<<5)+h)^s.charCodeAt(i);return(h>>>0).toString(36);}window.checkPw=function(){const v=document.getElementById('pw-input').value;if(sh(v)===H){document.getElementById('pw-overlay').style.display='none';}else{const e=document.getElementById('pw-err');e.style.display='block';setTimeout(()=>e.style.display='none',2000);document.getElementById('pw-input').value='';document.getElementById('pw-input').focus();}};document.getElementById('pw-input').focus();})();<\/script></div>`:'';
+  return pwSection+`<style>#askFab{position:fixed;bottom:28px;right:28px;z-index:9999;background:linear-gradient(135deg,#15318F,#16B8B2);color:#fff;border:none;padding:14px 22px;border-radius:30px;font-size:14px;font-weight:700;cursor:pointer;box-shadow:0 6px 24px rgba(21,49,143,.35)}#askOverlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:10000;align-items:center;justify-content:center}#askOverlay.open{display:flex}#askBox{background:#fff;border-radius:16px;padding:28px;width:min(640px,92vw);max-height:90vh;overflow-y:auto}#askTA{width:100%;padding:12px 14px;border:1px solid #C7D8E5;border-radius:10px;font-size:15px;font-family:inherit;resize:vertical;min-height:90px;outline:none}#askKey{flex:1;padding:9px 12px;border:1px solid #C7D8E5;border-radius:8px;font-size:12px;font-family:monospace}#askSubmit{flex:1;padding:12px;background:#15318F;color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;min-height:44px}#askSubmit:disabled{background:#aaa}#askClose{padding:12px 18px;background:none;border:1px solid #C7D8E5;border-radius:10px;font-size:14px;cursor:pointer;min-height:44px}#askResult{display:none;margin-top:18px;padding:16px;background:#F4F7FA;border-radius:10px;border-left:5px solid #16B8B2;font-size:13.5px;line-height:1.75;white-space:pre-wrap;max-height:400px;overflow-y:auto}#api-del-section{position:fixed;bottom:84px;right:28px;z-index:9998}#api-del-btn{display:inline-flex;align-items:center;gap:6px;padding:9px 16px;background:#fff;color:#E94A5F;border:1.5px solid #E94A5F;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer}</style><button id="askFab" onclick="document.getElementById('askOverlay').classList.add('open')">⬛ 追加質問・調査依頼</button><div id="askOverlay" onclick="if(event.target===this)this.classList.remove('open')"><div id="askBox"><h3 style="font-size:18px;font-weight:800;color:#15318F;margin-bottom:6px">⬛ 追加質問・調査依頼</h3><p style="font-size:13px;color:#5F6B7A;margin-bottom:18px">このレポートを踏まえてClaudeに追加質問できます。</p><textarea id="askTA" placeholder="追加の質問・調査依頼を入力"></textarea><div style="display:flex;gap:8px;margin-top:10px"><input id="askKey" type="password" placeholder="Claude APIキー（sk-ant-...）" value="${esc(apiKey)}"/></div><div style="display:flex;gap:10px;margin-top:14px;flex-wrap:wrap"><button id="askSubmit" onclick="runAsk()">送信して調査</button><button id="askClose" onclick="document.getElementById('askOverlay').classList.remove('open')">閉じる</button></div><div id="askResult"></div></div></div><div id="api-del-section"><button id="api-del-btn" onclick="deleteApiAndDownload()">🗑️ API削除して共有用に保存</button></div><script>(function(){const QUERY=\`${esc(query)}\`;const CONTEXT=\`${esc(synthesisText.slice(0,4000))}\`;async function runAsk(){const q=document.getElementById('askTA').value.trim();const k=document.getElementById('askKey').value.trim();if(!q){alert('質問を入力してください');return;}if(!k){alert('Claude APIキーを入力してください');return;}const btn=document.getElementById('askSubmit');btn.disabled=true;btn.textContent='調査中...';const res=document.getElementById('askResult');res.style.display='block';res.textContent='調査中...';const prompt=\`以下の調査レポートを踏まえて、追加の質問に答えてください。\n\n【調査テーマ】\n\${QUERY}\n\n【レポート概要】\n\${CONTEXT}\n\n【追加質問】\n\${q}\n\n具体的な数値・企業名・出典を含めて詳しく回答してください。\`;try{const messages=[{role:'user',content:prompt}];for(let i=0;i<15;i++){const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':k,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:'claude-opus-4-8',max_tokens:4000,tools:[{type:'web_search_20250305',name:'web_search',max_uses:5}],messages})});const d=await r.json();if(!r.ok)throw new Error(d.error?.message||'Error '+r.status);if(d.stop_reason==='end_turn'){res.textContent=(d.content||[]).filter(c=>c.type==='text').map(c=>c.text).join('');break;}if(d.stop_reason==='tool_use'){messages.push({role:'assistant',content:d.content});const uses=d.content.filter(c=>c.type==='tool_use');res.textContent='🔍 検索中: '+uses.map(u=>u.input?.query||'').join(', ');messages.push({role:'user',content:uses.map(u=>({type:'tool_result',tool_use_id:u.id,content:[{type:'text',text:'Search completed.'}]}))});continue;}res.textContent=(d.content||[]).filter(c=>c.type==='text').map(c=>c.text).join('');break;}}catch(e){res.textContent='エラー: '+e.message;}btn.disabled=false;btn.textContent='送信して調査';}window.runAsk=runAsk;window.deleteApiAndDownload=function(){if(!confirm('APIキーを削除した共有用レポートをダウンロードします。続けますか？'))return;const parser=new DOMParser();const doc=parser.parseFromString('<!DOCTYPE html>'+document.documentElement.outerHTML,'text/html');const pwSec=doc.getElementById('pw-section');if(pwSec)pwSec.remove();const ak=doc.getElementById('askKey');if(ak)ak.removeAttribute('value');const delSec=doc.getElementById('api-del-section');if(delSec)delSec.remove();const html='<!DOCTYPE html>\\n'+doc.documentElement.outerHTML;const blob=new Blob([html],{type:'text/html;charset=utf-8'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='DA_'+(document.title||'調査レポート')+'_共有用.html';a.click();URL.revokeObjectURL(url);};})();<\/script>`;
 }
 
 function dlReport(){
   const r=window._report;
-  if(!r||!r.htmlOutput){ alert('まず調査を完了させてね。'); return; }
-  const pw = prompt('【パスワード設定】\nダウンロードするレポートのパスワードを設定します。\nAPIキーが含まれるため設定を推奨します。\n\n（空欄のままOK → パスワードなし）', 'akiko');
-  if(pw === null) return;
-  const apiKey = $('cKey').value.trim();
-  const widget = buildAskWidget(apiKey, r.query, r.htmlOutput, pw);
-  const finalHtml = r.htmlOutput.replace(/<\/body>/i, widget + '\n</body>');
+  if(!r||!r.htmlOutput){alert('まず調査を完了させてね。');return;}
+  const pw=prompt('【パスワード設定】\nダウンロードするレポートのパスワードを設定します。\n（空欄のままOK → パスワードなし）','akiko');
+  if(pw===null) return;
+  const widget=buildAskWidget($('cKey').value.trim(),r.query,r.htmlOutput,pw);
+  const finalHtml=r.htmlOutput.replace(/<\/body>/i,widget+'\n</body>');
   const blob=new Blob([finalHtml],{type:'text/html;charset=utf-8'});
   const url=URL.createObjectURL(blob);
   const a=document.createElement('a');
   a.href=url;
-  a.download=`調査レポート_${r.query.slice(0,25).replace(/[\/\\:*?"<>|]/g,'_')}_${new Date().toLocaleDateString('ja-JP').replace(/\//g,'')}.html`;
+  a.download='調査レポート_'+r.query.slice(0,25).replace(/[\/\\:*?"<>|]/g,'_')+'_'+new Date().toLocaleDateString('ja-JP').replace(/\//g,'')+'.html';
   a.click(); URL.revokeObjectURL(url);
 }
 
 function openPreview(){
   const r=window._report;
-  if(!r||!r.htmlOutput){ alert('まず調査を完了させてね。'); return; }
-  const blob=new Blob([r.htmlOutput],{type:'text/html;charset=utf-8'});
-  const url=URL.createObjectURL(blob);
-  window.open(url,'_blank');
+  if(!r||!r.htmlOutput){alert('まず調査を完了させてね。');return;}
+  window.open(URL.createObjectURL(new Blob([r.htmlOutput],{type:'text/html;charset=utf-8'})),'_blank');
 }
 
 function adjustFrame(){
   const frame=$('reportFrame');
-  try{
-    const h=frame.contentDocument.documentElement.scrollHeight;
-    frame.style.height=Math.min(Math.max(h,400),1400)+'px';
-  }catch(e){ frame.style.height='700px'; }
+  try{const h=frame.contentDocument.documentElement.scrollHeight;frame.style.height=Math.min(Math.max(h,400),1400)+'px';}
+  catch(e){frame.style.height='700px';}
 }
 
 function reset(){
-  $('query').value=''; $('p2').style.display='none'; $('p3').style.display='none'; $('p4').style.display='none';
+  $('query').value='';$('p2').style.display='none';$('p3').style.display='none';$('p4').style.display='none';
   window.scrollTo({top:0,behavior:'smooth'});
 }
 
-// ⚙️ ギアアニメーション制御
 function setRunning(on){
-  const g=$('engineGear'); if(!g) return;
+  const g=$('engineGear');if(!g)return;
   if(on){g.style.display='inline';g.className='gear-spin';}
   else{g.style.display='none';g.className='';}
 }
 
-// iOS touchend バインド（300ms遅延・二重発火を回避）
-function bindTap(id, fn){
-  const el=$(id); if(!el) return;
-  el.addEventListener('touchend', function(e){
-    e.preventDefault(); // iOSのclickイベント抑制
-    fn();
-  }, {passive:false});
+function bindTap(id,fn){
+  const el=$(id);if(!el)return;
+  el.addEventListener('touchend',function(e){e.preventDefault();fn();},{passive:false});
 }
 
-// 初期化
 try{
   updateLabels();
   refreshKeyStatus();
-  bindTap('askBtn', genQuestions);
-  bindTap('startBtn', startAll);
-  $('jsIndicator').textContent = '🟢'; // 緑＝JS正常起動
+  bindTap('askBtn',genQuestions);
+  bindTap('startBtn',startAll);
+  $('jsIndicator').textContent='🟢';
 }catch(err){
-  document.body.insertAdjacentHTML('afterbegin',
-    '<div style="position:fixed;top:0;left:0;right:0;background:#E94A5F;color:#fff;padding:10px 16px;font-size:12px;text-align:center;z-index:9999">⚠ JS初期化エラー: '+err.message+'</div>');
+  document.body.insertAdjacentHTML('afterbegin','<div style="position:fixed;top:0;left:0;right:0;background:#E94A5F;color:#fff;padding:10px 16px;font-size:12px;text-align:center;z-index:9999">⚠ JS初期化エラー: '+err.message+'</div>');
 }
 </script>
 </body>
