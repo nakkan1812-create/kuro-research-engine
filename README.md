@@ -1,2 +1,2 @@
-# 黒の調査エンジン v1
+# blue report
 Multi-AI research engine
