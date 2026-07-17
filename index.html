@@ -17,16 +17,6 @@ body{font-family:"Noto Sans JP",sans-serif;background:var(--bg);color:var(--ink)
 .container{padding:26px 0}
 .card{background:var(--surface);border-radius:12px;padding:22px;margin-bottom:18px;border:1px solid var(--line2);box-shadow:0 4px 16px rgba(21,49,143,.04)}
 .phase-badge{display:inline-block;background:var(--ink);color:#fff;font-size:11px;font-weight:800;padding:4px 12px;border-radius:20px;margin-bottom:14px;letter-spacing:.04em}
-.tier-section{margin-bottom:16px}
-.tier-label{font-size:12px;font-weight:700;color:var(--muted);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em}
-.tier-row{display:flex;gap:8px}
-.tier-btn{flex:1;padding:10px 8px;border-radius:8px;border:2px solid var(--line);background:var(--panel);color:var(--muted);font-size:13px;font-weight:700;cursor:pointer;transition:all .15s;text-align:center}
-.tier-btn:hover{border-color:var(--blue2);color:var(--blue2)}
-.tier-btn.active-h{border-color:#15318F;background:#EEF2FF;color:#15318F}
-.tier-btn.active-m{border-color:#008E8B;background:#D9F4F3;color:#008E8B}
-.tier-btn.active-l{border-color:#5F6B7A;background:#f0f0f0;color:#5F6B7A}
-.tier-btn .t-name{font-size:14px;font-weight:900;display:block;margin-bottom:2px}
-.tier-btn .t-models{font-size:10px;font-weight:500;line-height:1.4;display:block;opacity:.8}
 .query-area,.answer-area{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:10px;font-size:14px;font-family:"Noto Sans JP",sans-serif;resize:vertical;background:var(--panel)}
 .query-area{min-height:90px}
 .answer-area{min-height:66px}
@@ -72,12 +62,10 @@ body{font-family:"Noto Sans JP",sans-serif;background:var(--bg);color:var(--ink)
 @media(max-width:640px){
   .ai-grid{grid-template-columns:1fr}
   .wrap{padding:0 12px}
-  .tier-row{flex-direction:column}
   .primary-btn{font-size:14px;padding:13px}
   .header{padding:18px 16px}
   .header h1{font-size:17px}
   .card{padding:16px;margin-bottom:12px}
-  .tier-btn{padding:10px 6px}
   .btn-row{flex-direction:column}
   .btn-row button{width:100%}
   .query-area{min-height:100px;font-size:15px}
@@ -94,7 +82,7 @@ body{font-family:"Noto Sans JP",sans-serif;background:var(--bg);color:var(--ink)
   </div>
   <div style="display:flex;align-items:center;gap:6px;padding-left:2px">
     <span id="jsIndicator" style="font-size:13px;line-height:1">⚫</span>
-    <span class="sub" id="headerSub" style="margin-left:0">Sonnet 4.6 · Gemini 3.5 Flash · GPT-4o mini · Grok 3 mini</span>
+    <span class="sub" id="headerSub" style="margin-left:0">Opus 4.8 · Gemini 3.1 Pro · GPT-5.6 Sol · Grok 4.5</span>
   </div>
 </div>
 
@@ -102,23 +90,6 @@ body{font-family:"Noto Sans JP",sans-serif;background:var(--bg);color:var(--ink)
 
 <div class="card" id="p1">
   <div class="phase-badge">PHASE 1 — テーマ入力</div>
-  <div class="tier-section">
-    <div class="tier-label">🎚 調査品質・モデル選択</div>
-    <div class="tier-row">
-      <button class="tier-btn" id="tier-h" onclick="setTier('h')">
-        <span class="t-name">🔥 高</span>
-        <span class="t-models">Opus 4.8 · Gemini 3.1 Pro<br>GPT-4o · Grok 3</span>
-      </button>
-      <button class="tier-btn active-m" id="tier-m" onclick="setTier('m')">
-        <span class="t-name">⚡ 中</span>
-        <span class="t-models">Sonnet 4.6 · Gemini 3.5 Flash<br>GPT-4o mini · Grok 3 mini</span>
-      </button>
-      <button class="tier-btn" id="tier-l" onclick="setTier('l')">
-        <span class="t-name">💨 低</span>
-        <span class="t-models">Haiku 4.5 · Gemini 3.5 Flash<br>GPT-4o mini · Grok 3 mini</span>
-      </button>
-    </div>
-  </div>
   <textarea class="query-area" id="query" placeholder="調査テーマを入力してください。&#10;例：2100年、小惑星帯の希少金属採掘が商業化した場合の市場規模・主要プレイヤー・地球経済へのインパクト&#10;※具体的なほどレポート品質が上がります"></textarea>
   <div id="qError" style="color:#E94A5F;font-size:13px;margin-top:8px;padding:8px 12px;background:#fff1f2;border-radius:8px;display:none"></div>
   <button class="primary-btn" onclick="genQuestions()" id="askBtn">run now</button>
@@ -138,7 +109,7 @@ body{font-family:"Noto Sans JP",sans-serif;background:var(--bg);color:var(--ink)
   <div style="margin-top:12px"></div>
   <div class="ai-grid">
     <div class="ai-panel ai-claude">
-      <div class="ai-label"><div class="dot" id="d-c"></div><span id="lbl-c">Claude Sonnet 4.6（ウェブ検索）</span></div>
+      <div class="ai-label"><div class="dot" id="d-c"></div><span id="lbl-c">Claude Opus 4.8（ウェブ検索）</span></div>
       <div class="ai-text empty" id="r-c">待機中</div>
       <div class="status-line" id="s-c"></div>
     </div>
@@ -148,12 +119,12 @@ body{font-family:"Noto Sans JP",sans-serif;background:var(--bg);color:var(--ink)
       <div class="status-line" id="s-g"></div>
     </div>
     <div class="ai-panel ai-chatgpt">
-      <div class="ai-label"><div class="dot" id="d-o"></div><span id="lbl-o">GPT-4o mini</span></div>
+      <div class="ai-label"><div class="dot" id="d-o"></div><span id="lbl-o">GPT-5.6 Sol</span></div>
       <div class="ai-text empty" id="r-o">待機中</div>
       <div class="status-line" id="s-o"></div>
     </div>
     <div class="ai-panel ai-grok">
-      <div class="ai-label"><div class="dot" id="d-x"></div><span id="lbl-x">Grok 3 mini</span></div>
+      <div class="ai-label"><div class="dot" id="d-x"></div><span id="lbl-x">Grok 4.5</span></div>
       <div class="ai-text empty" id="r-x">待機中</div>
       <div class="status-line" id="s-x"></div>
     </div>
@@ -182,34 +153,18 @@ body{font-family:"Noto Sans JP",sans-serif;background:var(--bg);color:var(--ink)
 <script>
 const $ = id => document.getElementById(id);
 
-const MODELS = {
-  h: { c:'claude-opus-4-8', g:'gemini-3.1-pro-preview', o:'gpt-4o', x:'grok-3',
-       lc:'Claude Opus 4.8（ウェブ検索）', lg:'Gemini 3.1 Pro', lo:'GPT-4o', lx:'Grok 3',
-       head:'Opus 4.8 · Gemini 3.1 Pro · GPT-4o · Grok 3' },
-  m: { c:'claude-sonnet-4-6', g:'gemini-3.5-flash', o:'gpt-4o-mini', x:'grok-3-mini',
-       lc:'Claude Sonnet 4.6（ウェブ検索）', lg:'Gemini 3.5 Flash', lo:'GPT-4o mini', lx:'Grok 3 mini',
-       head:'Sonnet 4.6 · Gemini 3.5 Flash · GPT-4o mini · Grok 3 mini' },
-  l: { c:'claude-haiku-4-5-20251001', g:'gemini-3.5-flash', o:'gpt-4o-mini', x:'grok-3-mini',
-       lc:'Claude Haiku 4.5（ウェブ検索）', lg:'Gemini 3.5 Flash', lo:'GPT-4o mini', lx:'Grok 3 mini',
-       head:'Haiku 4.5 · Gemini 3.5 Flash · GPT-4o mini · Grok 3 mini' }
+// 常に各社の最高エンジンを固定使用（品質ティア選択は廃止）
+const MODEL = {
+  c:'claude-opus-4-8', g:'gemini-3.1-pro-preview', o:'gpt-5.6-sol', x:'grok-4.5',
+  lc:'Claude Opus 4.8（ウェブ検索）', lg:'Gemini 3.1 Pro', lo:'GPT-5.6 Sol', lx:'Grok 4.5',
+  head:'Opus 4.8 · Gemini 3.1 Pro · GPT-5.6 Sol · Grok 4.5'
 };
-let currentTier = 'm';
-
-function setTier(t) {
-  currentTier = t;
-  ['h','m','l'].forEach(x => {
-    $('tier-'+x).className = 'tier-btn' + (x===t ? ' active-'+t : '');
-  });
-  $('headerSub').textContent = MODELS[t].head + ' · Web Search';
-  updateLabels();
-}
 
 function updateLabels(){
-  const m = MODELS[currentTier];
-  $('lbl-c').textContent = m.lc;
-  $('lbl-g').textContent = m.lg;
-  $('lbl-o').textContent = m.lo;
-  $('lbl-x').textContent = m.lx;
+  $('lbl-c').textContent = MODEL.lc;
+  $('lbl-g').textContent = MODEL.lg;
+  $('lbl-o').textContent = MODEL.lo;
+  $('lbl-x').textContent = MODEL.lx;
 }
 
 // バックエンドプロキシ経由でAPIを叩く（キーはブラウザに一切持たせない）
@@ -287,7 +242,7 @@ async function callGemini(prompt,model){
 async function callOpenAI(prompt,model){
   const r=await fetch(PROXY_BASE+'/api/openai',
     {method:'POST',headers:proxyHeaders({'Content-Type':'application/json'}),
-     body:JSON.stringify({model,max_tokens:3000,messages:[{role:'user',content:prompt}]})});
+     body:JSON.stringify({model,max_completion_tokens:3000,messages:[{role:'user',content:prompt}]})});
   const d=await r.json(); if(!r.ok) throw new Error(d.error?.message||'OpenAI '+r.status);
   return d.choices?.[0]?.message?.content||'（回答なし）';
 }
@@ -314,7 +269,7 @@ async function genQuestions(){
   const btn=$('askBtn'); btn.disabled=true; btn.innerHTML='<span class="spinner"></span>質問を生成中...';
   setRunning(true);
   try{
-    const m=MODELS[currentTier];
+    const m=MODEL;
     const r=await callClaudeSearch(
       'あなたは総合商社のトレードビジネス・投資検討の専門アドバイザーです。\n【調査テーマ】'+q+'\n\n【重要ルール】\nあなたが調べれば分かることは質問しないこと。質問してよいのは以下のみ：\n- 調査の目的・用途（投資検討？社内勉強？競合分析？意思決定支援？）\n- 重視する観点・優先軸（コスト重視？技術難易度？地政学リスク？）\n- 依頼者が既に持っている情報・前提（除外すべき観点、すでに知っていること）\n- 比較対象や範囲の絞り込み（地域・期間・競合の絞り込み等）\n\nテーマが明確で目的が自明な場合は質問数0でよい。必要なら最大10問まで。\nJSON形式のみで返答（説明文不要）：{"questions":["質問1","質問2"]}',
       m.c,800);
@@ -354,7 +309,7 @@ async function startAll(){
   const qs=JSON.parse(c.dataset.questions||'[]');
   let ctx='';
   for(let i=0;i<parseInt(c.dataset.count||'0');i++){const a=$('a-'+i)?.value.trim();if(a)ctx+='Q: '+qs[i]+'\nA: '+a+'\n\n';}
-  const m=MODELS[currentTier];
+  const m=MODEL;
   const btn=$('startBtn'); btn.disabled=true; btn.innerHTML='<span class="spinner"></span>4AI同時調査中...';
   setRunning(true); updateLabels();
   $('p3').style.display='block'; $('p4').style.display='none';
@@ -390,7 +345,7 @@ async function startAll(){
     const htmlStart=htmlOutput.search(/<!DOCTYPE html>/i);
     let cleanHtml=htmlStart>=0?htmlOutput.slice(htmlStart):htmlOutput;
     if(!/<\/html>/i.test(cleanHtml)) cleanHtml+='\n</body>\n</html>';
-    window._report={query:q,ctx,results,htmlOutput:cleanHtml,tier:currentTier,date:new Date().toISOString()};
+    window._report={query:q,ctx,results,htmlOutput:cleanHtml,date:new Date().toISOString()};
     const blob=new Blob([cleanHtml],{type:'text/html;charset=utf-8'});
     const frame=$('reportFrame');
     frame.src=URL.createObjectURL(blob);
@@ -478,7 +433,7 @@ function buildAskWidget(query, synthesisText){
     + '    var headers={"Content-Type":"application/json","X-Proxy-Secret":PROXY_SECRET};'
     + '    var messages=[{role:"user",content:prompt}];'
     + '    for(var i=0;i<15;i++){'
-    + '      var r=await fetch(PROXY_BASE+"/api/claude",{method:"POST",headers:headers,body:JSON.stringify({model:"claude-sonnet-4-6",max_tokens:3000,tools:[{type:"web_search_20250305",name:"web_search",max_uses:5}],messages:messages})});'
+    + '      var r=await fetch(PROXY_BASE+"/api/claude",{method:"POST",headers:headers,body:JSON.stringify({model:"claude-opus-4-8",max_tokens:3000,tools:[{type:"web_search_20250305",name:"web_search",max_uses:5}],messages:messages})});'
     + '      var d=await r.json();'
     + '      if(!r.ok)throw new Error(d.error&&d.error.message?d.error.message:"Error "+r.status);'
     + '      var getText=function(c){return (Array.isArray(c)?c:[c]).filter(function(x){return x&&x.type==="text";}).map(function(x){return x.text;}).join("");};'
