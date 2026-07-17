@@ -82,7 +82,7 @@ body{font-family:"Noto Sans JP",sans-serif;background:var(--bg);color:var(--ink)
   </div>
   <div style="display:flex;align-items:center;gap:6px;padding-left:2px">
     <span id="jsIndicator" style="font-size:13px;line-height:1">⚫</span>
-    <span class="sub" id="headerSub" style="margin-left:0">Opus 4.8 · Gemini 3.1 Pro · GPT-5.6 Sol · Grok 4.5</span>
+    <span class="sub" id="headerSub" style="margin-left:0">Fable 5 · Gemini 3.1 Pro · GPT-5.6 Sol · Grok 4.5</span>
   </div>
 </div>
 
@@ -109,7 +109,7 @@ body{font-family:"Noto Sans JP",sans-serif;background:var(--bg);color:var(--ink)
   <div style="margin-top:12px"></div>
   <div class="ai-grid">
     <div class="ai-panel ai-claude">
-      <div class="ai-label"><div class="dot" id="d-c"></div><span id="lbl-c">Claude Opus 4.8（ウェブ検索）</span></div>
+      <div class="ai-label"><div class="dot" id="d-c"></div><span id="lbl-c">Claude Fable 5（ウェブ検索）</span></div>
       <div class="ai-text empty" id="r-c">待機中</div>
       <div class="status-line" id="s-c"></div>
     </div>
@@ -155,9 +155,9 @@ const $ = id => document.getElementById(id);
 
 // 常に各社の最高エンジンを固定使用（品質ティア選択は廃止）
 const MODEL = {
-  c:'claude-opus-4-8', g:'gemini-3.1-pro-preview', o:'gpt-5.6-sol', x:'grok-4.5',
-  lc:'Claude Opus 4.8（ウェブ検索）', lg:'Gemini 3.1 Pro', lo:'GPT-5.6 Sol', lx:'Grok 4.5',
-  head:'Opus 4.8 · Gemini 3.1 Pro · GPT-5.6 Sol · Grok 4.5'
+  c:'claude-fable-5', g:'gemini-3.1-pro-preview', o:'gpt-5.6-sol', x:'grok-4.5',
+  lc:'Claude Fable 5（ウェブ検索）', lg:'Gemini 3.1 Pro', lo:'GPT-5.6 Sol', lx:'Grok 4.5',
+  head:'Fable 5 · Gemini 3.1 Pro · GPT-5.6 Sol · Grok 4.5'
 };
 
 function updateLabels(){
@@ -433,7 +433,7 @@ function buildAskWidget(query, synthesisText){
     + '    var headers={"Content-Type":"application/json","X-Proxy-Secret":PROXY_SECRET};'
     + '    var messages=[{role:"user",content:prompt}];'
     + '    for(var i=0;i<15;i++){'
-    + '      var r=await fetch(PROXY_BASE+"/api/claude",{method:"POST",headers:headers,body:JSON.stringify({model:"claude-opus-4-8",max_tokens:3000,tools:[{type:"web_search_20250305",name:"web_search",max_uses:5}],messages:messages})});'
+    + '      var r=await fetch(PROXY_BASE+"/api/claude",{method:"POST",headers:headers,body:JSON.stringify({model:"claude-fable-5",max_tokens:3000,tools:[{type:"web_search_20250305",name:"web_search",max_uses:5}],messages:messages})});'
     + '      var d=await r.json();'
     + '      if(!r.ok)throw new Error(d.error&&d.error.message?d.error.message:"Error "+r.status);'
     + '      var getText=function(c){return (Array.isArray(c)?c:[c]).filter(function(x){return x&&x.type==="text";}).map(function(x){return x.text;}).join("");};'
