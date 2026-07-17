@@ -94,7 +94,7 @@ body{font-family:"Noto Sans JP",sans-serif;background:var(--bg);color:var(--ink)
   </div>
   <div style="display:flex;align-items:center;gap:6px;padding-left:2px">
     <span id="jsIndicator" style="font-size:13px;line-height:1">⚫</span>
-    <span class="sub" id="headerSub" style="margin-left:0">Sonnet 4.6 · Gemini 2.5 Flash · GPT-4o mini · Grok 3 mini</span>
+    <span class="sub" id="headerSub" style="margin-left:0">Sonnet 4.6 · Gemini 3.5 Flash · GPT-4o mini · Grok 3 mini</span>
   </div>
 </div>
 
@@ -107,15 +107,15 @@ body{font-family:"Noto Sans JP",sans-serif;background:var(--bg);color:var(--ink)
     <div class="tier-row">
       <button class="tier-btn" id="tier-h" onclick="setTier('h')">
         <span class="t-name">🔥 高</span>
-        <span class="t-models">Opus 4.8 · Gemini 2.5 Pro<br>GPT-4o · Grok 3</span>
+        <span class="t-models">Opus 4.8 · Gemini 3.1 Pro<br>GPT-4o · Grok 3</span>
       </button>
       <button class="tier-btn active-m" id="tier-m" onclick="setTier('m')">
         <span class="t-name">⚡ 中</span>
-        <span class="t-models">Sonnet 4.6 · Gemini 2.5 Flash<br>GPT-4o mini · Grok 3 mini</span>
+        <span class="t-models">Sonnet 4.6 · Gemini 3.5 Flash<br>GPT-4o mini · Grok 3 mini</span>
       </button>
       <button class="tier-btn" id="tier-l" onclick="setTier('l')">
         <span class="t-name">💨 低</span>
-        <span class="t-models">Haiku 4.5 · Gemini 2.5 Flash<br>GPT-4o mini · Grok 3 mini</span>
+        <span class="t-models">Haiku 4.5 · Gemini 3.5 Flash<br>GPT-4o mini · Grok 3 mini</span>
       </button>
     </div>
   </div>
@@ -143,7 +143,7 @@ body{font-family:"Noto Sans JP",sans-serif;background:var(--bg);color:var(--ink)
       <div class="status-line" id="s-c"></div>
     </div>
     <div class="ai-panel ai-gemini">
-      <div class="ai-label"><div class="dot" id="d-g"></div><span id="lbl-g">Gemini 2.5 Flash</span></div>
+      <div class="ai-label"><div class="dot" id="d-g"></div><span id="lbl-g">Gemini 3.5 Flash</span></div>
       <div class="ai-text empty" id="r-g">待機中</div>
       <div class="status-line" id="s-g"></div>
     </div>
@@ -183,15 +183,15 @@ body{font-family:"Noto Sans JP",sans-serif;background:var(--bg);color:var(--ink)
 const $ = id => document.getElementById(id);
 
 const MODELS = {
-  h: { c:'claude-opus-4-8', g:'gemini-2.5-pro', o:'gpt-4o', x:'grok-3',
-       lc:'Claude Opus 4.8（ウェブ検索）', lg:'Gemini 2.5 Pro', lo:'GPT-4o', lx:'Grok 3',
-       head:'Opus 4.8 · Gemini 2.5 Pro · GPT-4o · Grok 3' },
-  m: { c:'claude-sonnet-4-6', g:'gemini-2.5-flash', o:'gpt-4o-mini', x:'grok-3-mini',
-       lc:'Claude Sonnet 4.6（ウェブ検索）', lg:'Gemini 2.5 Flash', lo:'GPT-4o mini', lx:'Grok 3 mini',
-       head:'Sonnet 4.6 · Gemini 2.5 Flash · GPT-4o mini · Grok 3 mini' },
-  l: { c:'claude-haiku-4-5-20251001', g:'gemini-2.5-flash', o:'gpt-4o-mini', x:'grok-3-mini',
-       lc:'Claude Haiku 4.5（ウェブ検索）', lg:'Gemini 2.5 Flash', lo:'GPT-4o mini', lx:'Grok 3 mini',
-       head:'Haiku 4.5 · Gemini 2.5 Flash · GPT-4o mini · Grok 3 mini' }
+  h: { c:'claude-opus-4-8', g:'gemini-3.1-pro-preview', o:'gpt-4o', x:'grok-3',
+       lc:'Claude Opus 4.8（ウェブ検索）', lg:'Gemini 3.1 Pro', lo:'GPT-4o', lx:'Grok 3',
+       head:'Opus 4.8 · Gemini 3.1 Pro · GPT-4o · Grok 3' },
+  m: { c:'claude-sonnet-4-6', g:'gemini-3.5-flash', o:'gpt-4o-mini', x:'grok-3-mini',
+       lc:'Claude Sonnet 4.6（ウェブ検索）', lg:'Gemini 3.5 Flash', lo:'GPT-4o mini', lx:'Grok 3 mini',
+       head:'Sonnet 4.6 · Gemini 3.5 Flash · GPT-4o mini · Grok 3 mini' },
+  l: { c:'claude-haiku-4-5-20251001', g:'gemini-3.5-flash', o:'gpt-4o-mini', x:'grok-3-mini',
+       lc:'Claude Haiku 4.5（ウェブ検索）', lg:'Gemini 3.5 Flash', lo:'GPT-4o mini', lx:'Grok 3 mini',
+       head:'Haiku 4.5 · Gemini 3.5 Flash · GPT-4o mini · Grok 3 mini' }
 };
 let currentTier = 'm';
 
