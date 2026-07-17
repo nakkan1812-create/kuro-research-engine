@@ -27,19 +27,6 @@ body{font-family:"Noto Sans JP",sans-serif;background:var(--bg);color:var(--ink)
 .tier-btn.active-l{border-color:#5F6B7A;background:#f0f0f0;color:#5F6B7A}
 .tier-btn .t-name{font-size:14px;font-weight:900;display:block;margin-bottom:2px}
 .tier-btn .t-models{font-size:10px;font-weight:500;line-height:1.4;display:block;opacity:.8}
-.key-toggle{width:100%;padding:12px 16px;background:var(--surface);border:1px solid var(--line2);border-radius:10px;text-align:left;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:space-between;color:var(--muted)}
-.key-toggle:hover{background:var(--panel)}
-.key-toggle .arrow{font-size:10px;transition:transform .2s}
-.key-toggle.open .arrow{transform:rotate(180deg)}
-.keys-panel{display:none;padding-top:16px}
-.keys-panel.open{display:block}
-.keys-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.key-item label{font-size:13px;font-weight:700;display:block;margin-bottom:5px;color:var(--ink)}
-.key-row{display:flex;gap:6px}
-.key-row input{flex:1;padding:9px 12px;border:1px solid var(--line);border-radius:8px;font-size:12px;font-family:"IBM Plex Mono",monospace;background:var(--panel)}
-.key-row input:focus{outline:none;border-color:var(--blue2);box-shadow:0 0 0 3px rgba(30,94,219,.1)}
-.eye{background:none;border:1px solid var(--line);border-radius:8px;padding:9px 11px;cursor:pointer;color:var(--muted);font-size:13px}
-.ks{font-size:11px;margin-top:4px;color:var(--muted)}
 .query-area,.answer-area{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:10px;font-size:14px;font-family:"Noto Sans JP",sans-serif;resize:vertical;background:var(--panel)}
 .query-area{min-height:90px}
 .answer-area{min-height:66px}
@@ -82,10 +69,7 @@ body{font-family:"Noto Sans JP",sans-serif;background:var(--bg);color:var(--ink)
 .btn-row{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
 @keyframes spin-gear{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
 .gear-spin{animation:spin-gear 1.2s linear infinite;display:inline-block!important;transform-origin:center}
-.setup-banner{background:linear-gradient(90deg,#15318F,#16B8B2);color:#fff;border-radius:10px;padding:14px 18px;margin-bottom:18px;font-size:13px;font-weight:600;line-height:1.6}
-.setup-banner.hidden{display:none}
 @media(max-width:640px){
-  .keys-grid{grid-template-columns:1fr}
   .ai-grid{grid-template-columns:1fr}
   .wrap{padding:0 12px}
   .tier-row{flex-direction:column}
@@ -115,10 +99,6 @@ body{font-family:"Noto Sans JP",sans-serif;background:var(--bg);color:var(--ink)
 </div>
 
 <div class="wrap container">
-
-<div class="setup-banner" id="setupBanner">
-  🔑 初回のみ：画面下部の「APIキー設定」からキーを入力してください。次回以降は自動読み込みされます。
-</div>
 
 <div class="card" id="p1">
   <div class="phase-badge">PHASE 1 — テーマ入力</div>
@@ -197,45 +177,6 @@ body{font-family:"Noto Sans JP",sans-serif;background:var(--bg);color:var(--ink)
   </div>
 </div>
 
-<div class="card" style="margin-top:8px">
-  <button class="key-toggle" id="keyToggleBtn" onclick="toggleKeys()">
-    <span>🔑 APIキー設定 <span id="keyStatus" style="font-size:11px;font-weight:500;margin-left:8px"></span></span>
-    <span class="arrow">▼</span>
-  </button>
-  <div class="keys-panel" id="keysPanel">
-    <div class="keys-grid">
-      <div class="key-item">
-        <label>Claude (Anthropic) ★必須</label>
-        <div class="key-row"><input type="password" id="cKey" placeholder="sk-ant-..."/><button class="eye" onclick="toggle('cKey')">👁</button></div>
-        <div class="ks" id="cks">未設定 — console.anthropic.com</div>
-      </div>
-      <div class="key-item">
-        <label>Gemini (Google)</label>
-        <div class="key-row"><input type="password" id="gKey" placeholder="AIza..."/><button class="eye" onclick="toggle('gKey')">👁</button></div>
-        <div class="ks" id="gks">未設定 — aistudio.google.com/apikey</div>
-      </div>
-      <div class="key-item">
-        <label>ChatGPT (OpenAI)</label>
-        <div class="key-row"><input type="password" id="oKey" placeholder="sk-proj-..."/><button class="eye" onclick="toggle('oKey')">👁</button></div>
-        <div class="ks" id="oks">未設定 — platform.openai.com/api-keys</div>
-      </div>
-      <div class="key-item">
-        <label>Grok (xAI)</label>
-        <div class="key-row"><input type="password" id="xKey" placeholder="xai-..."/><button class="eye" onclick="toggle('xKey')">👁</button></div>
-        <div class="ks" id="xks">未設定 — console.x.ai</div>
-      </div>
-      <div class="key-item" style="grid-column:1/-1">
-        <label>GitHub PAT（レポート自動保存用）</label>
-        <div class="key-row"><input type="password" id="ghPat" placeholder="ghp_..."/><button class="eye" onclick="toggle('ghPat')">👁</button></div>
-        <div class="ks" id="ghpks">未設定 — github.com/settings/tokens（repo権限）</div>
-      </div>
-    </div>
-    <p style="font-size:11px;color:var(--muted);margin-top:14px;line-height:1.6">
-      ✅ キーはこのブラウザのlocalStorageにのみ保存されます。GitHubには一切含まれません。
-    </p>
-  </div>
-</div>
-
 </div>
 
 <script>
@@ -271,40 +212,10 @@ function updateLabels(){
   $('lbl-x').textContent = m.lx;
 }
 
-// キー管理 — localStorageのみ（DEFAULT_KEYS完全削除）
-const HINTS = {cKey:'console.anthropic.com',gKey:'aistudio.google.com/apikey',oKey:'platform.openai.com/api-keys',xKey:'console.x.ai',ghPat:'github.com/settings/tokens（repo権限）'};
-const STS = {cKey:'cks',gKey:'gks',oKey:'oks',xKey:'xks',ghPat:'ghpks'};
-
-function updateKS(id){
-  const k=$(id).value.trim(), el=$(STS[id]);
-  el.textContent = k ? '✓ 設定済み' : '未設定 — '+HINTS[id];
-  el.style.color = k ? '#00A878' : '#aaa';
-  refreshKeyStatus();
-}
-
-function refreshKeyStatus(){
-  const keys = ['cKey','gKey','oKey','xKey'].filter(id=>$(id).value.trim());
-  $('keyStatus').textContent = keys.length ? '（'+keys.length+'個設定済み）' : '（未設定）';
-  if($('cKey').value.trim()) $('setupBanner').classList.add('hidden');
-}
-
-function lsGet(k){try{return localStorage.getItem(k);}catch(e){return null;}}
-function lsSet(k,v){try{localStorage.setItem(k,v);}catch(e){}}
-
-Object.keys(HINTS).forEach(id=>{
-  const s = lsGet(id);
-  if(s) $(id).value = s;
-  $(id).addEventListener('input',()=>{ lsSet(id,$(id).value); updateKS(id); });
-  updateKS(id);
-});
-
-function toggle(id){ const e=$(id); e.type = e.type==='password' ? 'text' : 'password'; }
-
-function toggleKeys(){
-  const btn=$('keyToggleBtn'), panel=$('keysPanel');
-  const open = panel.classList.toggle('open');
-  btn.classList.toggle('open', open);
-}
+// バックエンドプロキシ経由でAPIを叩く（キーはブラウザに一切持たせない）
+const PROXY_BASE = 'http://100.68.185.124:8787';
+const PROXY_SECRET = 'f22a52ff082aa57d60f4826b8ff2e99b348db0c0960b8ba3a64b009d1c2ad370';
+function proxyHeaders(extra){ return Object.assign({'X-Proxy-Secret':PROXY_SECRET}, extra||{}); }
 
 function dot(ai,st){ $('d-'+ai).className='dot'+(st?' '+st:''); }
 function res(ai,txt,err){
@@ -313,11 +224,11 @@ function res(ai,txt,err){
 }
 function status(ai,txt){ $('s-'+ai).textContent=txt||''; }
 
-async function callClaudeSearch(apiKey, prompt, model, maxTok=5000, onStatus) {
-  const headers = {'Content-Type':'application/json','x-api-key':apiKey,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'};
+async function callClaudeSearch(prompt, model, maxTok=5000, onStatus) {
+  const headers = proxyHeaders({'Content-Type':'application/json'});
   const messages = [{role:'user',content:prompt}];
   for(let i=0; i<25; i++){
-    const resp = await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers,
+    const resp = await fetch(PROXY_BASE+'/api/claude',{method:'POST',headers,
       body:JSON.stringify({model,max_tokens:maxTok,tools:[{type:'web_search_20250305',name:'web_search',max_uses:10}],messages})});
     const data = await resp.json();
     if(!resp.ok) throw new Error(data.error?.message||'Claude HTTP '+resp.status);
@@ -335,9 +246,9 @@ async function callClaudeSearch(apiKey, prompt, model, maxTok=5000, onStatus) {
   throw new Error('応答を取得できませんでした');
 }
 
-async function callClaudeDirect(apiKey, prompt, model, maxTok=32000, onChunk) {
-  const headers = {'Content-Type':'application/json','x-api-key':apiKey,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'};
-  const resp = await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers,
+async function callClaudeDirect(prompt, model, maxTok=32000, onChunk) {
+  const headers = proxyHeaders({'Content-Type':'application/json'});
+  const resp = await fetch(PROXY_BASE+'/api/claude',{method:'POST',headers,
     body:JSON.stringify({model,max_tokens:maxTok,stream:true,messages:[{role:'user',content:prompt}]})});
   if(!resp.ok){const e=await resp.json();throw new Error(e.error?.message||'Claude HTTP '+resp.status);}
   const reader=resp.body.getReader();
@@ -366,24 +277,24 @@ async function callClaudeDirect(apiKey, prompt, model, maxTok=32000, onChunk) {
   return {text,truncated};
 }
 
-async function callGemini(k,prompt,model){
-  const r=await fetch('https://generativelanguage.googleapis.com/v1beta/models/'+model+':generateContent?key='+k,
-    {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({contents:[{parts:[{text:prompt}]}],generationConfig:{maxOutputTokens:3000}})});
+async function callGemini(prompt,model){
+  const r=await fetch(PROXY_BASE+'/api/gemini',
+    {method:'POST',headers:proxyHeaders({'Content-Type':'application/json'}),body:JSON.stringify({model,contents:[{parts:[{text:prompt}]}],generationConfig:{maxOutputTokens:3000}})});
   const d=await r.json(); if(!r.ok) throw new Error(d.error?.message||'Gemini '+r.status);
   return d.candidates?.[0]?.content?.parts?.[0]?.text||'（回答なし）';
 }
 
-async function callOpenAI(k,prompt,model){
-  const r=await fetch('https://api.openai.com/v1/chat/completions',
-    {method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+k},
+async function callOpenAI(prompt,model){
+  const r=await fetch(PROXY_BASE+'/api/openai',
+    {method:'POST',headers:proxyHeaders({'Content-Type':'application/json'}),
      body:JSON.stringify({model,max_tokens:3000,messages:[{role:'user',content:prompt}]})});
   const d=await r.json(); if(!r.ok) throw new Error(d.error?.message||'OpenAI '+r.status);
   return d.choices?.[0]?.message?.content||'（回答なし）';
 }
 
-async function callGrok(k,prompt,model){
-  const r=await fetch('https://api.x.ai/v1/chat/completions',
-    {method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+k},
+async function callGrok(prompt,model){
+  const r=await fetch(PROXY_BASE+'/api/grok',
+    {method:'POST',headers:proxyHeaders({'Content-Type':'application/json'}),
      body:JSON.stringify({model,max_completion_tokens:3000,messages:[{role:'user',content:prompt}]})});
   if(r.status===403) throw new Error('Grok 403: APIキーを確認してください');
   if(r.status===429) throw new Error('Grok レート制限。しばらく後に再試行してください');
@@ -398,17 +309,13 @@ function showQErr(msg){
 
 async function genQuestions(){
   if(document.activeElement) document.activeElement.blur();
-  const ck=$('cKey').value.trim(), q=$('query').value.trim();
-  if(!ck){
-    $('keysPanel').classList.add('open'); $('keyToggleBtn').classList.add('open');
-    showQErr('ClaudeのAPIキーを設定してください（画面下部のAPIキー設定から）'); return;
-  }
+  const q=$('query').value.trim();
   if(!q){showQErr('調査テーマを入力してください');return;}
   const btn=$('askBtn'); btn.disabled=true; btn.innerHTML='<span class="spinner"></span>質問を生成中...';
   setRunning(true);
   try{
     const m=MODELS[currentTier];
-    const r=await callClaudeSearch(ck,
+    const r=await callClaudeSearch(
       'あなたは総合商社のトレードビジネス・投資検討の専門アドバイザーです。\n【調査テーマ】'+q+'\n\n【重要ルール】\nあなたが調べれば分かることは質問しないこと。質問してよいのは以下のみ：\n- 調査の目的・用途（投資検討？社内勉強？競合分析？意思決定支援？）\n- 重視する観点・優先軸（コスト重視？技術難易度？地政学リスク？）\n- 依頼者が既に持っている情報・前提（除外すべき観点、すでに知っていること）\n- 比較対象や範囲の絞り込み（地域・期間・競合の絞り込み等）\n\nテーマが明確で目的が自明な場合は質問数0でよい。必要なら最大10問まで。\nJSON形式のみで返答（説明文不要）：{"questions":["質問1","質問2"]}',
       m.c,800);
     const match=r.match(/\{[\s\S]*\}/);
@@ -441,9 +348,8 @@ function buildPrompt(aiName,query,ctx){
 }
 
 async function startAll(){
-  const ck=$('cKey').value.trim(),gk=$('gKey').value.trim(),ok=$('oKey').value.trim(),xk=$('xKey').value.trim(),q=$('query').value.trim();
-  if(!ck){alert('ClaudeのAPIキーは必須です');return;}
-  if(!gk&&!ok&&!xk){alert('Gemini/ChatGPT/Grokのいずれか1つ以上のAPIキーが必要です');return;}
+  const q=$('query').value.trim();
+  if(!q){alert('調査テーマを入力してください');return;}
   const c=$('qContainer');
   const qs=JSON.parse(c.dataset.questions||'[]');
   let ctx='';
@@ -462,13 +368,10 @@ async function startAll(){
     catch(e){res(ai,'エラー: '+e.message,true);dot(ai,'err');status(ai,'❌ '+e.message.slice(0,40));}
   };
   status('c','Claudeが起動中...');
-  const tasks=[run('c',()=>callClaudeSearch(ck,buildPrompt(m.lc.split('（')[0],q,ctx),m.c,4000,t=>status('c',t)))];
-  if(gk){status('g','Geminiに送信中...');tasks.push(run('g',()=>callGemini(gk,buildPrompt(m.lg,q,ctx),m.g)));}
-  else{dot('g','skip');$('r-g').textContent='APIキー未設定';}
-  if(ok){status('o','ChatGPTに送信中...');tasks.push(run('o',()=>callOpenAI(ok,buildPrompt(m.lo,q,ctx),m.o)));}
-  else{dot('o','skip');$('r-o').textContent='APIキー未設定';}
-  if(xk){status('x','Grokに送信中...');tasks.push(run('x',()=>callGrok(xk,buildPrompt(m.lx,q,ctx),m.x)));}
-  else{dot('x','skip');$('r-x').textContent='APIキー未設定';}
+  const tasks=[run('c',()=>callClaudeSearch(buildPrompt(m.lc.split('（')[0],q,ctx),m.c,4000,t=>status('c',t)))];
+  status('g','Geminiに送信中...');tasks.push(run('g',()=>callGemini(buildPrompt(m.lg,q,ctx),m.g)));
+  status('o','ChatGPTに送信中...');tasks.push(run('o',()=>callOpenAI(buildPrompt(m.lo,q,ctx),m.o)));
+  status('x','Grokに送信中...');tasks.push(run('x',()=>callGrok(buildPrompt(m.lx,q,ctx),m.x)));
   $('pfill').style.width='40%';
   await Promise.allSettled(tasks);
   $('pfill').style.width='75%';
@@ -480,7 +383,7 @@ async function startAll(){
   const synthPrompt='あなたは総合商社のシニアリサーチアナリストです。複数AIの調査結果を統合して、プロフェッショナルなスタンドアロンHTMLレポートを生成してください。\n\n【調査テーマ】'+q+(ctx?'\n\n【補足情報】\n'+ctx:'')+'\n\n'+parts+'\n\n【出力形式】<!DOCTYPE html>から</html>まで、完全なHTMLドキュメントのみを出力。説明文・コードブロック記号は不要。\n\n【デザイン要件】\n- <head>内に必ず: <meta name="viewport" content="width=device-width, initial-scale=1.0">\n- CSS変数: :root{'+cssVars+'}\n- ヘッダー: background:linear-gradient(110deg,#1F2430,#15318F,#16B8B2);color:#fff。ヘッダー内の全要素（h1,h2,p,span,div問わず）は必ずcolor:#fff !importantで統一。opacityやrgbaで薄くすることも禁止。背景と同系色は使わないこと\n- メトリクスカード4枚（最重要KPI。border-top:6pxで色分け）\n- データテーブル（thead濃紺背景、tbody交互色。モバイルではスクロール可能にoverflow-x:auto）\n- CSSバーチャート（実際の数値比率でwidth%を設定）\n- 信頼度バッジ: 高=緑丸、中=黄丸、低=赤丸\n- 2カラムレイアウト（リスク/機会など）\n- 試算バンド3枚（楽観/標準/保守）\n- 出典リスト（番号付き）\n- フッターに免責事項\n- 【AIコンセンサスマップ】セクションを必ず追加（レポート末尾、出典の前）：\n  🟢 全AI一致した点（3〜5項目）\n  🟡 意見が割れた点（各AIの見解を明記、2〜4項目）\n  🔴 1つのAIだけが指摘したユニーク情報（各AI1項目ずつ）\n- モバイル対応（必須）: @media(max-width:640px){body{font-size:13px} .wrap{padding:0 14px} h1{font-size:17px} h2{font-size:15px} .grid,.cards{grid-template-columns:1fr} table{font-size:11px}}\n\n【品質要件】\n- 各AIの重要情報を全て盛り込む（矛盾は論理的に整理）\n- 具体的な企業名・金額・年月を必ず記載。一般論不可\n- 出典は実際に参照した情報源を列挙\n- 生成日時: '+date+'\n- モデル: '+m.head+'\n- セクション見出しは必ず<h2>タグで記述。HTMLコメント（<!-- ... -->）はコード全体を通じて一切使用しないこと\n- レポートが途中で切れないよう、最後に必ず</body></html>で終了すること\n\n/* 冒頭に一切の前置きなし。<!DOCTYPE html>から即開始 */';
   try{
     $('synthStatus').textContent='HTMLレポートを生成中...';
-    const {text:htmlOutput,truncated}=await callClaudeDirect(ck,synthPrompt,m.c,32000,chunk=>{
+    const {text:htmlOutput,truncated}=await callClaudeDirect(synthPrompt,m.c,32000,chunk=>{
       const pct=Math.min(95,Math.round(chunk.length/320));
       $('synthStatus').textContent='生成中... '+pct+'%（'+Math.round(chunk.length/1000)+'KB）';
     });
@@ -496,34 +399,28 @@ async function startAll(){
     if(truncated) $('synthStatus').style.color='var(--yellow)';
     $('reportBtns').style.display='flex';
     // GitHub自動保存
-    const pat = getGhPat();
-    if(pat){
-      const ghStatus = $('ghSaveStatus');
-      ghStatus.style.display='block';
-      ghStatus.textContent='📤 GitHubに保存中...';
-      try{
-        const safeName = q.slice(0,30).replace(/[^a-zA-Z0-9ぁ-んァ-ン一-龥]/g,'_');
-        const dateStr = new Date().toLocaleDateString('ja-JP').replace(/\//g,'');
-        const filename = safeName+'_'+dateStr+'.html';
-        // widgetを埋め込んでからGitHubに保存
-        const widgetHtml = buildAskWidget(q, cleanHtml);
-        const htmlWithWidget = cleanHtml.replace(/<\/body>/i, widgetHtml+'\n</body>');
-        const ghUrl = await saveToGitHub(filename, htmlWithWidget);
-        window._report.ghUrl = ghUrl;
-        window._report.ghFilename = filename;
-        ghStatus.textContent='✅ GitHubに保存完了';
-        const openBtn = $('ghOpenBtn');
-        openBtn.disabled=false; openBtn.style.opacity='1'; openBtn.style.cursor='pointer';
-        $('ghDelBtn').style.display='inline-block';
-        // GitHub Pages反映に少し時間がかかるため注記
-        setTimeout(()=>{ ghStatus.textContent='✅ 保存完了（反映まで約1分）'; },100);
-      }catch(e){
-        ghStatus.textContent='⚠ GitHub保存失敗: '+e.message;
-        ghStatus.style.color='var(--red)';
-      }
-    } else {
-      $('ghSaveStatus').style.display='block';
-      $('ghSaveStatus').textContent='💡 GitHub PATを設定するとレポートが自動保存されます';
+    const ghStatus = $('ghSaveStatus');
+    ghStatus.style.display='block';
+    ghStatus.textContent='📤 GitHubに保存中...';
+    try{
+      const safeName = q.slice(0,30).replace(/[^a-zA-Z0-9ぁ-んァ-ン一-龥]/g,'_');
+      const dateStr = new Date().toLocaleDateString('ja-JP').replace(/\//g,'');
+      const filename = safeName+'_'+dateStr+'.html';
+      // widgetを埋め込んでからGitHubに保存
+      const widgetHtml = buildAskWidget(q, cleanHtml);
+      const htmlWithWidget = cleanHtml.replace(/<\/body>/i, widgetHtml+'\n</body>');
+      const ghUrl = await saveToGitHub(filename, htmlWithWidget);
+      window._report.ghUrl = ghUrl;
+      window._report.ghFilename = filename;
+      ghStatus.textContent='✅ GitHubに保存完了';
+      const openBtn = $('ghOpenBtn');
+      openBtn.disabled=false; openBtn.style.opacity='1'; openBtn.style.cursor='pointer';
+      $('ghDelBtn').style.display='inline-block';
+      // GitHub Pages反映に少し時間がかかるため注記
+      setTimeout(()=>{ ghStatus.textContent='✅ 保存完了（反映まで約1分）'; },100);
+    }catch(e){
+      ghStatus.textContent='⚠ GitHub保存失敗: '+e.message;
+      ghStatus.style.color='var(--red)';
     }
   }catch(e){$('synthStatus').textContent='エラー: '+e.message;$('synthStatus').style.color='var(--red)';}
   $('pfill').style.width='100%';
@@ -532,30 +429,28 @@ async function startAll(){
   btn.disabled=false; btn.innerHTML='⬛ 4AI同時並行調査スタート';
 }
 
-// ===== GitHub連携 =====
+// ===== GitHub連携（プロキシ経由、PATはサーバー側で保持） =====
 const GH_OWNER='nakkan1812-create',GH_REPO='kuro-research-engine',GH_BRANCH='main';
-function getGhPat(){return lsGet('ghPat')||'';}
+function ghProxyUrl(subPath){return PROXY_BASE+'/api/github/'+subPath;}
 async function saveToGitHub(filename,html){
-  const pat=getGhPat();if(!pat)return null;
-  const url='https://api.github.com/repos/'+GH_OWNER+'/'+GH_REPO+'/contents/reports/'+filename;
+  const url=ghProxyUrl('repos/'+GH_OWNER+'/'+GH_REPO+'/contents/reports/'+filename);
   let sha=null;
-  try{const c=await fetch(url,{headers:{'Authorization':'token '+pat,'Accept':'application/vnd.github.v3+json'}});if(c.ok){const d=await c.json();sha=d.sha;}}catch(e){}
+  try{const c=await fetch(url,{headers:proxyHeaders()});if(c.ok){const d=await c.json();sha=d.sha;}}catch(e){}
   const body={message:'Add report: '+filename,content:btoa(unescape(encodeURIComponent(html))),branch:GH_BRANCH};
   if(sha)body.sha=sha;
-  const resp=await fetch(url,{method:'PUT',headers:{'Authorization':'token '+pat,'Accept':'application/vnd.github.v3+json','Content-Type':'application/json'},body:JSON.stringify(body)});
+  const resp=await fetch(url,{method:'PUT',headers:proxyHeaders({'Content-Type':'application/json'}),body:JSON.stringify(body)});
   if(!resp.ok){const e=await resp.json();throw new Error(e.message||'GitHub API error');}
   return 'https://'+GH_OWNER+'.github.io/'+GH_REPO+'/reports/'+filename;
 }
 async function deleteFromGitHub(){
   const r=window._report;if(!r||!r.ghFilename)return;
-  const pat=getGhPat();if(!pat){alert('GitHub PATが設定されていません');return;}
   if(!confirm('GitHubからこのレポートを削除しますか？'))return;
-  const url='https://api.github.com/repos/'+GH_OWNER+'/'+GH_REPO+'/contents/reports/'+r.ghFilename;
+  const url=ghProxyUrl('repos/'+GH_OWNER+'/'+GH_REPO+'/contents/reports/'+r.ghFilename);
   try{
-    const c=await fetch(url,{headers:{'Authorization':'token '+pat,'Accept':'application/vnd.github.v3+json'}});
+    const c=await fetch(url,{headers:proxyHeaders()});
     if(!c.ok){alert('ファイルが見つかりません');return;}
     const d=await c.json();
-    const resp=await fetch(url,{method:'DELETE',headers:{'Authorization':'token '+pat,'Accept':'application/vnd.github.v3+json','Content-Type':'application/json'},body:JSON.stringify({message:'Delete report: '+r.ghFilename,sha:d.sha,branch:GH_BRANCH})});
+    const resp=await fetch(url,{method:'DELETE',headers:proxyHeaders({'Content-Type':'application/json'}),body:JSON.stringify({message:'Delete report: '+r.ghFilename,sha:d.sha,branch:GH_BRANCH})});
     if(resp.ok){$('ghDelBtn').style.display='none';$('ghOpenBtn').disabled=true;$('ghOpenBtn').style.opacity='.4';$('ghSaveStatus').textContent='🗑️ GitHubから削除しました';r.ghUrl=null;r.ghFilename=null;}
     else alert('削除に失敗しました');
   }catch(e){alert('削除エラー: '+e.message);}
@@ -564,33 +459,26 @@ function openGitHub(){const r=window._report;if(r&&r.ghUrl)window.open(r.ghUrl,'
 
 function buildAskWidget(query, synthesisText){
   const esc = s => s.replace(/\\/g,'\\\\').replace(/`/g,'\\`').replace(/\$/g,'\\$').replace(/'/g,"\\'");
-  const CSS = '<style>#askFab{position:fixed;bottom:28px;right:28px;z-index:9999;background:linear-gradient(135deg,#15318F,#16B8B2);color:#fff;border:none;padding:14px 22px;border-radius:30px;font-size:14px;font-weight:700;cursor:pointer;box-shadow:0 6px 24px rgba(21,49,143,.35);touch-action:manipulation}#askOverlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:10000;align-items:center;justify-content:center}#askOverlay.open{display:flex}#askBox{background:#fff;border-radius:16px;padding:28px;width:min(640px,92vw);max-height:90vh;overflow-y:auto}#askTA{width:100%;padding:12px 14px;border:1px solid #C7D8E5;border-radius:10px;font-size:15px;font-family:inherit;resize:vertical;min-height:90px;outline:none;box-sizing:border-box}#askKey{width:100%;padding:9px 12px;border:1px solid #C7D8E5;border-radius:8px;font-size:12px;font-family:monospace;box-sizing:border-box;margin-top:8px}#askKeyBox summary{list-style:none}#askKeyBox summary::-webkit-details-marker{display:none}#askSubmit{flex:1;padding:12px;background:#15318F;color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;min-height:44px;touch-action:manipulation}#askSubmit:disabled{background:#aaa}#askClose{padding:12px 18px;background:none;border:1px solid #C7D8E5;border-radius:10px;font-size:14px;cursor:pointer;min-height:44px;touch-action:manipulation}#askResult{display:none;margin-top:18px;padding:16px;background:#F4F7FA;border-radius:10px;border-left:5px solid #16B8B2;font-size:13.5px;line-height:1.75;white-space:pre-wrap;max-height:400px;overflow-y:auto}</style>';
-  const HTML = '<button id="askFab">&#x2B1B; 追加質問・調査依頼</button><div id="askOverlay"><div id="askBox"><h3 style="font-size:18px;font-weight:800;color:#15318F;margin-bottom:6px">&#x2B1B; 追加質問・調査依頼</h3><p style="font-size:13px;color:#5F6B7A;margin-bottom:18px">このレポートを踏まえてClaudeに追加質問できます。</p><textarea id="askTA" placeholder="追加の質問・調査依頼を入力"></textarea><details id="askKeyBox" style="margin-top:12px"><summary id="askKeySummary" style="font-size:12px;color:#5F6B7A;cursor:pointer;padding:6px 0;outline:none">&#x1F511; Claude APIキー設定</summary><input id="askKey" type="password" placeholder="sk-ant-..."/><p id="askKeySaved" style="font-size:11px;color:#00A878;margin-top:4px;display:none">&#x2713; 保存済み（次回から自動入力）</p></details><div style="display:flex;gap:10px;margin-top:14px;flex-wrap:wrap"><button id="askSubmit">送信して調査</button><button id="askClose">閉じる</button></div><div id="askResult"></div></div></div>';
+  const CSS = '<style>#askFab{position:fixed;bottom:28px;right:28px;z-index:9999;background:linear-gradient(135deg,#15318F,#16B8B2);color:#fff;border:none;padding:14px 22px;border-radius:30px;font-size:14px;font-weight:700;cursor:pointer;box-shadow:0 6px 24px rgba(21,49,143,.35);touch-action:manipulation}#askOverlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:10000;align-items:center;justify-content:center}#askOverlay.open{display:flex}#askBox{background:#fff;border-radius:16px;padding:28px;width:min(640px,92vw);max-height:90vh;overflow-y:auto}#askTA{width:100%;padding:12px 14px;border:1px solid #C7D8E5;border-radius:10px;font-size:15px;font-family:inherit;resize:vertical;min-height:90px;outline:none;box-sizing:border-box}#askSubmit{flex:1;padding:12px;background:#15318F;color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;min-height:44px;touch-action:manipulation}#askSubmit:disabled{background:#aaa}#askClose{padding:12px 18px;background:none;border:1px solid #C7D8E5;border-radius:10px;font-size:14px;cursor:pointer;min-height:44px;touch-action:manipulation}#askResult{display:none;margin-top:18px;padding:16px;background:#F4F7FA;border-radius:10px;border-left:5px solid #16B8B2;font-size:13.5px;line-height:1.75;white-space:pre-wrap;max-height:400px;overflow-y:auto}</style>';
+  const HTML = '<button id="askFab">&#x2B1B; 追加質問・調査依頼</button><div id="askOverlay"><div id="askBox"><h3 style="font-size:18px;font-weight:800;color:#15318F;margin-bottom:6px">&#x2B1B; 追加質問・調査依頼</h3><p style="font-size:13px;color:#5F6B7A;margin-bottom:18px">このレポートを踏まえてClaudeに追加質問できます。</p><textarea id="askTA" placeholder="追加の質問・調査依頼を入力"></textarea><div style="display:flex;gap:10px;margin-top:14px;flex-wrap:wrap"><button id="askSubmit">送信して調査</button><button id="askClose">閉じる</button></div><div id="askResult"></div></div></div>';
   const q = esc(query);
   const ctx = esc(synthesisText.slice(0,4000));
   const JS = '(function(){'
     + 'var QUERY=' + JSON.stringify(q) + ';'
     + 'var CONTEXT=' + JSON.stringify(ctx) + ';'
-    + 'var LS_KEY="kuro_api_key";'
-    + 'function loadKey(){try{return localStorage.getItem(LS_KEY)||localStorage.getItem("cKey")||"";}catch(e){return ""}}'
-    + 'function saveKey(k){try{localStorage.setItem(LS_KEY,k);localStorage.setItem("cKey",k);}catch(e){}}'
-    + 'var keyEl=document.getElementById("askKey");'
-    + 'var saved=loadKey();if(saved){keyEl.value=saved;document.getElementById("askKeySaved").style.display="block";var sm=document.getElementById("askKeySummary");if(sm)sm.innerHTML="&#x2705; APIキー設定済み（変更はタップ）";}'
-    + 'keyEl.addEventListener("input",function(){if(keyEl.value.trim())saveKey(keyEl.value.trim());});'
+    + 'var PROXY_BASE=' + JSON.stringify(PROXY_BASE) + ';'
+    + 'var PROXY_SECRET=' + JSON.stringify(PROXY_SECRET) + ';'
     + 'async function runAsk(){'
     + '  var q2=document.getElementById("askTA").value.trim();'
-    + '  var k=keyEl.value.trim();'
     + '  if(!q2){alert("質問を入力してください");return;}'
-    + '  if(!k){alert("Claude APIキーを入力してください");return;}'
-    + '  saveKey(k);'
     + '  var btn=document.getElementById("askSubmit");btn.disabled=true;btn.textContent="調査中...";'
     + '  var res=document.getElementById("askResult");res.style.display="block";res.textContent="調査中...";'
     + '  var prompt="以下の調査レポートを踏まえて追加の質問に答えてください。 / 【調査テーマ】"+QUERY+" / 【レポート概要】"+CONTEXT+" / 【追加質問】"+q2+" / 具体的な数値・企業名・出典を含めて詳しく回答してください。";'
     + '  try{'
-    + '    var headers={"Content-Type":"application/json","x-api-key":k,"anthropic-version":"2023-06-01","anthropic-dangerous-direct-browser-access":"true"};'
+    + '    var headers={"Content-Type":"application/json","X-Proxy-Secret":PROXY_SECRET};'
     + '    var messages=[{role:"user",content:prompt}];'
     + '    for(var i=0;i<15;i++){'
-    + '      var r=await fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:headers,body:JSON.stringify({model:"claude-sonnet-4-6",max_tokens:3000,tools:[{type:"web_search_20250305",name:"web_search",max_uses:5}],messages:messages})});'
+    + '      var r=await fetch(PROXY_BASE+"/api/claude",{method:"POST",headers:headers,body:JSON.stringify({model:"claude-sonnet-4-6",max_tokens:3000,tools:[{type:"web_search_20250305",name:"web_search",max_uses:5}],messages:messages})});'
     + '      var d=await r.json();'
     + '      if(!r.ok)throw new Error(d.error&&d.error.message?d.error.message:"Error "+r.status);'
     + '      var getText=function(c){return (Array.isArray(c)?c:[c]).filter(function(x){return x&&x.type==="text";}).map(function(x){return x.text;}).join("");};'
@@ -665,7 +553,6 @@ function bindTap(id,fn){
 
 try{
   updateLabels();
-  refreshKeyStatus();
   bindTap('askBtn',genQuestions);
   bindTap('startBtn',startAll);
   $('jsIndicator').textContent='🟢';
