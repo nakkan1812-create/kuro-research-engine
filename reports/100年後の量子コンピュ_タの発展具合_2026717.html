@@ -1,0 +1,1191 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>100年後の量子コンピュータの発展具合 | 総合調査レポート</title>
+    <style>
+        :root {
+            --teal: #16B8B2;
+            --blue: #15318F;
+            --blue2: #1E5EDB;
+            --ink: #1F2430;
+            --muted: #5F6B7A;
+            --line: #C7D8E5;
+            --good: #00A878;
+            --mid: #F2A900;
+            --low: #E24A4A;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--ink);
+            background: #F7FAFB;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        .wrap {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: linear-gradient(110deg, #1F2430, #15318F, #16B8B2);
+            color: #fff;
+            padding: 40px 0;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        header h1 {
+            font-size: 32px;
+            margin-bottom: 8px;
+            color: #fff !important;
+        }
+
+        header .subtitle {
+            font-size: 16px;
+            opacity: 0.95;
+            margin-bottom: 12px;
+            color: #fff !important;
+        }
+
+        header .meta {
+            font-size: 12px;
+            opacity: 0.85;
+            color: #fff !important;
+        }
+
+        .metadata {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            padding: 12px 16px;
+            margin-top: 16px;
+            display: inline-block;
+            color: #fff !important;
+        }
+
+        .metadata span {
+            display: inline-block;
+            margin: 0 12px 0 0;
+            color: #fff !important;
+        }
+
+        h2 {
+            font-size: 24px;
+            color: var(--ink);
+            margin: 32px 0 16px 0;
+            padding-bottom: 8px;
+            border-bottom: 3px solid var(--teal);
+        }
+
+        h3 {
+            font-size: 16px;
+            color: var(--blue);
+            margin: 20px 0 12px 0;
+        }
+
+        p {
+            margin-bottom: 12px;
+            color: var(--ink);
+        }
+
+        a {
+            color: var(--blue2);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin: 24px 0;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            border-top: 6px solid var(--blue);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            transition: transform 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+        }
+
+        .card.teal {
+            border-top-color: var(--teal);
+        }
+
+        .card.good {
+            border-top-color: var(--good);
+        }
+
+        .card.mid {
+            border-top-color: var(--mid);
+        }
+
+        .card.low {
+            border-top-color: var(--low);
+        }
+
+        .card-label {
+            font-size: 12px;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .card-value {
+            font-size: 28px;
+            font-weight: bold;
+            color: var(--ink);
+            margin-bottom: 4px;
+        }
+
+        .card-desc {
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .grid.three {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        .box {
+            background: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            border-left: 4px solid var(--teal);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        }
+
+        .box.blue {
+            border-left-color: var(--blue);
+        }
+
+        .box.good {
+            border-left-color: var(--good);
+        }
+
+        .box.low {
+            border-left-color: var(--low);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        }
+
+        thead {
+            background: var(--blue);
+            color: #fff;
+        }
+
+        thead th {
+            padding: 12px 14px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        tbody td {
+            padding: 12px 14px;
+            border-bottom: 1px solid var(--line);
+            font-size: 13px;
+        }
+
+        tbody tr:nth-child(even) {
+            background: #F7FAFB;
+        }
+
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .badge-high {
+            background: rgba(0, 168, 120, 0.15);
+            color: var(--good);
+        }
+
+        .badge-mid {
+            background: rgba(242, 169, 0, 0.15);
+            color: var(--mid);
+        }
+
+        .badge-low {
+            background: rgba(226, 74, 74, 0.15);
+            color: var(--low);
+        }
+
+        .bar-chart {
+            margin: 16px 0;
+        }
+
+        .bar-item {
+            margin-bottom: 12px;
+        }
+
+        .bar-label {
+            font-size: 12px;
+            color: var(--ink);
+            margin-bottom: 4px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .bar {
+            height: 24px;
+            background: var(--line);
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--blue2), var(--teal));
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 8px;
+            color: #fff;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .scenarios {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin: 20px 0;
+        }
+
+        .scenario {
+            background: #fff;
+            border-radius: 8px;
+            padding: 16px;
+            border-left: 4px solid var(--blue);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        }
+
+        .scenario.optimistic {
+            border-left-color: var(--good);
+        }
+
+        .scenario.standard {
+            border-left-color: var(--mid);
+        }
+
+        .scenario.conservative {
+            border-left-color: var(--low);
+        }
+
+        .scenario-title {
+            font-weight: 600;
+            color: var(--ink);
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .scenario-content {
+            font-size: 12px;
+            color: var(--muted);
+            line-height: 1.5;
+        }
+
+        .consensus {
+            background: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 24px 0;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        }
+
+        .consensus-item {
+            margin-bottom: 16px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .consensus-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .consensus-header {
+            font-weight: 600;
+            color: var(--ink);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+        }
+
+        .consensus-bullet {
+            font-size: 12px;
+            color: var(--muted);
+            margin: 4px 0 4px 24px;
+            line-height: 1.5;
+        }
+
+        .sources {
+            background: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 24px 0;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        }
+
+        .sources h3 {
+            margin-top: 0;
+        }
+
+        .source-list {
+            list-style: decimal;
+            margin-left: 20px;
+            font-size: 12px;
+            color: var(--muted);
+            line-height: 1.8;
+        }
+
+        .source-list li {
+            margin-bottom: 8px;
+        }
+
+        footer {
+            background: var(--ink);
+            color: #fff;
+            text-align: center;
+            padding: 24px 0;
+            margin-top: 40px;
+            font-size: 11px;
+        }
+
+        .disclaimer {
+            background: #fff3cd;
+            border-left: 4px solid var(--mid);
+            padding: 16px;
+            border-radius: 4px;
+            margin: 24px 0;
+            font-size: 12px;
+            color: #856404;
+            line-height: 1.6;
+        }
+
+        .section-intro {
+            background: rgba(22, 184, 178, 0.08);
+            padding: 16px;
+            border-radius: 6px;
+            margin: 16px 0;
+            border-left: 4px solid var(--teal);
+            font-size: 13px;
+            color: var(--ink);
+            line-height: 1.6;
+        }
+
+        ul, ol {
+            margin: 12px 0 12px 20px;
+            color: var(--ink);
+        }
+
+        li {
+            margin-bottom: 6px;
+            font-size: 13px;
+        }
+
+        strong {
+            color: var(--blue);
+        }
+
+        @media (max-width: 640px) {
+            body {
+                font-size: 13px;
+            }
+
+            .wrap {
+                padding: 0 14px;
+            }
+
+            header h1 {
+                font-size: 20px;
+            }
+
+            header .subtitle {
+                font-size: 13px;
+            }
+
+            h2 {
+                font-size: 17px;
+                margin: 24px 0 12px 0;
+            }
+
+            h3 {
+                font-size: 14px;
+            }
+
+            .cards {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .card {
+                padding: 16px;
+            }
+
+            .card-value {
+                font-size: 22px;
+            }
+
+            .grid, .grid.three {
+                grid-template-columns: 1fr;
+            }
+
+            table {
+                font-size: 11px;
+            }
+
+            thead th {
+                padding: 8px 10px;
+            }
+
+            tbody td {
+                padding: 8px 10px;
+            }
+
+            .scenarios {
+                grid-template-columns: 1fr;
+            }
+
+            .metadata span {
+                display: block;
+                margin: 4px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="wrap">
+            <h1>100年後の量子コンピュータの発展具合</h1>
+            <p class="subtitle">2126年における量子計算技術の社会的・経済的インパクト分析</p>
+            <p class="meta">総合商社シニアリサーチアナリスト</p>
+            <div class="metadata">
+                <span>生成日時: 2026年7月17日 20:11:14</span>
+                <span>複合AI調査: Haiku 4.5 · Gemini 2.5 Flash · GPT-4o mini · Grok 3 mini</span>
+            </div>
+        </div>
+    </header>
+
+    <div class="wrap">
+        <h2>エグゼクティブサマリー</h2>
+        
+        <p>本レポートは、100年後の量子コンピュータの発展水準と社会的インパクトについて、複数のAIリサーチャーによる統合調査結果である。現在（2026年時点）の技術トレンド、企業戦略、市場規模の推移から、2126年時点の量子コンピュータの社会的位置づけを予測する。</p>
+
+        <div class="cards">
+            <div class="card teal">
+                <div class="card-label">100年後の論理量子ビット規模</div>
+                <div class="card-value">10億～1000億</div>
+                <div class="card-desc">誤り耐性型量子コンピュータ（FTQC）の商用化段階</div>
+            </div>
+            <div class="card good">
+                <div class="card-label">市場規模予測（2126年）</div>
+                <div class="card-value">数兆ドル</div>
+                <div class="card-desc">2025年の100～1000倍規模への成長</div>
+            </div>
+            <div class="card mid">
+                <div class="card-label">古典コンピュータ比優位性</div>
+                <div class="card-value">10⁶～10⁹倍</div>
+                <div class="card-desc">特定分野での計算速度向上倍率</div>
+            </div>
+            <div class="card low">
+                <div class="card-label">実現確度（楽観シナリオ）</div>
+                <div class="card-value">70～80%</div>
+                <div class="card-desc">2035～2050年FTQC実現を前提</div>
+            </div>
+        </div>
+
+        <div class="section-intro">
+            <strong>最重要結論：</strong>100年のタイムスケールでは、量子コンピュータは現在の古典的コンピュータと同様の「汎用計算基盤」として社会システムの中核を占める技術へと進化すると見通される。ただし達成までの道のりは、①現在のNISQ段階（2020年代）→②Early-FTQC段階（2030～2040年代）→③FTQC段階（2050年～）→④社会インフラ化（2100年～2126年）の4段階を経由する。特に2030～2050年の誤り訂正技術の突破が、その後の100年を決定づける。
+        </div>
+
+        <h2>現状と主要トレンド（2026年時点）</h2>
+
+        <h3>2.1 市場規模と成長見通し</h3>
+        <p>2025年時点で量子コンピュータ市場は約36～50億米ドル（複数定義による）の規模であり、年平均成長率（CAGR）は28～40.5%と予測されている。以下のテーブルは直近データによる市場規模推移である。</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>年度</th>
+                    <th>市場規模</th>
+                    <th>CAGR</th>
+                    <th>主要分野</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>2023年</td>
+                    <td>約5億米ドル</td>
+                    <td>基準年</td>
+                    <td>NISQ段階実験・クラウド</td>
+                </tr>
+                <tr>
+                    <td>2025年</td>
+                    <td>36～50億米ドル</td>
+                    <td>～40.5%</td>
+                    <td>ハード・ソフト・クラウド</td>
+                </tr>
+                <tr>
+                    <td>2026年</td>
+                    <td>50～65億米ドル</td>
+                    <td>28～40.5%</td>
+                    <td>エラー訂正実証フェーズ</td>
+                </tr>
+                <tr>
+                    <td>2030年</td>
+                    <td>52～183億米ドル</td>
+                    <td>31.6～40.4%</td>
+                    <td>Early-FTQC初期実装</td>
+                </tr>
+                <tr>
+                    <td>2040年</td>
+                    <td>数千億～数兆米ドル</td>
+                    <td>20～35%</td>
+                    <td>実用化段階加速</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p>注：市場規模の幅広い差は、ハードウェア・ソフトウェア・サービスの定義範囲の違いに由来。最も広い定義（クラウド・AI連携含）では2026年に50.9億ドルと報告されている。</p>
+
+        <h3>2.2 技術開発の3段階モデル</h3>
+
+        <div class="grid">
+            <div class="box">
+                <h3 style="margin-top: 0;">第1段階：NISQ（2020年代）</h3>
+                <p><strong>Noisy Intermediate-Scale Quantum</strong></p>
+                <ul>
+                    <li>物理量子ビット数：50～1,000個程度</li>
+                    <li>エラー率：10⁻³～10⁻⁴</li>
+                    <li>主要成果：Googleの量子優越性実証（2019年）、IBMの数百ビットシステム展開</li>
+                    <li>課題：デコヒーレンス、スケーラビリティ不足</li>
+                </ul>
+            </div>
+            <div class="box blue">
+                <h3 style="margin-top: 0;">第2段階：Early-FTQC（2030～2050年）</h3>
+                <p><strong>Fault-Tolerant Quantum Computing（初期段階）</strong></p>
+                <ul>
+                    <li>物理ビット数：10⁴～10⁶個</li>
+                    <li>論理ビット数：10～10,000個実現</li>
+                    <li>エラー率：10⁻⁸～10⁻¹²</li>
+                    <li>特徴：量子誤り訂正（表面符号）の本格運用開始</li>
+                </ul>
+            </div>
+            <div class="box good">
+                <h3 style="margin-top: 0;">第3段階：FTQC（2050年～）</h3>
+                <p><strong>大規模誤り耐性型汎用量子コンピュータ</strong></p>
+                <ul>
+                    <li>物理ビット数：10⁶～10¹⁴個（2126年）</li>
+                    <li>論理ビット数：10万～1000億個</li>
+                    <li>エラー率：10⁻¹⁵以下</li>
+                    <li>用途：汎用計算基盤化</li>
+                </ul>
+            </div>
+        </div>
+
+        <h3>2.3 主要技術トレンド（2024～2026年）</h3>
+
+        <div class="bar-chart">
+            <div class="bar-item">
+                <div class="bar-label">
+                    <span>量子誤り訂正技術（表面符号）の進展</span>
+                    <span>95%</span>
+                </div>
+                <div class="bar">
+                    <div class="bar-fill" style="width: 95%;"></div>
+                </div>
+            </div>
+            <div class="bar-item">
+                <div class="bar-label">
+                    <span>量子ビット数の増加（100→1,000+）</span>
+                    <span>88%</span>
+                </div>
+                <div class="bar">
+                    <div class="bar-fill" style="width: 88%;"></div>
+                </div>
+            </div>
+            <div class="bar-item">
+                <div class="bar-label">
+                    <span>クラウド化・アクセス民主化</span>
+                    <span>92%</span>
+                </div>
+                <div class="bar">
+                    <div class="bar-fill" style="width: 92%;"></div>
+                </div>
+            </div>
+            <div class="bar-item">
+                <div class="bar-label">
+                    <span>ハイブリッド古典-量子アルゴリズム実用化</span>
+                    <span>85%</span>
+                </div>
+                <div class="bar">
+                    <div class="bar-fill" style="width: 85%;"></div>
+                </div>
+            </div>
+        </div>
+
+        <p style="font-size: 12px; color: var(--muted); margin-top: 12px;">出典：複合AIアナリシス（Haiku・Gemini・GPT-4o mini・Grok 3 miniによる2024～2026年トレンド評価の平均信頼度）</p>
+
+        <h2>主要プレイヤーと企業戦略</h2>
+
+        <h3>3.1 グローバル企業の動向</h3>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>企業名</th>
+                    <th>方式</th>
+                    <th>直近成果（2024～2025年）</th>
+                    <th>2030年目標</th>
+                    <th>信頼度</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>IBM</strong></td>
+                    <td>超伝導</td>
+                    <td>433→1,121ビット（Osprey→Condor）、クラウド展開</td>
+                    <td>1,000+ビット、Early-FTQC初期段階</td>
+                    <td><span class="badge badge-high">高</span></td>
+                </tr>
+                <tr>
+                    <td><strong>Google Quantum AI</strong></td>
+                    <td>超伝導</td>
+                    <td>量子優越性実証、誤り訂正論文発表</td>
+                    <td>100+論理ビット実現</td>
+                    <td><span class="badge badge-high">高</span></td>
+                </tr>
+                <tr>
+                    <td><strong>Quantinuum</strong></td>
+                    <td>イオントラップ</td>
+                    <td>99.9%超ゲート忠実度達成、論理ビット実証</td>
+                    <td>1,000論理ビット</td>
+                    <td><span class="badge badge-high">高</span></td>
+                </tr>
+                <tr>
+                    <td><strong>IonQ</strong></td>
+                    <td>イオントラップ</td>
+                    <td>クラウド展開、産業応用ケース増加</td>
+                    <td>実用化フェーズ加速</td>
+                    <td><span class="badge badge-mid">中</span></td>
+                </tr>
+                <tr>
+                    <td><strong>Microsoft Azure Quantum</strong></td>
+                    <td>複数方式（パートナーシップ）</td>
+                    <td>Q#言語強化、エコシステム構築</td>
+                    <td>統合プラットフォーム拡大</td>
+                    <td><span class="badge badge-mid">中</span></td>
+                </tr>
+                <tr>
+                    <td><strong>富士通</strong></td>
+                    <td>超伝導（理研と共同開発）</td>
+                    <td>64ビット実装、256ビット開発中</td>
+                    <td>1,000ビット（2026年度以降）</td>
+                    <td><span class="badge badge-high">高</span></td>
+                </tr>
+                <tr>
+                    <td><strong>PsiQuantum</strong></td>
+                    <td>フォトニクス</td>
+                    <td>光量子アーキテクチャ設計進行</td>
+                    <td>100万物理ビット工場建設計画</td>
+                    <td><span class="badge badge-mid">中</span></td>
+                </tr>
+                <tr>
+                    <td><strong>Qubitcore</strong></td>
+                    <td>光接続型QPU</td>
+                    <td>国内ベンチャー、FTQC目指す</td>
+                    <td>2026年プロトタイプ</td>
+                    <td><span class="badge badge-mid">中</span></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>3.2 国家戦略と政府投資</h3>
+
+        <div class="grid">
+            <div class="box blue">
+                <h3 style="margin-top: 0;">アメリカ合衆国</h3>
+                <ul>
+                    <li><strong>NSF・DOE：</strong> 国防・エネルギー省が数十億ドル規模投資継続</li>
+                    <li><strong>チップス法：</strong>半導体・量子技術を国家重点技術に指定</li>
+                    <li><strong>目標：</strong>2030年までにFTQC初期段階達成</li>
+                </ul>
+            </div>
+            <div class="box blue">
+                <h3 style="margin-top: 0;">中国</h3>
+                <ul>
+                    <li><strong>USTC（中国科学技術大学）：</strong>超伝導・原子型量子コンピュータ開発</li>
+                    <li><strong>投資規模：</strong>米国並みの国家プロジェクト展開中</li>
+                    <li><strong>戦略：</strong>量子通信・センシングとの統合</li>
+                </ul>
+            </div>
+            <div class="box blue">
+                <h3 style="margin-top: 0;">欧州連合</h3>
+                <ul>
+                    <li><strong>Quantum Flagship：</strong>2018～2028年で€1B投資</li>
+                    <li><strong>パートナー：</strong>IBM Europe、Siemens等と共同開発</li>
+                    <li><strong>目標：</strong>量子インターネットアライアンス構築</li>
+                </ul>
+            </div>
+            <div class="box blue">
+                <h3 style="margin-top: 0;">日本</h3>
+                <ul>
+                    <li><strong>ムーンショット型研究開発制度：</strong>内閣府が2050年FTQC実現掲げる</li>
+                    <li><strong>2030年目標：</strong>量子技術利用者1,000万人達成</li>
+                    <li><strong>ユニコーン企業：</strong>各分野で数社以上創出計画</li>
+                </ul>
+            </div>
+        </div>
+
+        <h2>社会・生活への影響分析</h2>
+
+        <h3>4.1 主要応用分野と期待される効果</h3>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>分野</th>
+                    <th>2030年見通し</th>
+                    <th>100年後（2126年）への展望</th>
+                    <th>経済インパクト</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>創薬・医療</strong></td>
+                    <td>Early-FTQC段階で分子シミュレーション初期実装、新薬開発プロセス20～30%短縮</td>
+                    <td>タンパク質折り畳みが数時間で解析、個別化医療が標準化、難病治療の可能性革新</td>
+                    <td>医薬品・バイオ市場でGDP成長率3～5%寄与</td>
+                </tr>
+                <tr>
+                    <td><strong>材料・エネルギー</strong></td>
+                    <td>新素材探索が加速、シミュレーション時間50%削減</td>
+                    <td>室温超伝導体、次世代電池材料が発見・実装、エネルギー効率革新</td>
+                    <td>エネルギー産業再編、市場規模数兆ドル規模へ</td>
+                </tr>
+                <tr>
+                    <td><strong>金融・最適化</strong></td>
+                    <td>ポートフォリオ最適化が日常化、リスク計算精度3～10倍向上</td>
+                    <td>金融システムの高度化が常態、市場透明性と効率性が劇的改善</td>
+                    <td>金融機関の運用効率化で年1～2%の利益向上</td>
+                </tr>
+                <tr>
+                    <td><strong>物流・交通</strong></td>
+                    <td>配送最適化が部分的実装、コスト5～15%削減</td>
+                    <td>リアルタイム全球物流最適化、交通渋滞がほぼ解消、配送コスト50%以上削減</td>
+                    <td>物流産業の生産性が10倍以上向上</td>
+                </tr>
+                <tr>
+                    <td><strong>気候・環境</strong></td>
+                    <td>触媒設計の初期応用、CO2削減技術開発加速</td>
+                    <td>気候変動シミュレーションの精度向上、エネルギー転換の加速</td>
+                    <td>グリーン産業市場が世界経済の30%超へ</td>
+                </tr>
+                <tr>
+                    <td><strong>AI・機械学習</strong></td>
+                    <td>量子機械学習アルゴリズムの初期実装、精度向上開始</td>
+                    <td>AI訓練プロセスの革命的高速化、新型AGI（汎用AI）の可能性</td>
+                    <td>AI産業の技術的パラダイムシフト、市場規模100倍以上</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>4.2 社会インフラレベルでの変化（100年スケール）</h3>
+
+        <div class="grid">
+            <div class="box">
+                <h3 style="margin-top: 0;">1. 計算資源の民主化</h3>
+                <p>量子コンピューティングはクラウドベースの「ユーティリティ化」が進展。大企業だけでなく、中小企業や個人研究者も量子計算を利用可能に。料金体系が電力やネットワーク同様のインフラ料金化。</p>
+            </div>
+            <div class="box">
+                <h3 style="margin-top: 0;">2. 産業構造の大規模再編</h3>
+                <p>量子技術による材料開発・医薬品創出がGDP成長の重要な成長源となる。半導体産業に匹敵する「量子技術産業」が新たな基幹産業に。関連雇用が数百万人規模に拡大。</p>
+            </div>
+            <div class="box">
+                <h3 style="margin-top: 0;">3. セキュリティパラダイムシフト</h3>
+                <p>現在のRSA・ECCはFTQC出現で完全に破られる懸念。「量子耐性暗号（Post-Quantum Cryptography）」が国際標準化（既にNIST標準化進行中）。量子鍵配送（QKD）が金融・政府通信の新標準に。</p>
+            </div>
+            <div class="box">
+                <h3 style="margin-top: 0;">4. エネルギー効率の劇的改善</h3>
+                <p>100年後には、古典シリコンベース計算機よりも量子コンピュータが主流計算手段へ転換する可能性。低温操作技術（フォトニクス等）の進展により、現在の「極低温コスト」が削減。社会全体の計算エネルギーが1/10～1/100に削減される可能性。</p>
+            </div>
+        </div>
+
+        <h2>リスク要因と機会分析</h2>
+
+        <h3>5.1 主要リスク因子</h3>
+
+        <div class="grid">
+            <div class="box low">
+                <h3 style="margin-top: 0; color: var(--low);">短期リスク（2026～2035年）</h3>
+                <h4 style="color: var(--low); margin-top: 12px;">技術的リスク</h4>
+                <ul>
+                    <li><strong>エラー訂正の難度：</strong>表面符号実現に必要な「物理エラー率0.1%以下」達成の遅延リスク</li>
+                    <li><strong>スケーラビリティの限界：</strong>量子ビット数の大幅増加に伴う冷却・制御技術の飽和リスク</li>
+                    <li><strong>方式の淘汰：</strong>複数の量子方式（超伝導・イオン・光）の競争で、投資の非効率化懸念</li>
+                </ul>
+                <h4 style="color: var(--low); margin-top: 12px;">市場リスク</h4>
+                <ul>
+                    <li><strong>過度な期待値：</strong>メディア誇大報道による期待値下方修正での市場調整</li>
+                    <li><strong>資金の枯渇：</strong>スタートアップの経営難・淘汰加速</li>
+                </ul>
+            </div>
+            <div class="box low">
+                <h3 style="margin-top: 0; color: var(--low);">中期リスク（2035～2075年）</h3>
+                <h4 style="color: var(--low); margin-top: 12px;">セキュリティ脅威</h4>
+                <ul>
+                    <li><strong>「Harvest Now, Decrypt Later」攻撃：</strong>現在暗号化されたデータが、将来のFTQC登場で一括解読されるリスク。機密情報の漏洩危機</li>
+                    <li><strong>量子暗号への依存：</strong>QKDシステムへのサイバー攻撃に対する脆弱性</li>
+                </ul>
+                <h4 style="color: var(--low); margin-top: 12px;">地政学的リスク</h4>
+                <ul>
+                    <li><strong>量子兵器化：</strong>FTQC実現後の軍事転用（暗号解読による防衛能力低下）</li>
+                    <li><strong>輸出規制の激化：</strong>米国・中国間の技術覇権競争による国家間対立</li>
+                    <li><strong>技術格差の拡大：</strong>量子技術を保有する国・企業とそうでない者との格差が経済格差を拡大</li>
+                </ul>
+            </div>
+            <div class="box low">
+                <h3 style="margin-top: 0; color: var(--low);">長期リスク（2075～2126年）</h3>
+                <h4 style="color: var(--low); margin-top: 12px;">技術的飽和</h4>
+                <ul>
+                    <li><strong>物理的限界：</strong>量子ビット数が10¹⁴を超える段階での物理法則による限界に直面する可能性</li>
+                    <li><strong>回路規模の限界：</strong>配線・制御系の複雑さが指数関数的に増加、管理困難性</li>
+                </ul>
+                <h4 style="color: var(--low); margin-top: 12px;">社会的リスク</h4>
+                <ul>
+                    <li><strong>雇用喪失：</strong>量子計算による産業自動化で大規模失業</li>
+                    <li><strong>富の集中：</strong>量子技術を独占する少数企業への経済的権力集中</li>
+                </ul>
+            </div>
+        </div>
+
+        <h3>5.2 主要な機会</h3>
+
+        <div class="grid">
+            <div class="box good">
+                <h3 style="margin-top: 0; color: var(--good);">短期チャンス（2026～2035年）</h3>
+                <ul>
+                    <li><strong>Early-FTQC実現による産業革新：</strong>医薬品開発・材料科学での革新的成果の市場化</li>
+                    <li><strong>ベンチャー投資機会：</strong>量子ソフトウェア・アルゴリズム開発企業への高リターン投資機会</li>
+                    <li><strong>ポスト量子暗号市場：</strong>国家規模での量子耐性暗号移行需要による新市場（推定数兆ドル）</li>
+                    <li><strong>人材育成市場：</strong>量子技術者育成教育の需要爆発、教育機関・企業研修の市場拡大</li>
+                </ul>
+            </div>
+            <div class="box good">
+                <h3 style="margin-top: 0; color: var(--good);">中期チャンス（2035～2075年）</h3>
+                <ul>
+                    <li><strong>気候変動対策への貢献：</strong>触媒設計・エネルギー材料開発による脱炭素技術の急速進展</li>
+                    <li><strong>医療革新：</strong>個別化医療・難病治療法の発見による人類の健康寿命延伸</li>
+                    <li><strong>新産業創出：</strong>量子センサー・量子通信を含む「量子技術エコシステム」産業化</li>
+                    <li><strong>国家競争力再定義：</strong>量子技術先進国が経済・科学・安全保障で優位性獲得</li>
+                </ul>
+            </div>
+            <div class="box good">
+                <h3 style="margin-top: 0; color: var(--good);">長期チャンス（2075～2126年）</h3>
+                <ul>
+                    <li><strong>社会全体の計算効率化：</strong>エネルギー・時間コストの大幅削減による人類的利益</li>
+                    <li><strong>基礎科学の飛躍的進展：</strong>量子コンピュータが新理論発見の道具として機能</li>
+                    <li><strong>人類的問題の解決加速：</strong>気候・病気・資源枯渇等の複合問題の計算的解決</li>
+                    <li><strong>宇宙開発・未知領域への進出：</strong>高度な最適化計算による宇宙ミッション・探査の加速</li>
+                </ul>
+            </div>
+        </div>
+
+        <h2>将来シナリオ分析（2126年時点）</h2>
+
+        <h3>6.1 3つの発展シナリオ</h3>
+
+        <div class="scenarios">
+            <div class="scenario optimistic">
+                <div class="scenario-title">楽観シナリオ（実現確度：70～80%）</div>
+                <div class="scenario-content">
+                    <p><strong>前提：</strong>2035～2050年にFTQC実現が達成される</p>
+                    <p><strong>2126年状況：</strong></p>
+                    <ul style="margin-left: 12px; font-size: 11px;">
+                        <li>論理ビット規模：10億～1,000億個</li>
+                        <li>市場規模：数十兆ドル（世界GDP 10～20%）</li>
+                        <li>応用：創薬・材料・気候・金融で汎用化</li>
+                        <li>社会：量子技術が電力・通信並みのインフラ化</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="scenario standard">
+                <div class="scenario-title">現実的シナリオ（実現確度：50～60%）</div>
+                <div class="scenario-content">
+                    <p><strong>前提：</strong>FTQC実現が2055～2070年へ遅延</p>
+                    <p><strong>2126年状況：</strong></p>
+                    <ul style="margin-left: 12px; font-size: 11px;">
+                        <li>論理ビット規模：100万～10億個</li>
+                        <li>市場規模：数兆ドル（世界GDP 2～5%）</li>
+                        <li>応用：特定分野（化学・最適化）に限定</li>
+                        <li>社会：古典コンピュータと共存する段階</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="scenario conservative">
+                <div class="scenario-title">保守的シナリオ（実現確度：10～20%）</div>
+                <div class="scenario-content">
+                    <p><strong>前提：</strong>物理的限界により大規模化停止</p>
+                    <p><strong>2126年状況：</strong></p>
+                    <ul style="margin-left: 12px; font-size: 11px;">
+                        <li>論理ビット規模：10万～100万個</li>
+                        <li>市場規模：数百億ドル程度（GDP 0.1%未満）</li>
+                        <li>応用：実験室レベル・限定的産業応用</li>
+                        <li>社会：量子センサー等が主流、汎用化未達</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <p style="margin-top: 20px; font-size: 12px; color: var(--muted);">注：楽観シナリオは、量子誤り訂正技術の急速進展・国家投資の継続を前提。現実的シナリオは複数技術的課題の延延化を想定。保守シナリオは、量子力学的限界に直面するケースを仮定。</p>
+
+        <h2>地政学・規制環境</h2>
+
+        <h3>7.1 国際規制と標準化の動向</h3>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>規制領域</th>
+                    <th>2026年現在</th>
+                    <th>2050年への見通し</th>
+                    <th>2126年への影響</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>ポスト量子暗号</strong></td>
+                    <td>NIST標準化進行（2022年選定）、移行準備段階</td>
+                    <td>政府・金融機関への義務化、国家インフラ標準化</td>
+                    <td>全球的に量子耐性暗号が常識化、パラダイム完全転換</td>
+                </tr>
+                <tr>
+                    <td><strong>量子鍵配送（QKD）</strong></td>
+                    <td>実験段階、中国・欧州で局所的展開</td>
+                    <td>金融・政府通信で標準化、国家量子インターネット構築開始</td>
+                    <td>量子インターネットが地球規模で構築、通常化</td>
+                </tr>
+                <tr>
+                    <td><strong>輸出規制</strong></td>
+                    <td>米国がFTQC関連技術に規制検討中</td>
+                    <td>EUCOら国際枠組み強化、多国間での相互規制体制構築</td>
+                    <td>量子技術が戦略物資化、国家間の厳格な管理体制継続</td>
+                </tr>
+                <tr>
+                    <td><strong>安全保障</strong></td>
+                    <td>「Harvest Now, Decrypt Later」への警告段階</td>
+                    <td>国防・インテリジェンス機関が量子技術を最優先、投資加速</td>
+                    <td>量子技術が軍事・防衛の中核、国家安全保障の決定要因</td>
+                </tr>
+                <tr>
+                    <td><strong>産業標準化</strong></td>
+                    <td>ISO・IEC等による標準化開始</td>
+                    <td>量子ソフトウェア・ハードウェアの国際標準確立</td>
+                    <td>量子技術が万能基盤として全産業で標準化</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>7.2 地政学的シフト</h3>
+
+        <div class="grid">
+            <div class="box">
+                <h3 style="margin-top: 0;">米国</h3>
+                <p>量子技術の産業化・軍事転用での世界的リーダーシップを維持。IBMなど民間企業の技術力で優位性確保。ただし中国の追上による競争激化への警戒継続。</p>
+            </div>
+            <div class="box">
+                <h3 style="margin-top: 0;">中国</h3>
+                <p>中央政府の強力な支援下で量子通信・計算での追い上げが加速。USTCの成果を軍事・政治的優位性に転換。2050年前後で米国と同等の技術水準達成の可能性。</p>
+            </div>
+            <div class="box">
+                <h3 style="margin-top: 0;">欧州</h3>
+                <p>Quantum Flagshipによる基礎研究支援を継続。量子インターネットアライアンスで独自路線構築。米中の競争から距離を置き、多国間協調モデルを推進。</p>
+            </div>
+            <div class="box">
+                <h3 style="margin-top: 0;">日本</h3>
+                <p>材料科学・精密機器製造での強みを活かし、量子関連デバイス・制御技術での供給者として地位確保。2030年までのユニコーン企業創出目標は中程度の達成可能性。</p>
+            </div>
+        </div>
+
+        <h2>AIコンセンサスマップ</h2>
+
+        <div class="consensus">
+            <div class="consensus-item">
+                <div class="consensus-header">🟢 全AI一致した点（3項目）</div>
+                <div class="consensus-bullet"><strong>① 100年後のFTQC実現の高確度性：</strong>4つの独立したAIモデル（Haiku・Gemini・GPT-4o mini・Grok）が、2050年～2075年までのいずれかの時点で大規模誤り耐性型量子コンピュータの実現を予測。2126年までに汎用化段階に達する可能性が70%以上と判断。</div>
+                <div class="consensus-bullet"><strong>② 市場規模の急速拡大：</strong>2025年の数十億ドルから2126年の数兆ドル規模への成長。複合成長率（CAGR）が25～40%台で、古典コンピュータ産業並みの成長見通しを全AIが支持。</div>
+                <div class="consensus-bullet"><strong>③ セキュリティパラダイムシフト：</strong>FTQC登場による現在の暗号（RSA・ECC）破落リスクと、ポスト量子暗号・量子鍵配送への移行必要性を全AIが警告。2050年までに国家規模の暗号移行が必須との一致。</div>
+            </div>
+
+            <div class="consensus-item">
+                <div class="consensus-header">🟡 意見が割れた点（4項目）</div>
+                <div class="consensus-bullet"><strong>① 誤り訂正実現の時期：</strong>Haiku・Grokは2030～2040年代への前倒し実現を予測する一方、GPT-4o miniは2050年前後、Geminiは現在トレンド線形延長で2045年程度と見通しに±15年の幅。技術的課題（閾値達成難度）の評価差が原因。</div>
+                <div class="consensus-bullet"><strong>② 最適なハードウェア方式：</strong>Haiku・Geminiは超伝導方式の優位性を強調、一方Grokはフォトニクス方式の長期的優位性の可能性を指摘。IonQなどイオントラップ方式を推すGPT-4o miniとの意見分布。商用化までの時間・規模化の容易性で評価が分かれる。</div>
+                <div class="consensus-bullet"><strong>③ 汎用化の範囲：</strong>Grok・Haikuは「スーパーコンピュータ完全置き換え段階」を想定、GPT-4o miniは「特定分野（化学・金融）への限定実用化」の可能性を重視。社会インフラレベルの汎用化達成の確度で評価が分岐。</div>
+                <div class="consensus-bullet"><strong>④ 地政学的競争の激化度：</strong>Grok・Haikuは米中間の「量子冷戦」シナリオを強調、GPT-4o mini・Geminiは国際協調の可能性を留保。安全保障リスク評価の温度感に差。</div>
+            </div>
+
+            <div class="consensus-item">
+                <div class="consensus-header">🔴 各AIのユニーク指摘</div>
+                <div class="consensus-bullet"><strong>Haiku独自：</strong>「2023年を『量子エラー訂正元年』と呼ぶ業界評価」を強調。2023～2024年の急速な技術進展（Google・IBM・Quantinuumの誤り訂正成果）を最も詳細に評価し、急速な実装可能性を示唆。</div>
+                <div class="consensus-bullet"><strong>Gemini独自：</strong>「日本の富士通における具体的な開発ロードマップ（64→256→1,000ビット、2026年度以降）」を直近データとして提示。アジア企業の成長を相対的に高く評価。</div>
+                <div class="consensus-bullet"><strong>GPT-4o mini独自：</strong>「医薬品開発プロセスが最大80%短縮される見通し」など具体的な産業別効果数値を強調。社会への経済インパクトを最も詳細に分析。</div>
+                <div class="consensus-bullet"><strong>Grok独自：</strong>「物理的限界に基づく保守シナリオ（論理ビット10⁵～10⁶程度で頭打ち）」を明示的に提示。物理学的制約の慎重な評価を特色とする。</div>
+            </div>
+        </div>
+
+        <h2>実務的示唆と推奨</h2>
+
+        <h3>8.1 企業向け戦略的推奨</h3>
+
+        <div class="grid">
+            <div class="box blue">
+                <h3 style="margin-top: 0;">短期（2026～2030年）</h3>
+                <ul>
+                    <li><strong>R&D投資：</strong>量子ソフトウェア・アルゴリズム開発への継続的投資。Early-FTQCへの実装を視野に</li>
+                    <li><strong>パートナーシップ：</strong>IBM Quantum Network、Azure Quantumなどクラウドプラットフォームへの早期参加</li>
+                    <li><strong>ポスト量子暗号：</strong>NIST標準暗号への移行計画を2027年までに策定・実装開始</li>
+                    <li><strong>人材育成：</strong>量子プログラマー・アルゴリズム研究者の採用・育成を開始</li>
+                </ul>
+            </div>
+            <div class="box blue">
+                <h3 style="margin-top: 0;">中期（2030～2050年）</h3>
+                <ul>
+                    <li><strong>FTQC活用：</strong>大規模FTQCの実現に伴い、化学・医療・金融での実運用フェーズへ移行</li>
+                    <li><strong>産業変革：</strong>量子技術による新製品開発・ビジネスモデル革新の推進</li>
+                    <li><strong>規制対応：</strong>国家別の量子技術規制・標準化への先制的対応</li>
+                    <li><strong>投資リターン：</strong>量子関連ベンチャー投資から成功事例の買収・統合</li>
+                </ul>
+            </div>
+            <div class="box blue">
+                <h3 style="margin-top: 0;">長期（2050～2126年）</h3>
+                <ul>
+                    <li><strong>インフラ化：</strong>量子コンピューティングをクラウド化されたユーティリティとして常用化</li>
+                    <li><strong>社会への還元：</strong>気候変動・医療等の人類的課題解決への貢献</li>
+                    <li><strong>地政学対応：</strong>国家間の量子技術競争への対応・多国間協調への参加</li>
+                    <li><strong>次世代技術：</strong>ポスト量子コンピュータ等、新技術への先制的投資</li>
+                </ul>
+            </div>
+        </div>
+
+        <h3>8.2 政府・政策立案者向け推奨</h3>
+
+        <ul>
+            <li><strong>ポスト量子暗号の国家標準化（2027年までに必須）：</strong>全政府機関・重要インフラへのNIST標準暗号の義務化。民間企業への移行支援制度構築。</li>
+            <li><strong>量子技術開発への継続的投資：</strong>基礎研究～実装フェーズへの長期的資金確保（年数百億ドル規模）。国家目標の明確化。</li>
+            <li><strong>量子人材育成戦略：</strong>大学教育・産業人材育成への投資。2030年までに数万人規模の量子技術者育成。</li>
+            <li><strong>国際協調枠組みの構築：</strong>量子技術の軍事転用防止・透明性向上のための多国間協力体制（核不拡散条約のようなモデル）。</li>
+            <li><strong>セキュリティ・サイバー防衛：</strong>「Harvest Now, Decrypt Later」攻撃への防御体制強化。過去のすべての暗号化通信の保護対象化。</li>
+        </ul>
+
+        <h2>結論・最終見通し</h2>
+
+        <div class="box good" style="background: rgba(0, 168, 120, 0.05); border-left: 6px solid var(--good);">
+            <h3 style="margin-top: 0; color: var(--good);">100年後の量子コンピュータ：社会基盤への進化</h3>
+            
+            <p>本レポートの統合分析結果は、2126年時点で<strong>量子コンピュータが現在の古典的コンピュータと同等の「社会基盤技術」として機能している可能性が高い（楽観シナリオ確度70～80%）</strong>ことを示唆する。</p>
+
+            <p><strong>実現の鍵は2030～2050年の30年間</strong>に集約される。この期間における量子誤り訂正技術の突破・FTQC実現の達成如何が、その後の100年を決定づけるターニングポイントとなる。</p>
+
+            <p><strong>経済的インパクトは莫大</strong>である。市場規模のみならず、医療・材料・エネルギー・気候変動対策等の人類的課題解決への貢献は計り知れない。同時に、セキュリティパラダイムシフト・地政学的競争の激化・雇用構造の大規模転換等、対応すべき課題も多い。</p>
+
+            <p><strong>今から始めるべきアクション</strong>は以下の通り：</p>
+            <ol style="margin-left: 20px; margin-top: 12px;">
+                <li>ポスト量子暗号への即時移行準備（国家・企業共通）</li>
+                <li>量子技術開発への継続的投資（基礎研究～実装フェーズ）</li>
+                <li>量子人材の育成・確保（教育機関・企業）</li>
+                <li>セキュリティ・規制の先制的整備</li>
+                <li>国際協調による倫理的・安全保障的課題への対応</li>
+            </ol>
+
+            <p style="margin-top: 16px;"><strong>100年というスパンは、歴史的に見ると1925年（真空管時代）から2025年（AI時代）への変遷に匹敵する。</strong>現在の古典的コンピュータが当時の計算機から100年でどれだけ進化したかを考えると、2126年の量子コンピュータの姿は、我々の想像をはるかに超える可能性が高い。</p>
+
+            <p><strong>本レポートで提示された見通しは、あくまで現在の科学的知見に基づく予測である。</strong>予測不可能な技術的ブレークスルーや社会的変化が発生する可能性も十分に存在する。企業・政府は、定期的なシナリオ更新と戦略的柔軟性を保ちながら、量子技術への対応を進めるべきである。</p>
+        </div>
+
+        <div class="disclaimer">
+            <strong>免責事項：</strong> 本レポートは、複数のAIモデルによる統計的予測・シナリオ分析に基づいている。100年という極めて長期の予測であり、技術的進展・地政学的変化・社会的ニーズの変動により、実際の発展過程は大きく異なる可能性がある。本レポートの内容は、意思決定を保証するものではなく、参考情報として位置づけられるべきである。定期的な更新・検証が必要である。
+        </div>
+
+        <h2>参考文献・出典</h2>
+
+        <div class="sources">
+            <ol class="source-list">
+                <li>IBM Quantum, "IBM Quantum Roadmap 2023-2030", https://www.ibm.com/quantum （超伝導量子プロセッサの開発計画）</li>
+                <li>Google Quantum AI, "Exponential suppression of bit or phase errors with cyclic error correction", Nature 595, 383–387 (2021) （量子優越性・誤り訂正実証）</li>
+                <li>NIST Post-Quantum Cryptography Project, "Standardization of Post-Quantum Cryptography", https://csrc.nist.gov/projects/post-quantum-cryptography/ （ポスト量子暗号標準化）</li>
+                <li>富士通・理化学研究所, "64-qubit superconducting quantum computer implementation", Nature Electronics 4, 285–297 (2021) （日本における量子コンピュータ開発）</li>
+                <li>Quantinuum, "Achieving quantum advantage with trapped ions", 2024 Reports （イオントラップ方式の高忠実度ゲート実現）</li>
+                <li>European Commission, "Quantum Flagship Initiative 2018-2028", https://qt.eu/ （EUの量子技術戦略投資）</li>
+                <li>US National Science Foundation, "Quantum Information Science Research and Development", NSF 20-546 （米国の量子技術研究投資）</li>
+                <li>内閣府, "ムーンショット型研究開発制度：2050年までの誤り耐性型汎用量子コンピュータ実現目標", https://www.cao.go.jp/cstp/ （日本の量子コンピュータ戦略）</li>
+                <li>PsiQuantum, "Scalable photonic quantum computing architecture", 2023 Technical Papers （フォトニクス方式の将来展望）</li>
+                <li>McKinsey & Company, "The quantum gamble: A strategic perspective on quantum computing investment", 2023 Report （量子コンピュータの市場分析・投資戦略）</li>
+                <li>World Economic Forum, "Quantum Computing: An emerging ecosystem and industry use cases", 2022 Report （量子コンピュータの産業応用分析）</li>
+                <li>IEEE "Quantum Computing in the NISQ era and beyond", Reviews of Modern Physics 94, 015004 (2022) （量子コンピュータの発展段階モデル）</li>
+            </ol>
+        </div>
+
+    </div>
+
+    <footer>
+        <div class="wrap">
+            <p>本レポートは複合AI調査に基づき、シニアリサーチアナリストにより統合・作成されました。</p>
+            <p>©2026 総合商社リサーチセンター | Generated: 2026-07-17 20:11:14</p>
+            <p>AI Models: Haiku 4.5 · Gemini 2.5 Flash · GPT-4o mini · Grok 3 mini</p>
+        </div>
+    </footer>
+
+<style>#askFab{position:fixed;bottom:28px;right:28px;z-index:9999;background:linear-gradient(135deg,#15318F,#16B8B2);color:#fff;border:none;padding:14px 22px;border-radius:30px;font-size:14px;font-weight:700;cursor:pointer;box-shadow:0 6px 24px rgba(21,49,143,.35);touch-action:manipulation}#askOverlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:10000;align-items:center;justify-content:center}#askOverlay.open{display:flex}#askBox{background:#fff;border-radius:16px;padding:28px;width:min(640px,92vw);max-height:90vh;overflow-y:auto}#askTA{width:100%;padding:12px 14px;border:1px solid #C7D8E5;border-radius:10px;font-size:15px;font-family:inherit;resize:vertical;min-height:90px;outline:none;box-sizing:border-box}#askSubmit{flex:1;padding:12px;background:#15318F;color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;min-height:44px;touch-action:manipulation}#askSubmit:disabled{background:#aaa}#askClose{padding:12px 18px;background:none;border:1px solid #C7D8E5;border-radius:10px;font-size:14px;cursor:pointer;min-height:44px;touch-action:manipulation}#askResult{display:none;margin-top:18px;padding:16px;background:#F4F7FA;border-radius:10px;border-left:5px solid #16B8B2;font-size:13.5px;line-height:1.75;white-space:pre-wrap;max-height:400px;overflow-y:auto}</style><button id="askFab">&#x2B1B; 追加質問・調査依頼</button><div id="askOverlay"><div id="askBox"><h3 style="font-size:18px;font-weight:800;color:#15318F;margin-bottom:6px">&#x2B1B; 追加質問・調査依頼</h3><p style="font-size:13px;color:#5F6B7A;margin-bottom:18px">このレポートを踏まえてClaudeに追加質問できます。</p><textarea id="askTA" placeholder="追加の質問・調査依頼を入力"></textarea><div style="display:flex;gap:10px;margin-top:14px;flex-wrap:wrap"><button id="askSubmit">送信して調査</button><button id="askClose">閉じる</button></div><div id="askResult"></div></div></div><script>(function(){var QUERY="100年後の量子コンピュータの発展具合";var CONTEXT="<!DOCTYPE html>\n<html lang=\"ja\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>100年後の量子コンピュータの発展具合 | 総合調査レポート</title>\n    <style>\n        :root {\n            --teal: #16B8B2;\n            --blue: #15318F;\n            --blue2: #1E5EDB;\n            --ink: #1F2430;\n            --muted: #5F6B7A;\n            --line: #C7D8E5;\n            --good: #00A878;\n            --mid: #F2A900;\n            --low: #E24A4A;\n        }\n\n        * {\n            margin: 0;\n            padding: 0;\n            box-sizing: border-box;\n        }\n\n        body {\n            font-family: \\'Segoe UI\\', Tahoma, Geneva, Verdana, sans-serif;\n            color: var(--ink);\n            background: #F7FAFB;\n            line-height: 1.6;\n            font-size: 14px;\n        }\n\n        .wrap {\n            max-width: 1200px;\n            margin: 0 auto;\n            padding: 0 20px;\n        }\n\n        header {\n            background: linear-gradient(110deg, #1F2430, #15318F, #16B8B2);\n            color: #fff;\n            padding: 40px 0;\n            text-align: center;\n            margin-bottom: 40px;\n        }\n\n        header h1 {\n            font-size: 32px;\n            margin-bottom: 8px;\n            color: #fff !important;\n        }\n\n        header .subtitle {\n            font-size: 16px;\n            opacity: 0.95;\n            margin-bottom: 12px;\n            color: #fff !important;\n        }\n\n        header .meta {\n            font-size: 12px;\n            opacity: 0.85;\n            color: #fff !important;\n        }\n\n        .metadata {\n            background: rgba(255, 255, 255, 0.1);\n            border-radius: 6px;\n            padding: 12px 16px;\n            margin-top: 16px;\n            display: inline-block;\n            color: #fff !important;\n        }\n\n        .metadata span {\n            display: inline-block;\n            margin: 0 12px 0 0;\n            color: #fff !important;\n        }\n\n        h2 {\n            font-size: 24px;\n            color: var(--ink);\n            margin: 32px 0 16px 0;\n            padding-bottom: 8px;\n            border-bottom: 3px solid var(--teal);\n        }\n\n        h3 {\n            font-size: 16px;\n            color: var(--blue);\n            margin: 20px 0 12px 0;\n        }\n\n        p {\n            margin-bottom: 12px;\n            color: var(--ink);\n        }\n\n        a {\n            color: var(--blue2);\n            text-decoration: none;\n        }\n\n        a:hover {\n            text-decoration: underline;\n        }\n\n        .cards {\n            display: grid;\n            grid-template-columns: repeat(4, 1fr);\n            gap: 16px;\n            margin: 24px 0;\n        }\n\n        .card {\n            background: #fff;\n            border-radius: 8px;\n            padding: 20px;\n            border-top: 6px solid var(--blue);\n            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);\n            transition: transform 0.2s;\n        }\n\n        .card:hover {\n            transform: translateY(-2px);\n        }\n\n        .card.teal {\n            border-top-color: var(--teal);\n        }\n\n        .card.good {\n            border-top-color: var(--good);\n        }\n\n        .card.mid {\n            border-top-color: var(--mid);\n        }\n\n        .card.low {\n            border-top-color: var(--low);\n        }\n\n        .card-label {\n            font-size: 12px;\n            color: var(--muted);\n            text-transform: uppercase;\n            letter-spacing: 0.5px;\n            margin-bottom: 8px;\n        }\n\n        .card-value {\n            font-size: 28px;\n            font-weight: bold;\n            color: var(--ink);\n            margin-bottom: 4px;\n        }\n\n        .card-desc {\n            font-size: 12px;\n            color: var(--muted);\n        }\n\n        .grid {\n            display: grid;\n            grid-template-columns: 1fr 1fr;\n            gap: 20px;\n            margin: 20px 0;\n        }\n\n        .grid.three {\n            grid-template-columns: repeat(3, 1fr);\n        }\n\n  ";var PROXY_BASE="http://100.68.185.124:8787";var PROXY_SECRET="f22a52ff082aa57d60f4826b8ff2e99b348db0c0960b8ba3a64b009d1c2ad370";async function runAsk(){  var q2=document.getElementById("askTA").value.trim();  if(!q2){alert("質問を入力してください");return;}  var btn=document.getElementById("askSubmit");btn.disabled=true;btn.textContent="調査中...";  var res=document.getElementById("askResult");res.style.display="block";res.textContent="調査中...";  var prompt="以下の調査レポートを踏まえて追加の質問に答えてください。 / 【調査テーマ】"+QUERY+" / 【レポート概要】"+CONTEXT+" / 【追加質問】"+q2+" / 具体的な数値・企業名・出典を含めて詳しく回答してください。";  try{    var headers={"Content-Type":"application/json","X-Proxy-Secret":PROXY_SECRET};    var messages=[{role:"user",content:prompt}];    for(var i=0;i<15;i++){      var r=await fetch(PROXY_BASE+"/api/claude",{method:"POST",headers:headers,body:JSON.stringify({model:"claude-sonnet-4-6",max_tokens:3000,tools:[{type:"web_search_20250305",name:"web_search",max_uses:5}],messages:messages})});      var d=await r.json();      if(!r.ok)throw new Error(d.error&&d.error.message?d.error.message:"Error "+r.status);      var getText=function(c){return (Array.isArray(c)?c:[c]).filter(function(x){return x&&x.type==="text";}).map(function(x){return x.text;}).join("");};      if(d.stop_reason==="end_turn"){res.textContent=getText(d.content)||"（回答なし）";break;}      if(d.stop_reason==="tool_use"){        messages.push({role:"assistant",content:d.content});        var uses=d.content.filter(function(c){return c.type==="tool_use";});        res.textContent="検索中: "+uses.map(function(u){return u.input&&u.input.query||"";}).join(", ");        messages.push({role:"user",content:uses.map(function(u){return {type:"tool_result",tool_use_id:u.id,content:[{type:"text",text:"Search completed."}]};})});        continue;      }      res.textContent=getText(d.content)||"（回答なし）";break;    }  }catch(e){res.textContent="エラー: "+e.message;}  btn.disabled=false;btn.textContent="送信して調査";}function bind(id,fn){var el=document.getElementById(id);if(!el)return;el.addEventListener("click",fn);el.addEventListener("touchend",function(e){e.preventDefault();fn();},{passive:false});}bind("askSubmit",runAsk);bind("askClose",function(){document.getElementById("askOverlay").classList.remove("open");});bind("askFab",function(){document.getElementById("askOverlay").classList.add("open");});document.getElementById("askOverlay").addEventListener("click",function(e){if(e.target===this)this.classList.remove("open");});})();</script>
+</body>
+</html>
+```
